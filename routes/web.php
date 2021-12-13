@@ -22,5 +22,9 @@ Route::get('/', function () {
     return Inertia::render('index');
 })->name('/');
 
+Route::get('/report-a-bug', function () {
+    return Inertia::render('report-a-bug/index');
+});
+
 // Route::get('reported-issues', [IssueController::class, 'index'])->name('issue');
 // Route::resource('employee', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);

@@ -1,9 +1,12 @@
 <template>
-  <section>
+  <app-layout>
     <h1 class="text-white">Home</h1>
-  </section>
+  </app-layout>
 </template>
 
 <script>
-export default {};
+import AppLayout from '@/layouts/AppLayout';
+export default {
+  components: { AppLayout },
+};
 </script>
