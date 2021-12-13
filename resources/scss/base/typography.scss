@@ -1,0 +1,87 @@
+html {
+    font-size: 62.5% !important;
+}
+
+body {
+    @apply font-body text-body-md font-normal text-white bg-primary;
+    letter-spacing: .5px;
+
+    @screen lg {
+        @apply text-body-lg;
+    }
+}
+
+h1,h2,h3,h4,h5,h6 {
+    @apply font-heading;
+}
+
+h1, .h1 {
+    @apply text-sm-heading-xxl font-normal mb-6 leading-none;
+    letter-spacing: -0.5px;
+
+    @screen lg {
+        @apply text-heading-xxl mb-10;
+    }
+}
+
+h2, .h2 {
+    @apply text-sm-heading-xl font-normal mb-4 leading-none;
+    letter-spacing: -0.5px;
+
+    @screen lg {
+        @apply text-heading-xl mb-8;
+    }
+}
+
+h3, .h3 {
+    @apply text-sm-heading-lg font-medium mb-3 leading-none;
+
+    @screen lg {
+        @apply text-heading-lg font-medium mb-4;
+    }
+}
+h4, .h4 {
+    @apply text-sm-heading-md font-semibold mb-3 leading-none;
+    letter-spacing: .25px;
+
+    @screen lg {
+        @apply text-heading-md mb-4;
+    }
+}
+h5, .h5 {
+    @apply text-body-lg font-bold mb-2;
+    letter-spacing: 0;
+
+
+    @screen lg {
+        @apply text-heading-sm;
+    }
+}
+
+h6, .h6 {
+    @apply text-body-md font-bold mb-2;
+    letter-spacing: 0;
+
+
+    @screen lg {
+        @apply text-body-lg;
+    }
+}
+p, .p, blockquote, cite, button  {
+    @apply text-body-md font-normal;
+    letter-spacing: .5px;
+
+    @screen lg {
+        @apply text-body-lg;
+    }
+}
+
+a, .a {
+    @apply font-body text-body-md font-semibold;
+    &:hover {
+    }
+
+    @screen lg {
+        @apply text-body-lg;
+    }
+}

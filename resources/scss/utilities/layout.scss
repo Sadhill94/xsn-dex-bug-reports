@@ -1,0 +1,27 @@
+.brand-container {
+    @apply px-8 mx-auto;
+
+    @screen md {
+        @apply px-32;
+    }
+
+    &--lg {
+        max-width: 102.4rem; // 1024px
+    }
+
+    &--xl {
+        max-width: 128rem; // 1280px
+    }
+
+    &--xxl {
+        max-width: 153.6rem; // 1536px
+    }
+
+    &--no-gutters {
+        @apply px-0;
+    }
+
+    &--full-screen {
+        max-width: 100vw;
+    }
+}

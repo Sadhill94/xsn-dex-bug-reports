@@ -1,0 +1,7 @@
+/build/
+/config/
+**/public/
+/public_html/
+/vendor/
+/*.js
+/test/feature/coverage/
