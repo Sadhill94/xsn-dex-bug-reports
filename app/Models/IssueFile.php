@@ -15,7 +15,7 @@ class IssueFile extends Model
         'issue_id',
     ];
 
-    public function issues()
+    public function issue()
     {
         return $this->belongsTo(Issue::class);
     }
