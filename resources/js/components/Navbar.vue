@@ -53,12 +53,12 @@
             <img
               class="block lg:hidden w-24 h-auto"
               src="/images/xsn-logo.png"
-              alt="Workflow"
+              alt="xsn logo"
             />
             <img
               class="hidden lg:block w-32 h-auto"
               src="/images/xsn-logo.png"
-              alt="Workflow"
+              alt="xsn logo"
             />
           </div>
           <div class="hidden sm:flex items-center sm:ml-12">

@@ -1,0 +1,160 @@
+<template>
+  <div
+    class="flex flex-col xl:flex-row justify-between items-stretch space-y-12 xl:space-y-0 xl:space-x-12"
+  >
+    <div
+      v-for="os in osList"
+      :key="os.name"
+      class="w-full bg-secondary rounded-md pb-12"
+    >
+      <div class="bg-tertiary p-8 text-center rounded-t-md mb-6">
+        <h4 class="tracking-widest mb-0">
+          {{ os.name }}
+        </h4>
+      </div>
+      <div class="space-y-6 px-8">
+        <div
+          v-for="(file, index) in os.paths"
+          :key="file.name"
+          class="p-4"
+          :class="index < os.paths.length - 1 && 'border-b border-secondary'"
+        >
+          <div class="flex justify-start items-center mb-3">
+            <button @click="copyPath(file.path)">
+              <img class="w-8 h-auto" src="/images/copy.png" alt="Workflow" />
+            </button>
+            <h6 class="mb-0 pl-3">{{ file.name }}</h6>
+          </div>
+          <p tabindex="0" class="cursor-pointer" @click="copyPath(file.path)">
+            {{ file.path }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { POSITION } from 'vue-toastification';
+
+const WINDOWS_BASE_PATH = '%LocalAppData%\\Stakenet\\stakenet-wallet\\';
+const MACOS_BASE_PATH =
+  '~/Library/Application Support/Stakenet/stakenet-wallet/';
+const LINUX_BASE_PATH = '~/.local/share/Stakenet/stakenet-wallet/';
+
+export default {
+  name: 'FindLogsInfoList',
+  computed: {
+    osList() {
+      return [
+        {
+          name: 'Windows',
+          paths: [
+            {
+              name: 'debug.log',
+              path: WINDOWS_BASE_PATH,
+            },
+            {
+              name: 'updater.log',
+              path: WINDOWS_BASE_PATH,
+            },
+            {
+              name: 'crash reports',
+              path: `${WINDOWS_BASE_PATH}reports\\crash\\`,
+            },
+            {
+              name: 'btc lnd.log',
+              path: `${WINDOWS_BASE_PATH}lnd\\btc\\logs\\bitcoin\\mainnet\\`,
+            },
+            {
+              name: 'ltc lnd.log',
+              path: `${WINDOWS_BASE_PATH}lnd\\ltc\\logs\\litecoin\\mainnet\\`,
+            },
+            {
+              name: 'xsn lnd.log',
+              path: `${WINDOWS_BASE_PATH}lnd\\xsn\\logs\\xsncoin\\mainnet\\`,
+            },
+          ],
+        },
+        {
+          name: 'MacOs',
+          paths: [
+            {
+              name: 'debug.log',
+              path: MACOS_BASE_PATH,
+            },
+            {
+              name: 'updater.log',
+              path: MACOS_BASE_PATH,
+            },
+            {
+              name: 'crash reports',
+              path: `${MACOS_BASE_PATH}reports/crash/`,
+            },
+            {
+              name: 'btc lnd.log',
+              path: `${MACOS_BASE_PATH}lnd/btc/logs/bitcoin/mainnet/`,
+            },
+            {
+              name: 'ltc lnd.log',
+              path: `${MACOS_BASE_PATH}lnd/ltc/logs/litecoin/mainnet/`,
+            },
+            {
+              name: 'xsn lnd.log',
+              path: `${MACOS_BASE_PATH}lnd/xsn/logs/xsncoin/mainnet/`,
+            },
+          ],
+        },
+        {
+          name: 'Linux',
+          paths: [
+            {
+              name: 'debug.log',
+              path: LINUX_BASE_PATH,
+            },
+            {
+              name: 'updater.log',
+              path: LINUX_BASE_PATH,
+            },
+            {
+              name: 'crash reports',
+              path: `${LINUX_BASE_PATH}reports/crash/`,
+            },
+            {
+              name: 'btc lnd.log',
+              path: `${LINUX_BASE_PATH}lnd/btc/logs/bitcoin/mainnet/`,
+            },
+            {
+              name: 'ltc lnd.log',
+              path: `${LINUX_BASE_PATH}lnd/ltc/logs/litecoin/mainnet/`,
+            },
+            {
+              name: 'xsn lnd.log',
+              path: `${LINUX_BASE_PATH}lnd/xsn/logs/xsncoin/mainnet/`,
+            },
+          ],
+        },
+      ];
+    },
+  },
+  methods: {
+    copyPath(path) {
+      navigator.clipboard.writeText(path);
+      this.$toast('Copied to clipboard!', {
+        timeout: 1500,
+        position: POSITION.BOTTOM_CENTER,
+        toastClassName: 'xsn-toast',
+        closeButton: false,
+        hideProgressBar: true,
+      });
+    },
+  },
+};
+</script>
+<style lang="scss">
+.Vue-Toastification__toast--default.xsn-toast {
+  @apply w-1/2 mx-auto rounded-md bg-tertiary font-body;
+  @apply p-6 mb-6 #{!important};
+  min-height: 0;
+}
+</style>

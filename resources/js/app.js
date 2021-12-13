@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('./plugins/vue-toastification');
 import Vue from 'vue';
 import {
   App as InertiaApp,
