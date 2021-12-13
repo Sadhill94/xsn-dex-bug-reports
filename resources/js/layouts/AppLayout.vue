@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar class="mb-12" />
-    <div class="brand-container brand-container--xxl pt-20">
+    <div class="pt-20">
       <slot />
     </div>
   </div>

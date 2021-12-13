@@ -5,7 +5,7 @@
     <div
       v-for="os in osList"
       :key="os.name"
-      class="w-full bg-secondary rounded-md pb-12"
+      class="w-full bg-secondary rounded-md pb-6 md:pb-12"
     >
       <div class="bg-tertiary p-8 text-center rounded-t-md mb-6">
         <h4 class="tracking-widest mb-0">
@@ -25,7 +25,11 @@
             </button>
             <h6 class="mb-0 pl-3">{{ file.name }}</h6>
           </div>
-          <p tabindex="0" class="cursor-pointer" @click="copyPath(file.path)">
+          <p
+            tabindex="0"
+            class="cursor-pointer break-words hover:text-tertiary"
+            @click="copyPath(file.path)"
+          >
             {{ file.path }}
           </p>
         </div>
