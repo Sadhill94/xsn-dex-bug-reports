@@ -63,20 +63,16 @@
           </div>
           <div class="hidden sm:flex items-center sm:ml-12">
             <div class="flex space-x-12">
-              <a
-                href=""
-                @click="$inertia.visit('/')"
+              <Link
+                href="/"
                 class="text-white block px-3 py-2"
                 aria-current="page"
-                >Home</a
+                >Home</Link
               >
-
-              <a
-                href=""
-                @click="$inertia.get('/report-a-bug')"
-                class="block px-3 py-2"
-                >Report a bug</a
+              <Link :href="route('issues.open')" class="block px-3 py-2"
+                >Open issues</Link
               >
+              <Link class="block px-3 py-2">Report a bug</Link>
             </div>
           </div>
         </div>
@@ -86,20 +82,11 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu" v-show="isMenuOpen">
       <div class="px-2 pt-2 pb-3 space-y-6">
-        <a
-          href=""
-          @click="$inertia.visit('/')"
-          class="text-white block px-3 py-2"
-          aria-current="page"
-          >Home</a
+        <Link href="/" class="text-white block px-3 py-2" aria-current="page"
+          >Home</Link
         >
 
-        <a
-          href=""
-          @click="$inertia.get('/report-a-bug')"
-          class="block px-3 py-2"
-          >Report a bug</a
-        >
+        <Link class="block px-3 py-2">Report a bug</Link>
       </div>
     </div>
   </nav>
