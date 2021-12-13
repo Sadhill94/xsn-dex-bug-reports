@@ -13,7 +13,18 @@
       </p>
       <br />
       <br />
+      <br class="hidden lg:block" />
     </div>
+    <div class="brand-container brand-container--lg text-center">
+      <Link
+        :href="route('issues.open')"
+        class="p-6 w-full max-w-md rounded-md bg-tertiary text-white"
+      >
+        See current open issues
+      </Link>
+    </div>
+    <br class="lg:hidden" />
+    <br />
     <div class="brand-container brand-container--xxl lg:pt-24 pb-24">
       <h2 class="mb-8">Where to find your logs</h2>
       <find-logs-info-list />

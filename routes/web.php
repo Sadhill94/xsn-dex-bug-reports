@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\HelloController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\IssueController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,5 +24,4 @@ Route::get('/report-a-bug', function () {
     return Inertia::render('report-a-bug/index');
 });
 
-// Route::get('reported-issues', [IssueController::class, 'index'])->name('issue');
-// Route::resource('employee', EmployeeController::class)->only(['index', 'store', 'update', 'destroy']);
+Route::get('/open-issues', [IssueController::class, 'open'])->name('issues.open');

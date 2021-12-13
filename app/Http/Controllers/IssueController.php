@@ -9,6 +9,11 @@ class IssueController extends Controller
 {
     public function index()
     {
-        return Inertia::render('reported-issues');
+        return Inertia::render('/');
     }
+
+   public function open()
+   {
+       return Inertia::render('OpenIssues/index');
+   }
 }
