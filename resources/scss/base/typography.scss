@@ -85,3 +85,20 @@ a, .a {
         @apply text-body-lg;
     }
 }
+
+.caption-lg {
+    @apply text-body-sm font-semibold;
+    letter-spacing: .4px;
+
+    @screen lg {
+        @apply text-body-md;
+    }
+}
+
+.caption-sm {
+    @apply text-body-xs font-bold tracking-widest;
+
+    @screen lg {
+        @apply text-body-sm;
+    }
+}

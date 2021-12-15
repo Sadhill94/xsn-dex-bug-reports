@@ -35,10 +35,10 @@ class IssueController extends Controller
            'all' => $public_issues,
            'open' => collect($public_issues)->filter(function($item){
                return $item->status->name == Config::get('constants.statuses.open');
-           }),
+           })->values(),
            'in_progress' => collect($public_issues)->filter(function($item){
                return $item->status->name == Config::get('constants.statuses.in_progress');
-           }),
+           })->values(),
        ];
 
        return Inertia::render('index', [

@@ -30,10 +30,8 @@
       <find-logs-info-list />
     </div>
     <div class="brand-container brand-container--xxl lg:pt-24 pb-24">
-      <h2 id="open-issues" class="mb-8">Open issues</h2>
-      <div v-for="issue in issues" :key="issue.id">
-        <p>{{ issue.description }}</p>
-      </div>
+      <h2 id="open-issues" class="mb-8">Reported issues</h2>
+      <grouped-issues :items="issues" />
     </div>
   </app-layout>
 </template>
@@ -41,14 +39,18 @@
 <script>
 import AppLayout from '@/layouts/AppLayout';
 import FindLogsInfoList from '@/components/FindLogsInfoList';
+import GroupedIssues from '@/components/GroupedIssues';
 
 export default {
-  components: { FindLogsInfoList, AppLayout },
+  components: { AppLayout, FindLogsInfoList, GroupedIssues },
   props: {
     issues: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: null,
     },
+  },
+  mounted() {
+    console.log('this.issues', this.issues);
   },
 };
 </script>
