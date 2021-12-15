@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
-class IssueStatusSeeder
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class IssueStatusSeeder extends Seeder
 {
     public function run()
     {
@@ -11,11 +14,11 @@ class IssueStatusSeeder
         ]);
 
         DB::table('issue_statuses')->insert([
-            'name' => 'reported',
+            'name' => 'in progress',
         ]);
 
         DB::table('issue_statuses')->insert([
-            'name' => 'to report',
+            'name' => 'reported to team',
         ]);
 
         DB::table('issue_statuses')->insert([

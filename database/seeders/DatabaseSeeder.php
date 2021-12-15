@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\IssueStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            IssueStatus::class,
+            IssueStatusSeeder::class,
+            IssueCategorySeeder::class,
+            IssueSeeder::class,
         ]);
 
     }

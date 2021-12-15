@@ -17,6 +17,7 @@ class Issue extends Model
         'extra_infos',
         'user_discord_id',
         'status_id',
+        'category_id',
     ];
 
     public function issueFiles()
@@ -27,5 +28,10 @@ class Issue extends Model
     public function status()
     {
         return $this->hasOne(IssueStatus::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(IssueCategory::class);
     }
 }
