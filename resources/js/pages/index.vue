@@ -16,18 +16,24 @@
       <br class="hidden lg:block" />
     </div>
     <div class="brand-container brand-container--lg text-center">
-      <Link
-        :href="route('issues.open')"
+      <a
+        href="#open-issues"
         class="p-6 w-full max-w-md rounded-md bg-tertiary text-white"
       >
         See current open issues
-      </Link>
+      </a>
     </div>
     <br class="lg:hidden" />
     <br />
     <div class="brand-container brand-container--xxl lg:pt-24 pb-24">
       <h2 class="mb-8">Where to find your logs</h2>
       <find-logs-info-list />
+    </div>
+    <div class="brand-container brand-container--xxl lg:pt-24 pb-24">
+      <h2 id="open-issues" class="mb-8">Open issues</h2>
+      <div v-for="issue in issues" :key="issue.id">
+        <p>{{ issue.description }}</p>
+      </div>
     </div>
   </app-layout>
 </template>
@@ -38,5 +44,11 @@ import FindLogsInfoList from '@/components/FindLogsInfoList';
 
 export default {
   components: { FindLogsInfoList, AppLayout },
+  props: {
+    issues: {
+      type: Array,
+      default: () => [],
+    },
+  },
 };
 </script>

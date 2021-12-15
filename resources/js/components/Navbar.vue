@@ -69,7 +69,7 @@
                 aria-current="page"
                 >Home</Link
               >
-              <Link :href="route('issues.open')" class="block px-3 py-2"
+              <Link href="#open-issues" class="block px-3 py-2"
                 >Open issues</Link
               >
               <Link class="block px-3 py-2">Report a bug</Link>

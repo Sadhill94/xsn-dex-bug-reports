@@ -16,12 +16,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('index');
-})->name('/');
+Route::get('/', [IssueController::class, 'public_active'])->name('/');
 
 Route::get('/report-a-bug', function () {
     return Inertia::render('report-a-bug/index');
 });
 
-Route::get('/open-issues', [IssueController::class, 'open'])->name('issues.open');
