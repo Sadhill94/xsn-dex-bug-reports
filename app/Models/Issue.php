@@ -20,18 +20,18 @@ class Issue extends Model
         'category_id',
     ];
 
-    public function issueFiles()
+    public function files()
     {
         return $this->hasMany(IssueFile::class);
     }
 
     public function status()
     {
-        return $this->hasOne(IssueStatus::class);
+        return $this->belongsTo(IssueStatus::class);
     }
 
     public function category()
     {
-        return $this->hasOne(IssueCategory::class);
+        return $this->belongsTo(IssueCategory::class);
     }
 }
