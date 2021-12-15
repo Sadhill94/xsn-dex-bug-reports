@@ -17,10 +17,10 @@
     </div>
     <div class="brand-container brand-container--lg text-center">
       <a
-        href="#open-issues"
-        class="p-6 w-full max-w-md rounded-md bg-tertiary text-white"
+        href="#reported-issues"
+        class="p-6 w-full max-w-md rounded-md bg-tertiary text-white uppercase tracking-wider hover:opacity-90 focus:ring-2 focus:ring-white"
       >
-        See current open issues
+        See reported issues
       </a>
     </div>
     <br class="lg:hidden" />
@@ -30,7 +30,7 @@
       <find-logs-info-list />
     </div>
     <div class="brand-container brand-container--xxl lg:pt-24 pb-24">
-      <h2 id="open-issues" class="mb-8">Reported issues</h2>
+      <h2 id="reported-issues" class="mb-8">Reported issues</h2>
       <grouped-issues :items="issues" />
     </div>
   </app-layout>
