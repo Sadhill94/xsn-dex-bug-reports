@@ -69,10 +69,10 @@
                 aria-current="page"
                 >Home</Link
               >
-              <Link href="#open-issues" class="block px-3 py-2"
-                >Open issues</Link
+              <a href="#reported-issues" class="block px-3 py-2">Open issues</a>
+              <Link href="/report-a-bug" class="block px-3 py-2"
+                >Report a bug</Link
               >
-              <Link class="block px-3 py-2">Report a bug</Link>
             </div>
           </div>
         </div>

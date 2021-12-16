@@ -1,22 +1,12 @@
 <template>
   <div>
     <div class="sm:hidden max-w-xs mx-auto">
-      <label for="tabs" class="sr-only">Select a tab</label>
-      <select
-        id="tabs"
-        name="tabs"
-        @change="$emit('onFilterSelect', $event.target.value)"
-        class="block w-full pl-3 pr-10 rounded-md uppercase focus:outline-none focus:ring-tertiary focus:border-tertiary"
-      >
-        <option
-          :value="tab.name"
-          v-for="tab in tabs"
-          :key="`mobile${tab.name}`"
-          class="uppercase"
-        >
-          {{ tab.name | removeUnderscore }}
-        </option>
-      </select>
+      <label class="sr-only">Select a tab</label>
+      <brand-select
+        :options="tabs"
+        class="w-full"
+        @change="$emit('onFilterSelect', $event)"
+      />
     </div>
     <div class="hidden sm:block">
       <div class="border-b border-tertiary">
@@ -38,9 +28,10 @@
 </template>
 
 <script>
+import BrandSelect from '@/components/BrandSelect';
 export default {
   name: 'TabsFilters',
-
+  components: { BrandSelect },
   props: {
     tabs: {
       type: Array,
@@ -51,7 +42,6 @@ export default {
       default: 'all',
     },
   },
-
   filters: {
     removeUnderscore(value) {
       return value.replace('_', ' ');
@@ -60,10 +50,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-#tabs {
-  @apply bg-secondary border-white py-4 px-4 text-body-md font-semibold tracking-wider;
-}
-
 .tab {
   &__title {
     @apply border-transparent text-gray-500 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium w-full flex justify-center items-center;

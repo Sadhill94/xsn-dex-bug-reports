@@ -19,6 +19,6 @@ use Inertia\Inertia;
 Route::get('/', [IssueController::class, 'public_active'])->name('/');
 
 Route::get('/report-a-bug', function () {
-    return Inertia::render('report-a-bug/index');
+    return Inertia::render('ReportABug/index');
 });
 

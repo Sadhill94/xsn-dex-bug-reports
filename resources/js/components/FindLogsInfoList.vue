@@ -12,7 +12,7 @@
           {{ os.name }}
         </h4>
       </div>
-      <div class="space-y-6 px-8">
+      <div class="space-y-6 px-4 md:px-8">
         <div
           v-for="(file, index) in os.paths"
           :key="file.name"
