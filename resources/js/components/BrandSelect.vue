@@ -6,7 +6,7 @@
     class="pl-3 pr-10 uppercase"
   >
     <option
-      :value="option.name"
+      :value="option.id || option.name"
       v-for="option in options"
       :key="option.name"
       class="uppercase"

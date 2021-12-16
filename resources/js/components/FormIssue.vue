@@ -15,63 +15,79 @@
             <form-row>
               <template slot="label">Short Description</template>
               <template slot="inputs">
-                <input type="text" class="input input--text" />
+                <input
+                  type="text"
+                  v-model="formFieldsValues.description"
+                  class="input"
+                />
+              </template>
+            </form-row>
+
+            <form-row>
+              <template slot="label">Bug category</template>
+              <template slot="inputs">
+                <brand-select
+                  :options="categories"
+                  class="input"
+                  @change="formFieldsValues.category_id = $event"
+                />
               </template>
             </form-row>
 
             <form-row>
               <template slot="label">Operating system</template>
               <template slot="inputs">
-                <div class="space-y-4">
-                  <div class="flex items-center">
-                    <input type="radio" class="radio-pick" />
-                    <label class="radio-label"> Windows </label>
-                  </div>
-                  <div class="flex items-center">
-                    <input type="radio" class="radio-pick" />
-                    <label class="radio-label"> MacOs </label>
-                  </div>
-                  <div class="flex items-center">
-                    <input type="radio" class="radio-pick" />
-                    <label class="radio-label"> Linux </label>
-                  </div>
-                </div>
-              </template>
-            </form-row>
-
-            <form-row>
-              <!--               SELECT -->
-              <template slot="label">Bug category</template>
-              <template slot="inputs">
-                <brand-select :options="categories" class="input" />
+                <brand-select
+                  :options="osOptions"
+                  class="input"
+                  @change="formFieldsValues.os = $event"
+                />
               </template>
             </form-row>
 
             <form-row>
               <template slot="label">DEX version</template>
               <template slot="inputs">
-                <input type="text" class="input input--text" />
+                <input
+                  type="text"
+                  v-model="formFieldsValues.version"
+                  class="input"
+                />
               </template>
             </form-row>
 
             <form-row>
               <template slot="label">Steps to reproduce</template>
               <template slot="inputs">
-                <textarea name="about" rows="8" class="input"></textarea>
+                <textarea
+                  name="about"
+                  rows="8"
+                  class="input"
+                  v-model="formFieldsValues.steps_to_reproduce"
+                ></textarea>
               </template>
             </form-row>
 
             <form-row>
               <template slot="label">Discord username</template>
               <template slot="inputs">
-                <input type="text" class="input input--text" />
+                <input
+                  type="text"
+                  v-model="formFieldsValues.user_discord_id"
+                  class="input"
+                />
               </template>
             </form-row>
 
             <form-row>
               <template slot="label">Extra infos</template>
               <template slot="inputs">
-                <textarea name="about" rows="8" class="input"></textarea>
+                <textarea
+                  name="about"
+                  rows="8"
+                  class="input"
+                  v-model="formFieldsValues.extra_infos"
+                ></textarea>
               </template>
             </form-row>
           </div>
@@ -101,6 +117,45 @@ export default {
       type: Boolean,
       default: true,
     },
+    issue: {
+      type: Object,
+      default: null,
+    },
+  },
+  data() {
+    return {
+      formFieldsValues: {
+        description: '',
+        category_id: '',
+        os: 'Windows',
+        version: '',
+        steps_to_reproduce: '',
+        user_discord_id: '',
+        extra_infos: '',
+        status_id: '',
+        github_link: '',
+      },
+    };
+  },
+  computed: {
+    osOptions() {
+      return [
+        {
+          name: 'Windows',
+        },
+        {
+          name: 'MacOs',
+        },
+        {
+          name: 'Linux',
+        },
+      ];
+    },
+  },
+  mounted() {
+    if (this.issue) {
+      this.formFieldsValues = this.issue;
+    }
   },
 };
 </script>
