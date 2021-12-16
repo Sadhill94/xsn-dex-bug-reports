@@ -16,10 +16,7 @@
       <br class="hidden lg:block" />
     </div>
     <div class="brand-container brand-container--lg text-center">
-      <a
-        href="#reported-issues"
-        class="p-6 w-full max-w-md rounded-md bg-tertiary text-white uppercase tracking-wider hover:opacity-90 focus:ring-2 focus:ring-white"
-      >
+      <a href="#reported-issues" class="btn btn--tertiary">
         See reported issues
       </a>
     </div>

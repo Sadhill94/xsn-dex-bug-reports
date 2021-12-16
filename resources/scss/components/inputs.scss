@@ -1,0 +1,19 @@
+.input {
+    @apply max-w-xl p-4 shadow-sm block w-full border border-gray-400 rounded-md text-body-md font-medium bg-secondary text-white leading-8;
+
+    &:focus {
+        @apply ring-tertiary border-tertiary outline-none;
+    }
+}
+
+.radio {
+    &-pick {
+        @apply h-6 w-6 text-white border-white;
+        &:focus {
+            @apply text-tertiary border-tertiary;
+        }
+    }
+    &-label {
+        @apply ml-3 block text-body-md font-semibold text-white;
+    }
+}

@@ -64,13 +64,12 @@
           <div class="hidden sm:flex items-center sm:ml-12">
             <div class="flex space-x-12">
               <Link
-                href="/"
+                :href="route('home')"
                 class="text-white block px-3 py-2"
                 aria-current="page"
                 >Home</Link
               >
-              <a href="#reported-issues" class="block px-3 py-2">Open issues</a>
-              <Link href="/report-a-bug" class="block px-3 py-2"
+              <Link :href="route('bug-report')" class="block px-3 py-2"
                 >Report a bug</Link
               >
             </div>
@@ -82,11 +81,15 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu" v-show="isMenuOpen">
       <div class="px-2 pt-2 pb-3 space-y-6">
-        <Link href="/" class="text-white block px-3 py-2" aria-current="page"
+        <Link
+          :href="route('home')"
+          class="text-white block px-3 py-2"
+          aria-current="page"
           >Home</Link
         >
-
-        <Link class="block px-3 py-2">Report a bug</Link>
+        <Link :href="route('bug-report')" class="block px-3 py-2"
+          >Report a bug</Link
+        >
       </div>
     </div>
   </nav>

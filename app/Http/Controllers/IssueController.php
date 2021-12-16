@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Issue;
+use App\Models\IssueCategory;
 use App\Models\IssueStatus;
 use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
@@ -45,6 +46,12 @@ class IssueController extends Controller
        return Inertia::render('index', [
            'issues' => $filtered_issues
        ]);
-
    }
+
+    public function categories()
+    {
+        return Inertia::render('ReportABug/index', [
+            'categories' => IssueCategory::all()
+        ]);
+    }
 }

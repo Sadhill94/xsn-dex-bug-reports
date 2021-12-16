@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\IssueController;
+use App\Models\IssueCategory;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,9 +17,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [IssueController::class, 'public_active'])->name('/');
+Route::get('/', [IssueController::class, 'public_active'])
+    ->name('home');
 
-Route::get('/report-a-bug', function () {
-    return Inertia::render('ReportABug/index');
-});
+Route::get('report-a-bug', [IssueController::class, 'categories'])
+    ->name('bug-report');
 

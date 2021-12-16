@@ -1,0 +1,20 @@
+.btn {
+    @apply p-4 w-full max-w-md rounded-md font-semibold text-white uppercase tracking-wider;
+
+    &:hover {
+        @apply opacity-90;
+    }
+    &:focus {
+        @apply ring-2 ring-white;
+    }
+
+    &--tertiary {
+        @apply bg-tertiary ;
+    }
+
+
+    &--large {
+        @apply p-6;
+    }
+}
+

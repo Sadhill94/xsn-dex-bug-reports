@@ -14,11 +14,11 @@ class IssueCategorySeeder extends Seeder
         ]);
 
         DB::table('issue_categories')->insert([
-            'name' => 'UI',
+            'name' => 'CONNEXT',
         ]);
 
         DB::table('issue_categories')->insert([
-            'name' => 'SSUI',
+            'name' => 'SWAPS',
         ]);
 
         DB::table('issue_categories')->insert([
@@ -26,11 +26,11 @@ class IssueCategorySeeder extends Seeder
         ]);
 
         DB::table('issue_categories')->insert([
-            'name' => 'CONNEXT',
+            'name' => 'UI',
         ]);
 
         DB::table('issue_categories')->insert([
-            'name' => 'SWAPS',
+            'name' => 'SSUI',
         ]);
     }
 }
