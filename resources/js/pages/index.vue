@@ -43,6 +43,9 @@ import GroupedIssues from '@/components/GroupedIssues';
 
 export default {
   components: { AppLayout, FindLogsInfoList, GroupedIssues },
+  mounted() {
+    console.log('iss', this.issues);
+  },
   props: {
     issues: {
       type: Object,

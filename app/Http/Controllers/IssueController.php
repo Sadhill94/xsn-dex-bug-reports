@@ -22,6 +22,7 @@ class IssueController extends Controller
        $to_validate_status = IssueStatus::where('name', '=', Config::get('constants.statuses.to_validate'))->first();
 
        $public_issues = collect(Issue::whereNotIn('status_id', [$closed_status->id, $to_validate_status->id])
+           ->with(['category', 'status'])
            ->get())
            ->map(function($item){
            if($item->status->name ==  Config::get('constants.statuses.submitted_to_team')){

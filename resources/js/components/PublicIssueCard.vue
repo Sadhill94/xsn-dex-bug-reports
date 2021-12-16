@@ -1,6 +1,9 @@
 <template>
-  <article class="bg-tertiary rounded-md p-6 lg:p-8">
-    <h5 class="leading-9">{{ item.description }}</h5>
+  <article class="bg-tertiary rounded-md p-6 lg:p-8" v-if="item">
+    <div class="text-center border-b border-primary">
+      <h6 class="tracking-widest text-primary">{{ item.category.name }}</h6>
+    </div>
+    <h5 class="leading-9 pt-3">{{ item.description }}</h5>
     <div class="flex items-center justify-between pt-2">
       <div>
         <p>Dec 12, 2021</p>
