@@ -4,7 +4,7 @@
       <div class="space-y-8 divide-y divide-gray-400 sm:space-y-5">
         <div>
           <div>
-            <h2>Form</h2>
+            <h2>Report</h2>
             <p class="mt-1 max-w-2xl text-white">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut
@@ -21,7 +21,7 @@
               "
             >
               <template slot="label"
-                >{{ field.label }} {{ field.isRequired && '*' }}</template
+                >{{ field.label }} {{ field.isRequired ? '*' : '' }}</template
               >
               <template slot="inputs">
                 <textarea
@@ -50,7 +50,9 @@
       </div>
 
       <div class="pt-12 text-center">
-        <button type="submit" class="btn btn--tertiary">Submit</button>
+        <button type="submit" class="btn btn--tertiary">
+          Submit <span v-show="isLoading">in progress...</span>
+        </button>
       </div>
     </form>
   </section>
@@ -58,11 +60,17 @@
 
 <script>
 import { POSITION } from 'vue-toastification';
+import axios from 'axios';
+import _ from 'lodash';
 
 import FormRow from '@/components/FormRow';
 import BrandSelect from '@/components/BrandSelect';
 
-import { CATEGORY_ID_FIELD_KEY, REPORT_BUG_FORM_FIELDS } from '@/constant/form';
+import {
+  CATEGORY_ID_FIELD_KEY,
+  DEFAULT_FORM_FIELDS_VALUES,
+  REPORT_BUG_FORM_FIELDS,
+} from '@/constant/form';
 
 export default {
   name: 'FormIssue',
@@ -88,29 +96,19 @@ export default {
     return {
       formFields: [],
       fieldsWithErrors: [],
-      /* eslint-disable */
-      formFieldsValues: {
-        description: '',
-        category_id: '',
-        os: 'Windows',
-        version: '',
-        steps_to_reproduce: '',
-        user_discord_id: '',
-        extra_infos: '',
-        status_id: '',
-        github_link: '',
-      },
-      /* eslint-enable */
+      formFieldsValues: {},
+      isLoading: false,
     };
   },
 
   mounted() {
-    this.buildForm();
     this.formFields = REPORT_BUG_FORM_FIELDS;
+
     if (this.issue) {
       this.formFieldsValues = this.issue;
+    } else {
+      this.resetFormValues();
     }
-    this.setCategoriesOptions();
   },
 
   watch: {
@@ -128,18 +126,6 @@ export default {
   },
   methods: {
     /**
-     * TODO UPDATE DOC
-     * Set the form fields from the constant to allow dynamic data to be filled in (eg: the categories )
-     */
-    buildForm() {
-      this.formFields = REPORT_BUG_FORM_FIELDS;
-      if (this.issue) {
-        this.formFieldsValues = this.issue;
-      }
-      this.setCategoriesOptions();
-    },
-
-    /**
      * Handler for the submit process.
      * Validate / submit to backend / display error notification
      */
@@ -147,17 +133,42 @@ export default {
       this.validateFieldsAndSetErrors();
 
       if (this.fieldsWithErrors.length === 0) {
-        // TODO submit
+        this.isLoading = true;
+        axios
+          .post('/report-a-bug', this.formFieldsValues)
+          .then((res) => {
+            this.displayFormNotification(
+              'success',
+              res?.data?.message ||
+                'Thanks for your bug report submission ! Long live to the DEX'
+            );
+            this.resetFormValues();
+          })
+          .catch((err) => {
+            this.displayFormNotification(
+              'error',
+              err?.response?.data?.message ||
+                'Something went wrong, please notify @Sadhill in the discord.'
+            );
+          })
+          .finally(() => (this.isLoading = false));
       } else {
-        this.$toast('All fields marked by an * are mandatory', {
-          timeout: 1500,
-          type: 'error',
-          position: POSITION.TOP_CENTER,
-          toastClassName: 'xsn-toast',
-          closeButton: false,
-          hideProgressBar: true,
-        });
+        this.displayFormNotification(
+          'error',
+          'All fields marked by an * are mandatory'
+        );
       }
+    },
+
+    displayFormNotification(type, message) {
+      this.$toast(message, {
+        timeout: 3500,
+        type,
+        position: POSITION.TOP_CENTER,
+        toastClassName: 'xsn-toast',
+        closeButton: false,
+        hideProgressBar: true,
+      });
     },
 
     /**
@@ -167,7 +178,10 @@ export default {
     validateFieldsAndSetErrors() {
       const fieldsWithErrors = [];
       this.formFields.forEach((field) => {
-        if (field.isRequired && !this.formFieldsValues[field.key].trim()) {
+        if (
+          field.isRequired &&
+          _.isEmpty(this.formFieldsValues[field.key]?.trim())
+        ) {
           fieldsWithErrors.push(field.key);
         }
       });
@@ -190,6 +204,14 @@ export default {
       });
       // eslint-disable-next-line camelcase
       this.formFieldsValues.category_id = this.categories[0].id.toString();
+    },
+
+    /**
+     * Set or reset the form field values to the default state
+     */
+    resetFormValues() {
+      this.formFieldsValues = _.cloneDeep(DEFAULT_FORM_FIELDS_VALUES);
+      this.setCategoriesOptions();
     },
   },
 };

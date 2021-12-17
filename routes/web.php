@@ -20,6 +20,12 @@ use Inertia\Inertia;
 Route::get('/', [IssueController::class, 'public_active'])
     ->name('home');
 
-Route::get('report-a-bug', [IssueController::class, 'categories'])
+
+Route::group(['prefix' => 'report-a-bug'], function(){
+    Route::get('/', [IssueController::class, 'categories'])
     ->name('bug-report');
+
+    Route::post('/', [IssueController::class, 'create'])
+        ->name('create-issue');
+});
 

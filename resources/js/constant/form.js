@@ -1,5 +1,19 @@
 export const CATEGORY_ID_FIELD_KEY = 'category_id';
 
+export const DEFAULT_FORM_FIELDS_VALUES = {
+  description: '',
+  os: 'Windows',
+  version: '',
+  /* eslint-disable */
+  steps_to_reproduce: '',
+  category_id: '',
+  user_discord_id: '',
+  extra_infos: '',
+  status_id: '',
+  github_link: '',
+  /* eslint-enable */
+};
+
 export const REPORT_BUG_FORM_FIELDS = [
   {
     key: 'description',

@@ -155,10 +155,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.Vue-Toastification__toast--default.xsn-toast {
-  @apply w-1/2 mx-auto rounded-md bg-tertiary font-body;
-  @apply p-6 mb-6 #{!important};
-  min-height: 0;
-}
-</style>
