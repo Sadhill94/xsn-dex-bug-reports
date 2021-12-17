@@ -1,0 +1,16 @@
+<template>
+  <h1>hello</h1>
+</template>
+<script>
+export default {
+  props: {
+    issues: {
+      type: [],
+      default: () => [],
+    },
+  },
+  mounted() {
+    console.log('filters', this.issues);
+  },
+};
+</script>

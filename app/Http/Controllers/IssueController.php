@@ -13,8 +13,26 @@ class IssueController extends Controller
 {
     public function index()
     {
-        return Inertia::render('', [
-            'data' => Issue::all()
+        $statuses = Status::all();
+        $categories = Category::all();
+
+        $allIssuesByStatus = [];
+        $allIssuesByCategory = [];
+
+        foreach ($statuses as $status) {
+            $allIssuesByStatus[$status->name] = $status->issues;
+        }
+
+        foreach ($categories as $category) {
+            $allIssuesByCategory[$category->name] = $category->issues;
+        }
+
+        return Inertia::render('Dashboard/index', [
+            'issues' => [
+                'all' => Issue::orderBy('created_at', 'DESC')->get(),
+                'by_status' => $allIssuesByStatus,
+                'by_category' => $allIssuesByCategory,
+            ]
         ]);
     }
 

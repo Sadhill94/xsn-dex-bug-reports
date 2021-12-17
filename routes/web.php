@@ -29,3 +29,8 @@ Route::group(['prefix' => 'report-a-bug'], function(){
         ->name('create-issue');
 });
 
+Route::group(['prefix' => 'dashboard'], function(){
+    Route::get('/', [IssueController::class, 'index'])
+        ->name('list-issues');
+});
+
