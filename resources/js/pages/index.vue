@@ -16,7 +16,7 @@
       <br class="hidden lg:block" />
     </div>
     <div class="brand-container brand-container--lg text-center">
-      <a href="#reported-issues" class="btn btn--tertiary">
+      <a href="#reported-issues" class="btn btn--tertiary btn--large">
         See reported issues
       </a>
     </div>
@@ -40,9 +40,6 @@ import GroupedIssues from '@/components/GroupedIssues';
 
 export default {
   components: { AppLayout, FindLogsInfoList, GroupedIssues },
-  mounted() {
-    console.log('iss', this.issues);
-  },
   props: {
     issues: {
       type: Object,

@@ -17,3 +17,18 @@
         @apply ml-3 block text-body-md font-semibold text-white;
     }
 }
+
+.form-group {
+    &.has-error {
+        label {
+            @apply text-red-600;
+        }
+        input,
+        textarea {
+            @apply border-red-600;
+        }
+        select, #brand-select {
+            @apply border-red-600;
+        }
+    }
+}

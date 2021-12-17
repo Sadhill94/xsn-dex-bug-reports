@@ -1,6 +1,6 @@
 <template>
   <section class="mt-16">
-    <form class="divide-gray-400">
+    <form class="divide-gray-400" @submit.prevent="handleSubmit">
       <div class="space-y-8 divide-y divide-gray-400 sm:space-y-5">
         <div>
           <div>
@@ -12,82 +12,37 @@
           </div>
 
           <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
-            <form-row>
-              <template slot="label">Short Description</template>
-              <template slot="inputs">
-                <input
-                  type="text"
-                  v-model="formFieldsValues.description"
-                  class="input"
-                />
-              </template>
-            </form-row>
-
-            <form-row>
-              <template slot="label">Bug category</template>
-              <template slot="inputs">
-                <brand-select
-                  :options="categories"
-                  class="input"
-                  @change="formFieldsValues.category_id = $event"
-                />
-              </template>
-            </form-row>
-
-            <form-row>
-              <template slot="label">Operating system</template>
-              <template slot="inputs">
-                <brand-select
-                  :options="osOptions"
-                  class="input"
-                  @change="formFieldsValues.os = $event"
-                />
-              </template>
-            </form-row>
-
-            <form-row>
-              <template slot="label">DEX version</template>
-              <template slot="inputs">
-                <input
-                  type="text"
-                  v-model="formFieldsValues.version"
-                  class="input"
-                />
-              </template>
-            </form-row>
-
-            <form-row>
-              <template slot="label">Steps to reproduce</template>
+            <form-row
+              v-for="field in formFields"
+              :key="field.key"
+              class="form-group"
+              :class="
+                field.isRequired && hasError(field.key) ? 'has-error' : ''
+              "
+            >
+              <template slot="label"
+                >{{ field.label }} {{ field.isRequired && '*' }}</template
+              >
               <template slot="inputs">
                 <textarea
-                  name="about"
+                  v-if="field.type === 'textarea'"
                   rows="8"
                   class="input"
-                  v-model="formFieldsValues.steps_to_reproduce"
+                  v-model="formFieldsValues[field.key]"
                 ></textarea>
-              </template>
-            </form-row>
 
-            <form-row>
-              <template slot="label">Discord username</template>
-              <template slot="inputs">
+                <brand-select
+                  v-else-if="field.type === 'select'"
+                  :options="field.options"
+                  class="input"
+                  @change="formFieldsValues[field.key] = $event.toString()"
+                />
                 <input
+                  v-else
                   type="text"
-                  v-model="formFieldsValues.user_discord_id"
+                  v-model="formFieldsValues[field.key]"
                   class="input"
                 />
-              </template>
-            </form-row>
-
-            <form-row>
-              <template slot="label">Extra infos</template>
-              <template slot="inputs">
-                <textarea
-                  name="about"
-                  rows="8"
-                  class="input"
-                  v-model="formFieldsValues.extra_infos"
-                ></textarea>
               </template>
             </form-row>
           </div>
@@ -102,12 +57,18 @@
 </template>
 
 <script>
+import { POSITION } from 'vue-toastification';
+
 import FormRow from '@/components/FormRow';
 import BrandSelect from '@/components/BrandSelect';
 
+import { CATEGORY_ID_FIELD_KEY, REPORT_BUG_FORM_FIELDS } from '@/constant/form';
+
 export default {
   name: 'FormIssue',
+
   components: { BrandSelect, FormRow },
+
   props: {
     categories: {
       type: Array,
@@ -122,8 +83,12 @@ export default {
       default: null,
     },
   },
+
   data() {
     return {
+      formFields: [],
+      fieldsWithErrors: [],
+      /* eslint-disable */
       formFieldsValues: {
         description: '',
         category_id: '',
@@ -135,27 +100,97 @@ export default {
         status_id: '',
         github_link: '',
       },
+      /* eslint-enable */
     };
   },
-  computed: {
-    osOptions() {
-      return [
-        {
-          name: 'Windows',
-        },
-        {
-          name: 'MacOs',
-        },
-        {
-          name: 'Linux',
-        },
-      ];
-    },
-  },
+
   mounted() {
+    this.buildForm();
+    this.formFields = REPORT_BUG_FORM_FIELDS;
     if (this.issue) {
       this.formFieldsValues = this.issue;
     }
+    this.setCategoriesOptions();
+  },
+
+  watch: {
+    /**
+     * Handler to call the set categories options for form field category in the case the props came after the mounted
+     */
+    categories: {
+      deep: true,
+      handler(val) {
+        if (val.length > 0) {
+          this.setCategoriesOptions();
+        }
+      },
+    },
+  },
+  methods: {
+    /**
+     * TODO UPDATE DOC
+     * Set the form fields from the constant to allow dynamic data to be filled in (eg: the categories )
+     */
+    buildForm() {
+      this.formFields = REPORT_BUG_FORM_FIELDS;
+      if (this.issue) {
+        this.formFieldsValues = this.issue;
+      }
+      this.setCategoriesOptions();
+    },
+
+    /**
+     * Handler for the submit process.
+     * Validate / submit to backend / display error notification
+     */
+    handleSubmit() {
+      this.validateFieldsAndSetErrors();
+
+      if (this.fieldsWithErrors.length === 0) {
+        // TODO submit
+      } else {
+        this.$toast('All fields marked by an * are mandatory', {
+          timeout: 1500,
+          type: 'error',
+          position: POSITION.TOP_CENTER,
+          toastClassName: 'xsn-toast',
+          closeButton: false,
+          hideProgressBar: true,
+        });
+      }
+    },
+
+    /**
+     * Handler that loop through all formFields and verify the required one have values.
+     * Set fieldsWithErrors data property with the result of the loop
+     */
+    validateFieldsAndSetErrors() {
+      const fieldsWithErrors = [];
+      this.formFields.forEach((field) => {
+        if (field.isRequired && !this.formFieldsValues[field.key].trim()) {
+          fieldsWithErrors.push(field.key);
+        }
+      });
+      this.fieldsWithErrors = fieldsWithErrors;
+    },
+
+    hasError(field) {
+      return this.fieldsWithErrors.includes(field);
+    },
+
+    /**
+     * Set categories options for form field category (SWAP;CONNEXT;LND;...)
+     */
+    setCategoriesOptions() {
+      this.formFields = this.formFields.map((x) => {
+        if (x.key === CATEGORY_ID_FIELD_KEY) {
+          return { ...x, options: this.categories };
+        }
+        return x;
+      });
+      // eslint-disable-next-line camelcase
+      this.formFieldsValues.category_id = this.categories[0].id.toString();
+    },
   },
 };
 </script>
