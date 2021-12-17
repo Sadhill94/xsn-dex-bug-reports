@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\IssueController;
-use App\Models\IssueCategory;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

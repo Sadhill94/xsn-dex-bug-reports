@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Issue;
-use App\Models\IssueCategory;
-use App\Models\IssueStatus;
+use App\Models\Category;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
@@ -20,8 +20,8 @@ class IssueController extends Controller
 
    public function public_active()
    {
-       $closed_status = IssueStatus::where('name', '=', Config::get('constants.statuses.closed'))->first();
-       $to_validate_status = IssueStatus::where('name', '=', Config::get('constants.statuses.to_validate'))->first();
+       $closed_status = Status::where('name', '=', Config::get('constants.statuses.closed'))->first();
+       $to_validate_status = Status::where('name', '=', Config::get('constants.statuses.to_validate'))->first();
 
        $public_issues = collect(Issue::whereNotIn('status_id', [$closed_status->id, $to_validate_status->id])
            ->with(['category', 'status'])
@@ -52,7 +52,7 @@ class IssueController extends Controller
     public function categories()
     {
         return Inertia::render('ReportABug/index', [
-            'categories' => IssueCategory::all()
+            'categories' => Category::all()
         ]);
     }
 
@@ -67,7 +67,7 @@ class IssueController extends Controller
             'category_id' => ['required'],
         ]);
 
-        $to_validate_status = IssueStatus::where('name', '=', Config::get('constants.statuses.to_validate'))->first();
+        $to_validate_status = Status::where('name', '=', Config::get('constants.statuses.to_validate'))->first();
 
         $issue = new Issue();
         $issue->description = $request->description;

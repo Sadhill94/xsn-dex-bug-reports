@@ -22,16 +22,16 @@ class Issue extends Model
 
     public function files()
     {
-        return $this->hasMany(IssueFile::class);
+        return $this->hasMany(File::class);
     }
 
     public function status()
     {
-        return $this->belongsTo(IssueStatus::class);
+        return $this->belongsTo(Status::class);
     }
 
     public function category()
     {
-        return $this->belongsTo(IssueCategory::class);
+        return $this->belongsTo(Category::class);
     }
 }

@@ -5,15 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IssueCategory extends Model
+class File extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
+        'src',
+        'issue_id',
     ];
 
-    public function issues()
+    public function issue()
     {
-        return $this->belongsToMany(Issue::class);
+        return $this->belongsTo(Issue::class);
     }
+
 }

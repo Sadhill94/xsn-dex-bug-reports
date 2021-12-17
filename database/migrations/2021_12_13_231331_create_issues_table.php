@@ -23,9 +23,10 @@ class CreateIssuesTable extends Migration
             $table->text('user_discord_id')->nullable();
             $table->text('github_link')->nullable();
             $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('issue_statuses');
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('issue_categories');
+            $table->foreign('category_id')->references('id')->on('categories');
+
             $table->timestamps();
         });
     }

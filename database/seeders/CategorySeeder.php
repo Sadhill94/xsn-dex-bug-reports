@@ -5,31 +5,31 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class IssueCategorySeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     public function run()
     {
-        DB::table('issue_categories')->insert([
+        DB::table('categories')->insert([
             'name' => 'LND',
         ]);
 
-        DB::table('issue_categories')->insert([
+        DB::table('categories')->insert([
             'name' => 'CONNEXT',
         ]);
 
-        DB::table('issue_categories')->insert([
+        DB::table('categories')->insert([
             'name' => 'SWAPS',
         ]);
 
-        DB::table('issue_categories')->insert([
+        DB::table('categories')->insert([
             'name' => 'MCLW',
         ]);
 
-        DB::table('issue_categories')->insert([
+        DB::table('categories')->insert([
             'name' => 'UI',
         ]);
 
-        DB::table('issue_categories')->insert([
+        DB::table('categories')->insert([
             'name' => 'SSUI',
         ]);
     }
