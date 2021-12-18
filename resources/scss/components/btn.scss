@@ -8,10 +8,25 @@
         @apply ring-2 ring-white;
     }
 
+    &--primary {
+        @apply bg-primary ;
+    }
+
+    &--secondary {
+        @apply bg-secondary ;
+    }
+
     &--tertiary {
         @apply bg-tertiary ;
     }
 
+    &--quaternary {
+        @apply bg-quaternary;
+    }
+
+    &--small {
+        @apply p-2 text-body-md;
+    }
 
     &--large {
         @apply p-6;

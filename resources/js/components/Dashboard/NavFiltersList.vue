@@ -80,14 +80,14 @@ export default {
   @apply font-medium uppercase block w-full text-left py-3 px-3 md:px-6 rounded-md transition-all duration-100;
 
   &:hover {
-    @apply bg-indigo-400 #{!important};
+    @apply bg-quaternary #{!important};
   }
   &:focus {
     @apply outline-none ring-2 ring-indigo-400;
   }
 
   &.active {
-    @apply bg-indigo-400;
+    @apply bg-quaternary;
   }
   &.inactive {
     @apply bg-transparent;

@@ -41,6 +41,7 @@ module.exports = {
         primary: '#090d1c', // darker
         secondary: '#0f1223', // lighter
         tertiary: '#989dcc',
+        quaternary: '#818CF8',
       },
     },
   },
