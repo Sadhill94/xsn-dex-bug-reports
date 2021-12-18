@@ -5,5 +5,6 @@ import Vue from 'vue';
 
 AOS.init({
   once: true,
+  disable: 'mobile',
 });
 Vue.use(AOS);
