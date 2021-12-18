@@ -6,7 +6,7 @@
     @onKanbanViewClick="handleKanbanViewClick"
     @onAllViewClick="handleAllViewClick"
   >
-    <div class="px-20">
+    <div class="px-6 md:px-20">
       <h1 class="text-2xl font-semibold text-tertiary mb-0">Dashboard</h1>
       <div class="sticky pt-6 pb-3 top-0 bg-primary z-10 md:hidden">
         <h4 class="uppercase tracking-wider">

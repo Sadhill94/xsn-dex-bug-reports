@@ -43,7 +43,7 @@
             <img
               class="h-auto w-16"
               src="/images/xsn-logo.png"
-              alt="Workflow"
+              alt="xsn logo"
             />
           </div>
           <slot />

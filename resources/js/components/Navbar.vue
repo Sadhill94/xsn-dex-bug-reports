@@ -62,17 +62,25 @@
             />
           </div>
           <div class="hidden sm:flex items-center sm:ml-12">
-            <div class="flex space-x-12">
-              <Link
-                :href="route('home')"
-                class="text-white block px-3 py-2"
-                aria-current="page"
-                >Home</Link
-              >
-              <Link :href="route('bug-report')" class="block px-3 py-2"
-                >Report a bug</Link
-              >
-            </div>
+            <ul class="flex space-x-14">
+              <li>
+                <Link
+                  :href="route('home')"
+                  class="nav-link"
+                  :class="{ active: $page.url === '/' }"
+                  aria-current="page"
+                  >Home</Link
+                >
+              </li>
+              <li>
+                <Link
+                  :href="route('bug-report')"
+                  class="nav-link"
+                  :class="{ active: $page.url === '/report-a-bug' }"
+                  >Report a bug</Link
+                >
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -80,16 +88,25 @@
 
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu" v-show="isMenuOpen">
-      <div class="px-2 pt-2 pb-3 space-y-6">
-        <Link
-          :href="route('home')"
-          class="text-white block px-3 py-2"
-          aria-current="page"
-          >Home</Link
-        >
-        <Link :href="route('bug-report')" class="block px-3 py-2"
-          >Report a bug</Link
-        >
+      <div class="px-14 pt-2 pb-10">
+        <ul class="space-y-5">
+          <li>
+            <Link
+              :href="route('home')"
+              class="nav-link"
+              :class="{ 'active-mobile': $page.url === '/' }"
+              >Home</Link
+            >
+          </li>
+          <li>
+            <Link
+              :href="route('bug-report')"
+              class="nav-link"
+              :class="{ 'active-mobile': $page.url === '/report-a-bug' }"
+              >Report a bug</Link
+            >
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -105,3 +122,22 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+#mobile-menu {
+  ul li {
+    @apply block;
+  }
+}
+.nav-link {
+  @apply p-3 rounded-md text-white uppercase tracking-widest font-body bg-transparent transition-colors;
+  @screen lg {
+    @apply px-6 normal-case tracking-wider font-heading;
+  }
+}
+.active {
+  @apply bg-tertiary;
+}
+.active-mobile {
+  @apply text-tertiary font-bold underline;
+}
+</style>
