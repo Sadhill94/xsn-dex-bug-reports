@@ -11,7 +11,16 @@
       :data-aos-delay="index * 150"
       class="w-full lg:w-1/2 xl:w-1/3 p-6 lg:p-8"
     >
-      <issue-card :item="issue" class="h-full"> EDIT </issue-card>
+      <issue-card :item="issue" class="h-full">
+        <div class="text-center pt-6 w-32 mx-auto">
+          <button
+            class="btn btn--small btn--quaternary"
+            @click="$emit('onEditCardClick', issue)"
+          >
+            edit
+          </button>
+        </div>
+      </issue-card>
     </div>
   </div>
 </template>

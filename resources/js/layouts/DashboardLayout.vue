@@ -43,10 +43,10 @@
 
 <script>
 import Navbar from '@/components/Navbar';
-import DesktopSidebar from '@/components/DesktopSidebar';
-import MobileSidebar from '@/components/MobileSidebar';
-import MobileDashboardNavbar from '@/components/MobileDashboardNavbar';
-import NavFiltersList from '@/components/NavFiltersList';
+import DesktopSidebar from '@/components/Dashboard/DesktopSidebar';
+import MobileSidebar from '@/components/Dashboard/MobileSidebar';
+import MobileDashboardNavbar from '@/components/Dashboard/MobileDashboardNavbar';
+import NavFiltersList from '@/components/Dashboard/NavFiltersList';
 
 export default {
   name: 'DashboardLayout',

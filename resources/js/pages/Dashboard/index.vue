@@ -20,18 +20,40 @@
         </h5>
       </div>
       <div class="border-t md:border-0">
-        <dashboard-issues-list :items="currentIssuesList" />
+        <dashboard-issues-list
+          :items="currentIssuesList"
+          @onEditCardClick="handleEditCard"
+        />
       </div>
     </div>
+    <modal :is-open="isModalOpen" @onClose="isModalOpen = false">
+      <template #default>
+        <modal-body />
+      </template>
+
+      <template #footer>
+        <modal-footer @onSave="handleSaveCard" @onCancel="handleCancelEdit" />
+      </template>
+    </modal>
   </dashboard-layout>
 </template>
 <script>
 import DashboardLayout from '@/layouts/DashboardLayout';
-import DashboardIssuesList from '@/components/DashboardIssuesList';
+import DashboardIssuesList from '@/components/Dashboard/DashboardIssuesList';
+import Modal from '@/components/Modal/Modal';
+
 import { ALL_FILTER_ID } from '@/constant/filtersId';
+import ModalFooter from '@/components/Modal/ModalFooter';
+import ModalBody from '@/components/Modal/ModalBody';
 
 export default {
-  components: { DashboardIssuesList, DashboardLayout },
+  components: {
+    ModalBody,
+    ModalFooter,
+    Modal,
+    DashboardIssuesList,
+    DashboardLayout,
+  },
 
   props: {
     // eslint-disable-next-line camelcase
@@ -47,6 +69,7 @@ export default {
 
   data() {
     return {
+      isModalOpen: false,
       filters: [],
       currentFilteredView: {
         filterId: ALL_FILTER_ID,
@@ -106,6 +129,22 @@ export default {
         subFilterName: '',
       };
     },
+
+    handleEditCard(issue) {
+      this.isModalOpen = true;
+      console.log('hello');
+      // TODO
+    },
+
+    handleSaveCard() {
+      // TODO
+    },
+
+    handleCancelEdit() {
+      this.isModalOpen = false;
+      // TODO
+    },
+
     addDashboardhLinkForAuthorizedPerson() {
       const hasDashboardAccess = localStorage.getItem('has-dashboard-access');
       if (!hasDashboardAccess) {
