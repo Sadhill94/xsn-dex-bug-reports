@@ -1,8 +1,10 @@
 <template>
   <dashboard-layout
-    :filters="filters"
-    @onSubFilterClick="handleSubFilterClick"
-    @onKanbanClick="handleKanbanDisplay"
+    :filters="issues_by_filter"
+    :current-filter-view="currentFilteredView"
+    @onSubFilterViewClick="handleSubFilterViewClick"
+    @onKanbanViewClick="handleKanbanViewClick"
+    @onAllViewClick="handleAllViewClick"
   >
     <div class="px-20">
       <h1 class="text-2xl font-semibold text-tertiary">Dashboard</h1>
@@ -11,11 +13,13 @@
 </template>
 <script>
 import DashboardLayout from '@/layouts/DashboardLayout';
+import { ALL_FILTER_ID } from '@/constant/filtersId';
 
 export default {
   components: { DashboardLayout },
 
   props: {
+    // eslint-disable-next-line camelcase
     issues_by_filter: {
       type: Object,
       default: () => null,
@@ -29,61 +33,50 @@ export default {
   data() {
     return {
       filters: [],
+      currentFilteredView: {
+        filterId: ALL_FILTER_ID,
+        subFilterId: '',
+      },
     };
   },
 
-  mounted() {
-    this.setFilters();
+  computed: {
+    currentIssuesList() {
+      const { filterId, subFilterId } = this.currentFilteredView;
+
+      if (this.currentFilteredView.filterId === ALL_FILTER_ID) {
+        console.log('ALL ?', this.issues);
+        return this.issues;
+      }
+
+      let relatedItems = [];
+      try {
+        relatedItems = this.issues_by_filter[filterId][subFilterId]?.items;
+      } catch (err) {
+        console.error(
+          'Something went wrong finding the issues with this filters. Contact @Sadhill'
+        );
+        return [];
+      }
+
+      if (relatedItems.length < 1) {
+        return this.issues;
+      }
+      return relatedItems;
+    },
   },
 
   methods: {
-    /**
-     * Extract each filters name and sub-filters name from the payload issues_by_filters
-     * Example of payload fomr issues_by_filters
-     * issues_by_filters: {
-     *  statuses: {
-     *    open: [],
-     *    in_progress: []
-     *  }
-     * }
-     *
-     * After looping through the key of issues_by_filters, we create an object and set the filter property key as filter name
-     * as the current key in the loop (in our case statuses) and create the array property subFilters
-     * We then loop through all keys that statuses has and push them through subFilters,
-     * Example of result
-     * filters = [
-     *  {
-     *    name: statuses,
-     *    subFilters: ['open','in_progress',...]
-     *  }
-     * ]
-     */
-    setFilters() {
-      const filters = [];
-
-      if (this.issues_by_filter) {
-        Object.keys(this.issues_by_filter).forEach((filter) => {
-          const currentFilter = {
-            name: filter,
-            subFilters: [],
-          };
-
-          Object.keys(this.issues_by_filter[filter]).forEach((category) => {
-            currentFilter.subFilters.push(category);
-          });
-
-          filters.push(currentFilter);
-        });
-      }
-      this.filters = filters;
+    handleSubFilterViewClick(filtersIdObject) {
+      this.currentFilteredView = filtersIdObject;
     },
 
-    handleSubFilterClick(subFilter) {
-      // TODO handle
+    handleKanbanViewClick(kanbanFilterId) {
+      this.currentFilteredView = { filterId: kanbanFilterId, subFilterId: '' };
     },
 
-    handleKanbanDisplay() {
-      // TODO handle
+    handleAllViewClick(allFilterId) {
+      this.currentFilteredView = { filterId: allFilterId, subFilterId: '' };
     },
   },
 };

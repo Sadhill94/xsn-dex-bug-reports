@@ -8,8 +8,9 @@
       <nav-filters-list
         class="mt-5 px-6 space-y-8"
         :filters="filters"
-        @onSubFilterClick="$emit('onSubFilterClick', $event)"
-        @onKanbanClick="$emit('onKanbanClick', $event)"
+        @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
+        @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
+        @onAllViewClick="$emit('onAllViewClick', $event)"
       />
     </mobile-sidebar>
 
@@ -17,8 +18,9 @@
       <nav-filters-list
         class="justify-center flex flex-col flex-1 px-2 space-y-16"
         :filters="filters"
-        @onSubFilterClick="$emit('onSubFilterClick', $event)"
-        @onKanbanClick="$emit('onKanbanClick', $event)"
+        @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
+        @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
+        @onAllViewClick="$emit('onAllViewClick', $event)"
       />
     </desktop-sidebar>
     <div class="main-content-container flex flex-col flex-1">
@@ -54,14 +56,17 @@ export default {
     Navbar,
   },
   props: {
+    currentFilterView: {
+      type: Object,
+      required: true,
+    },
     filters: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => null,
     },
   },
   data() {
     return {
-      currentFilter: '',
       isMobileNavbarOpen: false,
     };
   },

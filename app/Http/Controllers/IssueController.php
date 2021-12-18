@@ -20,15 +20,25 @@ class IssueController extends Controller
         $allIssuesByCategory = [];
 
         foreach ($statuses as $status) {
-            $allIssuesByStatus[$status->name] = $status->issues;
+            $allIssuesByStatus[$status->id] =
+                [
+                    'id' => $status->id,
+                    'name' => $status->name,
+                    'items' => $status->issues()
+                ];
         }
 
         foreach ($categories as $category) {
-            $allIssuesByCategory[$category->name] = $category->issues;
+            $allIssuesByCategory[$category->id] =
+            [
+                'id' => $category->id,
+                'name' => $category->name,
+                'items' => $category->issues()
+            ];
         }
 
         return Inertia::render('Dashboard/index', [
-            'all' => Issue::orderBy('created_at', 'DESC')->get(),
+            'issues' => Issue::orderBy('created_at', 'DESC')->with(['category', 'status'])->get(),
             'issues_by_filter' => [
                 'statuses' => collect($allIssuesByStatus),
                 'categories' => collect($allIssuesByCategory),
