@@ -22,6 +22,9 @@
         >View in Github</a
       >
     </div>
+    <div>
+      <slot />
+    </div>
   </article>
 </template>
 
@@ -32,16 +35,16 @@ import IssueStatusPill from '@/components/IssueStatusPill';
 
 export default {
   name: 'IssueCard',
+
   components: { IssueStatusPill },
-  mounted() {
-    console.log('card ?', this.item);
-  },
+
   props: {
     item: {
       type: Object,
       default: null,
     },
   },
+
   filters: {
     humanizeDate(value) {
       return value ? moment(value).format('DD MMM - YYYY') : '';

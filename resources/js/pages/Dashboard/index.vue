@@ -34,6 +34,7 @@ export default {
   components: { DashboardIssuesList, DashboardLayout },
 
   props: {
+    // eslint-disable-next-line camelcase
     issues_by_filter: {
       type: Object,
       default: () => null,
@@ -67,6 +68,7 @@ export default {
       try {
         relatedItems = this.issues_by_filter[filterId][subFilterId]?.items;
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(
           'Something went wrong finding the issues with this filters. Contact @Sadhill'
         );
@@ -94,7 +96,6 @@ export default {
     },
 
     handleAllViewClick(allFilterId) {
-      console.log('allFIlterid', allFilterId);
       this.currentFilteredView = {
         filterId: allFilterId,
         subFilterId: '',
