@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-secondary">
+  <nav>
     <div class="brand-container brand-container--xxl">
       <div class="relative flex items-center justify-between h-24 md:h-32">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">

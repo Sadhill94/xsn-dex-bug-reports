@@ -28,10 +28,10 @@ class IssueController extends Controller
         }
 
         return Inertia::render('Dashboard/index', [
-            'issues' => [
-                'all' => Issue::orderBy('created_at', 'DESC')->get(),
-                'by_status' => $allIssuesByStatus,
-                'by_category' => $allIssuesByCategory,
+            'all' => Issue::orderBy('created_at', 'DESC')->get(),
+            'issues_by_filter' => [
+                'statuses' => collect($allIssuesByStatus),
+                'categories' => collect($allIssuesByCategory),
             ]
         ]);
     }

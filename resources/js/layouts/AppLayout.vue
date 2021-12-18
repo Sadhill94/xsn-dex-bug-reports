@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar class="mb-12" />
+    <navbar class="mb-12 bg-secondary" />
     <div class="pt-6 md:pt-12 lg:pt-20 pb-12 lg:pb-48">
       <slot />
     </div>
