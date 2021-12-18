@@ -20,7 +20,7 @@
           :data-aos-delay="index * 150"
           class="w-full md:w-1/2 xl:w-1/3 p-6 lg:p-8"
         >
-          <public-issue-card :item="issue" class="h-full" />
+          <issue-card :item="issue" class="h-full" />
         </div>
       </div>
       <div
@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import PublicIssueCard from '@/components/PublicIssueCard';
+import IssueCard from '@/components/IssueCard';
 import TabsFilters from '@/components/TabsFilters';
 
 export default {
   name: 'GroupedIssues',
 
-  components: { TabsFilters, PublicIssueCard },
+  components: { TabsFilters, IssueCard },
 
   props: {
     items: {

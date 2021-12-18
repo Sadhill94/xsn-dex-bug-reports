@@ -8,18 +8,21 @@
   >
     <div class="px-20">
       <h1 class="text-2xl font-semibold text-tertiary">Dashboard</h1>
+      <div>
+        <dashboard-issues-list :items="currentIssuesList" />
+      </div>
     </div>
   </dashboard-layout>
 </template>
 <script>
 import DashboardLayout from '@/layouts/DashboardLayout';
+import DashboardIssuesList from '@/components/DashboardIssuesList';
 import { ALL_FILTER_ID } from '@/constant/filtersId';
 
 export default {
-  components: { DashboardLayout },
+  components: { DashboardIssuesList, DashboardLayout },
 
   props: {
-    // eslint-disable-next-line camelcase
     issues_by_filter: {
       type: Object,
       default: () => null,
@@ -45,7 +48,6 @@ export default {
       const { filterId, subFilterId } = this.currentFilteredView;
 
       if (this.currentFilteredView.filterId === ALL_FILTER_ID) {
-        console.log('ALL ?', this.issues);
         return this.issues;
       }
 

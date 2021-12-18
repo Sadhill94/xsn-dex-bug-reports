@@ -1,0 +1,51 @@
+<template>
+  <article class="bg-tertiary rounded-md p-6 lg:p-8" v-if="item">
+    <div class="text-center border-b border-primary" v-if="item.category">
+      <h6 class="tracking-widest text-primary">
+        {{ item.category.name }}
+      </h6>
+    </div>
+    <h5 class="leading-9 pt-3">{{ item.description }}</h5>
+    <div class="flex items-center justify-between pt-2">
+      <div>
+        <p class="capitalize">{{ item.created_at | humanizeDate }}</p>
+        <p class="font-semibold pt-1">{{ item.os }}</p>
+      </div>
+      <issue-status-pill
+        v-if="item.status"
+        :name="item.status.name"
+        class="w-44 lg:w-56"
+      />
+    </div>
+    <div class="text-center pt-5" v-if="item.github_link">
+      <a :href="item.github_link" class="font-bold hover:text-secondary"
+        >View in Github</a
+      >
+    </div>
+  </article>
+</template>
+
+<script>
+import moment from 'moment';
+
+import IssueStatusPill from '@/components/IssueStatusPill';
+
+export default {
+  name: 'IssueCard',
+  components: { IssueStatusPill },
+  mounted() {
+    console.log('card ?', this.item);
+  },
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
+  },
+  filters: {
+    humanizeDate(value) {
+      return value ? moment(value).format('DD MMM - YYYY') : '';
+    },
+  },
+};
+</script>
