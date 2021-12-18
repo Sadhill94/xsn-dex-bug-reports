@@ -14,7 +14,7 @@ class CreateIssuesTable extends Migration
     public function up()
     {
         Schema::create('issues', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->text('description');
             $table->text('os');
             $table->text('version');
@@ -22,9 +22,9 @@ class CreateIssuesTable extends Migration
             $table->text('extra_infos')->nullable();
             $table->text('user_discord_id')->nullable();
             $table->text('github_link')->nullable();
-            $table->unsignedBigInteger('status_id');
+            $table->uuid('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
-            $table->unsignedBigInteger('category_id');
+            $table->uuid('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->timestamps();
