@@ -63,21 +63,13 @@
           </div>
           <div class="hidden sm:flex items-center sm:ml-12">
             <ul class="flex space-x-14">
-              <li>
+              <li v-for="link in links" :key="link.name">
                 <Link
-                  :href="route('home')"
+                  v-if="shouldShowLink(link.routeName)"
+                  :href="route(link.routeName)"
                   class="nav-link"
-                  :class="{ active: $page.url === '/' }"
-                  aria-current="page"
-                  >Home</Link
-                >
-              </li>
-              <li>
-                <Link
-                  :href="route('bug-report')"
-                  class="nav-link"
-                  :class="{ active: $page.url === '/report-a-bug' }"
-                  >Report a bug</Link
+                  :class="{ active: $page.url === link.url }"
+                  >{{ link.name }}</Link
                 >
               </li>
             </ul>
@@ -90,20 +82,13 @@
     <div class="sm:hidden" id="mobile-menu" v-show="isMenuOpen">
       <div class="px-14 pt-2 pb-10">
         <ul class="space-y-5">
-          <li>
+          <li v-for="link in links" :key="link.name">
             <Link
-              :href="route('home')"
+              v-if="shouldShowLink(link.routeName)"
+              :href="route(link.routeName)"
               class="nav-link"
-              :class="{ 'active-mobile': $page.url === '/' }"
-              >Home</Link
-            >
-          </li>
-          <li>
-            <Link
-              :href="route('bug-report')"
-              class="nav-link"
-              :class="{ 'active-mobile': $page.url === '/report-a-bug' }"
-              >Report a bug</Link
+              :class="{ 'active-mobile': $page.url === link.url }"
+              >{{ link.name }}</Link
             >
           </li>
         </ul>
@@ -113,12 +98,35 @@
 </template>
 
 <script>
+import { NAV_LINKS } from '@/constant/navbar';
+
 export default {
   name: 'Navbar',
+
   data() {
     return {
       isMenuOpen: false,
     };
+  },
+
+  computed: {
+    links() {
+      return NAV_LINKS;
+    },
+
+    hasDashboardAccess() {
+      return localStorage.getItem('has-dashboard-access');
+    },
+  },
+  methods: {
+    shouldShowLink(routeName) {
+      if (routeName === 'dashboard' && this.hasDashboardAccess) {
+        return true;
+      } else if (routeName === 'dashboard' && !this.hasDashboardAccess) {
+        return false;
+      }
+      return true;
+    },
   },
 };
 </script>

@@ -56,6 +56,10 @@ export default {
     };
   },
 
+  mounted() {
+    this.addDashboardhLinkForAuthorizedPerson();
+  },
+
   computed: {
     currentIssuesList() {
       const { filterId, subFilterId } = this.currentFilteredView;
@@ -101,6 +105,12 @@ export default {
         subFilterId: '',
         subFilterName: '',
       };
+    },
+    addDashboardhLinkForAuthorizedPerson() {
+      const hasDashboardAccess = localStorage.getItem('has-dashboard-access');
+      if (!hasDashboardAccess) {
+        localStorage.setItem('has-dashboard-access', true);
+      }
     },
   },
 };
