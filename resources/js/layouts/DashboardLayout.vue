@@ -12,6 +12,15 @@
         @onKanbanClick="$emit('onKanbanClick', $event)"
       />
     </mobile-sidebar>
+
+    <desktop-sidebar class="hidden md:flex">
+      <nav-filters-list
+        class="justify-center flex flex-col flex-1 px-2 space-y-16"
+        :filters="filters"
+        @onSubFilterClick="$emit('onSubFilterClick', $event)"
+        @onKanbanClick="$emit('onKanbanClick', $event)"
+      />
+    </desktop-sidebar>
     <div class="main-content-container flex flex-col flex-1">
       <mobile-dashboard-navbar
         class="md:hidden"
@@ -21,6 +30,7 @@
 
       <!-- MAIN content -->
       <main class="flex-1">
+        <navbar class="hidden md:block mb-12 bg-primary" />
         <slot />
       </main>
     </div>
@@ -28,6 +38,8 @@
 </template>
 
 <script>
+import Navbar from '@/components/Navbar';
+import DesktopSidebar from '@/components/DesktopSidebar';
 import MobileSidebar from '@/components/MobileSidebar';
 import MobileDashboardNavbar from '@/components/MobileDashboardNavbar';
 import NavFiltersList from '@/components/NavFiltersList';
@@ -38,6 +50,8 @@ export default {
     NavFiltersList,
     MobileDashboardNavbar,
     MobileSidebar,
+    DesktopSidebar,
+    Navbar,
   },
   props: {
     filters: {
@@ -53,3 +67,21 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+@screen md {
+  .static-sidebar-container {
+    width: 24rem;
+  }
+  .main-content-container {
+    padding-left: 24rem;
+  }
+}
+@screen lg {
+  .static-sidebar-container {
+    width: 30rem;
+  }
+  .main-content-container {
+    padding-left: 30rem;
+  }
+}
+</style>
