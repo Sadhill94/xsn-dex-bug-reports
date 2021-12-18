@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 flex" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 flex z-20" role="dialog" aria-modal="true">
     <transition
       enter-active-class="transition ease-out duration-100"
       enter-class="opacity-0"
@@ -25,6 +25,7 @@
     >
       <div
         class="relative flex-1 flex flex-col max-w-sm w-full bg-primary"
+        style="z-index: 99"
         v-show="isOpen"
       >
         <transition

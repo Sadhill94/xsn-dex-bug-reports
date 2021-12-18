@@ -8,6 +8,7 @@
       <nav-filters-list
         class="mt-5 px-6 space-y-8"
         :filters="filters"
+        :current-filtered-view="currentFilteredView"
         @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
         @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
         @onAllViewClick="$emit('onAllViewClick', $event)"
@@ -18,6 +19,7 @@
       <nav-filters-list
         class="justify-center flex flex-col flex-1 px-2 space-y-16"
         :filters="filters"
+        :current-filtered-view="currentFilteredView"
         @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
         @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
         @onAllViewClick="$emit('onAllViewClick', $event)"
@@ -56,7 +58,7 @@ export default {
     Navbar,
   },
   props: {
-    currentFilterView: {
+    currentFilteredView: {
       type: Object,
       required: true,
     },
@@ -81,7 +83,7 @@ export default {
     padding-left: 24rem;
   }
 }
-@screen lg {
+@screen xl {
   .static-sidebar-container {
     width: 30rem;
   }

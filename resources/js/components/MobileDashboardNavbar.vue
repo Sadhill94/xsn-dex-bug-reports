@@ -1,9 +1,9 @@
 <template>
-  <div class="sticky top-0 pr-8 pt-4 pb-2 bg-transparent text-right">
+  <div class="sticky top-0 pr-8 pt-4 pb-2 bg-transparent text-right z-50">
     <button
       type="button"
       @click="$emit('onToggle')"
-      class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-white hover:text-tertiary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+      class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-white hover:text-tertiary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-tertiary"
     >
       <span class="sr-only">{{
         isOpen ? 'Close sidebar' : 'Open sidebar'

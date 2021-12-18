@@ -1,14 +1,25 @@
 <template>
   <dashboard-layout
     :filters="issues_by_filter"
-    :current-filter-view="currentFilteredView"
+    :current-filtered-view="currentFilteredView"
     @onSubFilterViewClick="handleSubFilterViewClick"
     @onKanbanViewClick="handleKanbanViewClick"
     @onAllViewClick="handleAllViewClick"
   >
     <div class="px-20">
-      <h1 class="text-2xl font-semibold text-tertiary">Dashboard</h1>
-      <div>
+      <h1 class="text-2xl font-semibold text-tertiary mb-0">Dashboard</h1>
+      <div class="sticky pt-6 pb-3 top-0 bg-primary z-10 md:hidden">
+        <h4 class="uppercase tracking-wider">
+          {{ currentFilteredView.filterId }}
+        </h4>
+        <h5
+          v-if="currentFilteredView.subFilterName"
+          class="uppercase text-body-md tracking-wider text-tertiary"
+        >
+          -> {{ currentFilteredView.subFilterName }}
+        </h5>
+      </div>
+      <div class="border-t md:border-0">
         <dashboard-issues-list :items="currentIssuesList" />
       </div>
     </div>
@@ -39,6 +50,7 @@ export default {
       currentFilteredView: {
         filterId: ALL_FILTER_ID,
         subFilterId: '',
+        subFilterName: '',
       },
     };
   },
@@ -74,11 +86,20 @@ export default {
     },
 
     handleKanbanViewClick(kanbanFilterId) {
-      this.currentFilteredView = { filterId: kanbanFilterId, subFilterId: '' };
+      this.currentFilteredView = {
+        filterId: kanbanFilterId,
+        subFilterId: '',
+        subFilterName: '',
+      };
     },
 
     handleAllViewClick(allFilterId) {
-      this.currentFilteredView = { filterId: allFilterId, subFilterId: '' };
+      console.log('allFIlterid', allFilterId);
+      this.currentFilteredView = {
+        filterId: allFilterId,
+        subFilterId: '',
+        subFilterName: '',
+      };
     },
   },
 };
