@@ -1,17 +1,16 @@
+import { ROUTES } from '@/constant/routes';
+
 export const NAV_LINKS = [
   {
     name: 'Home',
-    routeName: 'home',
-    url: '/',
+    ...ROUTES.home,
   },
   {
     name: 'Report a bug',
-    routeName: 'bug-report',
-    url: '/report-a-bug',
+    ...ROUTES.bugReport,
   },
   {
     name: 'Dashboard',
-    routeName: 'dashboard',
-    url: '/dashboard',
+    ...ROUTES.dashboard,
   },
 ];
