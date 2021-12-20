@@ -152,7 +152,7 @@ export default {
       if (this.fieldsWithErrors.length === 0) {
         this.isLoading = true;
         axios
-          .post(`${ROUTES.issue.url}/${this.method}`, this.formFieldsValues)
+          .post(`${ROUTES.issues.url}/${this.method}`, this.formFieldsValues)
           .then((res) => {
             this.$displayNotification({
               message:

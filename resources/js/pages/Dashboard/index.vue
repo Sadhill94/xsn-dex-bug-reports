@@ -1,6 +1,6 @@
 <template>
   <dashboard-layout
-    :filters="issues_by_filter"
+    :filters="issuesByFilter"
     :current-filtered-view="currentFilteredView"
     @onSubFilterViewClick="handleSubFilterViewClick"
     @onKanbanViewClick="handleKanbanViewClick"
@@ -94,7 +94,11 @@ export default {
   data() {
     return {
       isModalOpen: false,
+
+      issuesByFilter: {},
+      allIssues: [],
       filters: [],
+
       currentSelectedIssue: {},
       currentFilteredView: {
         filterId: ALL_FILTER_ID,
@@ -106,6 +110,9 @@ export default {
 
   mounted() {
     this.addDashboardhLinkForAuthorizedPerson();
+
+    this.issuesByFilter = this.issues_by_filter;
+    this.allIssues = this.issues;
   },
 
   computed: {
@@ -113,12 +120,12 @@ export default {
       const { filterId, subFilterId } = this.currentFilteredView;
 
       if (this.currentFilteredView.filterId === ALL_FILTER_ID) {
-        return this.issues;
+        return this.allIssues;
       }
 
       let relatedItems = [];
       try {
-        relatedItems = this.issues_by_filter[filterId][subFilterId]?.items;
+        relatedItems = this.issuesByFilter[filterId][subFilterId]?.items;
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(
@@ -128,7 +135,7 @@ export default {
       }
 
       if (relatedItems.length < 1) {
-        return this.issues;
+        return this.allIssues;
       }
       return relatedItems;
     },
@@ -181,10 +188,34 @@ export default {
     },
 
     deleteIssue() {
+      const notification = {
+        duration: 1500,
+      };
       axios
-        .delete(`${ROUTES.issue.url}/${this.currentSelectedIssue.id}`)
-        .then((res) => {})
-        .catch((err) => console.log('err  => ', err));
+        .delete(`${ROUTES.issues.url}/${this.currentSelectedIssue.id}`)
+        .then((res) => {
+          notification.message = 'Successfully deleted';
+          notification.type = 'success';
+          this.refreshData();
+        })
+        .catch((err) => {
+          notification.message = err.response.statusText;
+          notification.type = 'error';
+        })
+        .finally(() => {
+          this.$displayNotification(notification);
+        });
+    },
+
+    refreshData() {
+      axios
+        .get(ROUTES.issues.url)
+        .then((res) => {
+          console.log('RESPONSE THEN', res.data);
+        })
+        .catch((err) => {
+          console.log('ERROR', err);
+        });
     },
 
     addDashboardhLinkForAuthorizedPerson() {

@@ -59,8 +59,8 @@ class IssuesService
         $allIssuesByCategory = self::formatPayload($categories);
 
         return [
-            'statuses' => collect($allIssuesByStatus),
-            'categories' => collect($allIssuesByCategory),
+            'statuses' => $allIssuesByStatus,
+            'categories' => $allIssuesByCategory,
         ];
     }
 

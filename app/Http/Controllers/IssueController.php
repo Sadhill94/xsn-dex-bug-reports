@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Issue;
 use App\Models\Category;
-use App\Models\Status;
 use App\Services\IssuesService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 
 class IssueController extends Controller
