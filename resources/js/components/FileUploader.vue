@@ -60,11 +60,19 @@ export default {
     },
   },
   methods: {
+    /**
+     * Show an confirm before deleting the file
+     * @param fileRecord
+     */
     onBeforeDelete(fileRecord) {
       if (confirm('Are you sure you want to delete the file ?')) {
         this.$refs.vueFileAgent.deleteFileRecord(fileRecord);
       }
     },
+    /**
+     * Remove from the data property the file - it has already been removed from the input
+     * @param fileRecord
+     */
     fileDeleted(fileRecord) {
       this.fileRecords = this.fileRecords.filter(
         (file) => file.size !== fileRecord.size
@@ -93,8 +101,6 @@ export default {
 
   .vue-file-agent .file-preview-wrapper .file-preview:before {
     @apply bg-transparent;
-  }
-  .vue-file-agent .file-preview-new:before {
   }
 
   .file-name,

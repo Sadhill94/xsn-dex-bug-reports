@@ -201,12 +201,16 @@ export default {
     validateFieldsAndSetErrors() {
       const fieldsWithErrors = [];
       this.formFields.forEach((field) => {
-        if (
-          field.isRequired &&
-          field.type !== 'files' &&
-          _.isEmpty(this.formFieldsValues[field.key]?.trim())
-        ) {
-          fieldsWithErrors.push(field.key);
+        if (field.isRequired) {
+          if (field.key === FILES_FIELD_KEY) {
+            if (this.formFieldsValues[field.key].length < 1) {
+              fieldsWithErrors.push(field.key);
+            }
+          } else {
+            if (_.isEmpty(this.formFieldsValues[field.key]?.trim())) {
+              fieldsWithErrors.push(field.key);
+            }
+          }
         }
       });
       this.fieldsWithErrors = fieldsWithErrors;
@@ -216,12 +220,18 @@ export default {
       return this.fieldsWithErrors.includes(field);
     },
 
+    /**
+     *  Handler to transfer the formFieldsValues object into a formData
+     *  Since we pass files to the server, we must create a FormData and the file case is
+     *  very specific to handle
+     * @returns {FormData}
+     */
     setToFormData() {
       const data = new FormData();
       Object.keys(this.formFieldsValues).forEach((field) => {
         if (field === FILES_FIELD_KEY && this.method === FORM_METHODS.create) {
-          this.formFieldsValues[field].forEach((blob, i) => {
-            data.append(`files[${i}]`, blob.file);
+          this.formFieldsValues[field].forEach((fileRecord, i) => {
+            data.append(`files[${i}]`, fileRecord.file);
           });
         } else {
           data.append(field, this.formFieldsValues[field]);
@@ -230,6 +240,12 @@ export default {
       return data;
     },
 
+    /**
+     *  Handler to dispatch the http request
+     * @param url - endpoint
+     * @param data - FormData
+     * @param headers - To allow multipart
+     */
     submitForm(url, data, headers) {
       this.isLoading = true;
       axios
@@ -259,7 +275,7 @@ export default {
     },
 
     /**
-     * Set or reset the form field values to the default state
+     * Set the form field values to the default state and fill the options
      */
     resetFormValues() {
       this.formFieldsValues = _.cloneDeep(DEFAULT_FORM_FIELDS_VALUES);
@@ -268,7 +284,7 @@ export default {
     },
 
     /**
-     * Set categories options for form field category (SWAP;CONNEXT;LND;...)
+     * Fill the options property of the status field in the formFields
      */
     setStatusesOptions() {
       this.formFields = this.formFields.map((x) => {
@@ -280,7 +296,7 @@ export default {
     },
 
     /**
-     * Set categories options for form field category (SWAP;CONNEXT;LND;...)
+     * Fill the options property of the category field in the formFields
      */
     setCategoriesOptions() {
       this.formFields = this.formFields.map((x) => {
@@ -291,6 +307,11 @@ export default {
       });
     },
 
+    /**
+     * Set the default category visible on the select
+     * If we have an issue as props, we display the issue category id
+     * Otherwise the select the first value in the array of categories as default
+     */
     setDefaultCategory() {
       // eslint-disable-next-line camelcase
       if (this.issue) {

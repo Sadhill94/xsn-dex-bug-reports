@@ -1,5 +1,5 @@
 .input {
-    @apply max-w-xl p-4 shadow-sm block w-full border border-gray-400 rounded-md text-body-md font-medium bg-secondary text-white leading-8;
+    @apply max-w-xl p-4 shadow-sm block w-full border border-gray-400 rounded-md text-body-md font-medium bg-secondary text-white leading-8 transition-colors duration-300;
 
     &:focus {
         @apply ring-tertiary border-tertiary outline-none;
@@ -20,15 +20,21 @@
 
 .form-group {
     &.has-error {
-        label {
-            @apply text-red-600;
+        label,
+        .vue-file-agent .file-preview-new .help-text,
+        .vue-file-agent .file-preview-new svg {
+            @apply text-red-600 #{!important};
         }
+
         input,
         textarea {
             @apply border-red-600;
         }
         select, #brand-select {
             @apply border-red-600;
+        }
+        .vue-file-agent.file-input-wrapper {
+            @apply border-red-600 #{!important};
         }
     }
 }

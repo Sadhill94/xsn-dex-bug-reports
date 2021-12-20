@@ -18,6 +18,7 @@ export const DEFAULT_FORM_FIELDS_VALUES = {
   extra_infos: '',
   status_id: '',
   github_link: '',
+  files: []
   /* eslint-enable */
 };
 
