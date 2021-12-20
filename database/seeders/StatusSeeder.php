@@ -30,10 +30,5 @@ class StatusSeeder extends Seeder
             'id' => Uuid::uuid4()->toString(),
             'name' => Config::get('constants.statuses.to_validate'),
         ]);
-
-        DB::table('statuses')->insert([
-            'id' => Uuid::uuid4()->toString(),
-            'name' => Config::get('constants.statuses.submitted_to_team'),
-        ]);
     }
 }

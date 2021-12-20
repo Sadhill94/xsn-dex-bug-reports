@@ -27,19 +27,10 @@ class IssuesService
     }
 
     public function getOnlyPublicIssues(){
-        $closed_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+        $closed_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.closed'));
         $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
 
-        $issuesNotUnderValidationOrClosed = $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$closed_status->id, $to_validate_status->id]);
-
-        $public_issues = collect($issuesNotUnderValidationOrClosed)
-            ->map(function($item) {
-                if ($item->status->name == Config::get('constants.statuses.submitted_to_team')) {
-                    // force for public to show open status instead of to validate/submitted to the team
-                    $item->status->name = Config::get('constants.statuses.open');
-                }
-                return $item;
-            });
+        $public_issues = $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$closed_status->id, $to_validate_status->id]);
 
         return [
             'all' => $public_issues,
