@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import moment from 'moment';
+import { formatDate } from '@/helpers/date';
 
 import IssueStatusPill from '@/components/IssueStatusPill';
 
@@ -47,7 +47,7 @@ export default {
 
   filters: {
     humanizeDate(value) {
-      return value ? moment(value).format('DD MMM - YYYY') : '';
+      return formatDate(value);
     },
   },
 };

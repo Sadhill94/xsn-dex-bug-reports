@@ -35,8 +35,17 @@
             :key="currentSelectedIssue.id"
             :issue="currentSelectedIssue"
             :categories="categories"
+            :statuses="statuses"
             :method="FORM_METHODS.edit"
-          />
+            :is-on-public-page="false"
+          >
+            <template #form-header>
+              <p>
+                Reported on :
+                {{ currentSelectedIssue.created_at | humanizeDate }}
+              </p>
+            </template>
+          </form-issue>
         </modal-body>
       </template>
 
@@ -65,6 +74,7 @@ import ModalBody from '@/components/Modal/ModalBody';
 import FormIssue from '@/components/FormIssue';
 import { FORM_METHODS } from '@/constant/form';
 import { ROUTES } from '@/constant/routes';
+import { formatDate } from '@/helpers/date';
 
 export default {
   components: {
@@ -87,6 +97,10 @@ export default {
       default: () => [],
     },
     categories: {
+      type: Array,
+      default: () => [],
+    },
+    statuses: {
       type: Array,
       default: () => [],
     },
@@ -229,6 +243,12 @@ export default {
       if (!hasDashboardAccess) {
         localStorage.setItem('has-dashboard-access', true);
       }
+    },
+  },
+
+  filters: {
+    humanizeDate(value) {
+      return formatDate(value);
     },
   },
 };
