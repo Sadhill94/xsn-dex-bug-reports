@@ -2,6 +2,7 @@
   <dashboard-layout
     :filters="issuesByFilter"
     :current-filtered-view="currentFilteredView"
+    :total-issues-number="allIssues.length"
     @onSubFilterViewClick="handleSubFilterViewClick"
     @onKanbanViewClick="handleKanbanViewClick"
     @onAllViewClick="handleAllViewClick"
@@ -97,7 +98,6 @@ export default {
 
       issuesByFilter: {},
       allIssues: [],
-      filters: [],
 
       currentSelectedIssue: {},
       currentFilteredView: {
@@ -109,7 +109,7 @@ export default {
   },
 
   mounted() {
-    this.addDashboardhLinkForAuthorizedPerson();
+    this.addDashboardLinkForAuthorizedPerson();
 
     this.issuesByFilter = this.issues_by_filter;
     this.allIssues = this.issues;
@@ -211,14 +211,20 @@ export default {
       axios
         .get(ROUTES.issues.url)
         .then((res) => {
-          console.log('RESPONSE THEN', res.data);
+          this.allIssues = res?.data?.issues || [];
+          this.issuesByFilter = res?.data?.issues_by_filter || {};
+          this.isModalOpen = false;
         })
         .catch((err) => {
+          this.$displayNotification({
+            message: `Error while trying to refresh the data. Retry and in case contact @Sadhill : ${err.response.statusText}`,
+            type: 'error',
+          });
           console.log('ERROR', err);
         });
     },
 
-    addDashboardhLinkForAuthorizedPerson() {
+    addDashboardLinkForAuthorizedPerson() {
       const hasDashboardAccess = localStorage.getItem('has-dashboard-access');
       if (!hasDashboardAccess) {
         localStorage.setItem('has-dashboard-access', true);

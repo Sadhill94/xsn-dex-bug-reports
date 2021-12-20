@@ -9,6 +9,7 @@
         class="mt-5 px-6 space-y-8"
         :filters="filters"
         :current-filtered-view="currentFilteredView"
+        :total-issues-number="totalIssuesNumber"
         @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
         @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
         @onAllViewClick="$emit('onAllViewClick', $event)"
@@ -20,6 +21,7 @@
         class="justify-center flex flex-col flex-1 px-2 space-y-16"
         :filters="filters"
         :current-filtered-view="currentFilteredView"
+        :total-issues-number="totalIssuesNumber"
         @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
         @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
         @onAllViewClick="$emit('onAllViewClick', $event)"
@@ -65,6 +67,10 @@ export default {
     filters: {
       type: Object,
       default: () => null,
+    },
+    totalIssuesNumber: {
+      type: Number,
+      default: 0,
     },
   },
   data() {

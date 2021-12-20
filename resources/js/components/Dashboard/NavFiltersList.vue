@@ -14,6 +14,9 @@
       :class="isActive(FILTERS_ID.all) ? 'active' : 'inactive'"
     >
       All
+      <span class="absolute right-3 md:right-6">
+        {{ totalIssuesNumber }}
+      </span>
     </button>
     <div v-for="(value, key) in filters" :key="key">
       <h6 class="uppercase font-medium border-b pb-1">
@@ -34,6 +37,9 @@
           "
         >
           {{ subValue.name }}
+          <span class="absolute right-3 md:right-6">
+            {{ subValue.items.length }}
+          </span>
         </button>
       </div>
     </div>
@@ -54,6 +60,11 @@ export default {
     currentFilteredView: {
       type: Object,
       required: true,
+    },
+
+    totalIssuesNumber: {
+      type: Number,
+      default: 0,
     },
   },
 
@@ -77,7 +88,7 @@ export default {
 </script>
 <style lang="scss">
 .sidebar-link {
-  @apply font-medium uppercase block w-full text-left py-3 px-3 md:px-6 rounded-md transition-all duration-100;
+  @apply relative font-medium uppercase block w-full text-left py-3 px-3 md:px-6 rounded-md transition-all duration-100;
 
   &:hover {
     @apply bg-quaternary #{!important};
