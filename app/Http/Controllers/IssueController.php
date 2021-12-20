@@ -22,11 +22,13 @@ class IssueController extends Controller
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
         $issues = $this->issuesService->getAllIssues();
         $categories = $this->issuesService->getAllIssueCategories();
+        $statuses = $this->issuesService->getAllIssueStatuses();
 
         return Inertia::render('Dashboard/index', [
             'issues' => $issues,
             'issues_by_filter' => $issues_by_filter,
-            'categories' => $categories
+            'categories' => $categories,
+            'statuses' => $statuses
             ]);
     }
 
@@ -35,11 +37,13 @@ class IssueController extends Controller
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
         $issues = $this->issuesService->getAllIssues();
         $categories = $this->issuesService->getAllIssueCategories();
+        $statuses = $this->issuesService->getAllIssueStatuses();
 
         return response([
             'issues' => $issues,
             'issues_by_filter' => $issues_by_filter,
-            'categories' => $categories
+            'categories' => $categories,
+            'statuses' => $statuses
         ]);
     }
 

@@ -1,4 +1,5 @@
 export const CATEGORY_ID_FIELD_KEY = 'category_id';
+export const STATUS_ID_FIELD_KEY = 'status_id';
 
 export const FORM_METHODS = {
   create: 'create',
@@ -72,6 +73,22 @@ export const REPORT_BUG_FORM_FIELDS = [
     key: 'extra_infos',
     label: 'Extra infos',
     type: 'textarea',
+    isRequired: false,
+  },
+];
+
+export const PRIVATE_BUG_FORM_FIELDS = [
+  {
+    key: 'status_id',
+    label: 'Status',
+    type: 'select',
+    options: [],
+    isRequired: true,
+  },
+  {
+    key: 'assignee',
+    label: 'Assignee',
+    type: 'text',
     isRequired: false,
   },
 ];

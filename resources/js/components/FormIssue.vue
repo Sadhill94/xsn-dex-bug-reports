@@ -5,10 +5,12 @@
         <div>
           <div>
             <h2>Report</h2>
-            <p class="mt-1 max-w-2xl text-white">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut
-            </p>
+            <slot name="form-header">
+              <p class="mt-1 max-w-2xl text-white">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut
+              </p>
+            </slot>
           </div>
 
           <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
@@ -71,7 +73,9 @@ import {
   CATEGORY_ID_FIELD_KEY,
   DEFAULT_FORM_FIELDS_VALUES,
   FORM_METHODS,
+  PRIVATE_BUG_FORM_FIELDS,
   REPORT_BUG_FORM_FIELDS,
+  STATUS_ID_FIELD_KEY,
 } from '@/constant/form';
 import { ROUTES } from '@/constant/routes';
 
@@ -82,6 +86,11 @@ export default {
 
   props: {
     categories: {
+      type: Array,
+      default: () => [],
+    },
+
+    statuses: {
       type: Array,
       default: () => [],
     },
@@ -114,9 +123,11 @@ export default {
   mounted() {
     this.formFields = REPORT_BUG_FORM_FIELDS;
 
-    if (this.issue) {
+    if (!this.isOnPublicPage && this.issue) {
+      this.formFields = [...PRIVATE_BUG_FORM_FIELDS, ...this.formFields];
       this.formFieldsValues = this.issue;
       this.setCategoriesOptions();
+      this.setStatusesOptions();
     } else {
       this.resetFormValues();
     }
@@ -204,6 +215,27 @@ export default {
     },
 
     /**
+     * Set or reset the form field values to the default state
+     */
+    resetFormValues() {
+      this.formFieldsValues = _.cloneDeep(DEFAULT_FORM_FIELDS_VALUES);
+      this.setCategoriesOptions();
+      this.setDefaultCategory();
+    },
+
+    /**
+     * Set categories options for form field category (SWAP;CONNEXT;LND;...)
+     */
+    setStatusesOptions() {
+      this.formFields = this.formFields.map((x) => {
+        if (x.key === STATUS_ID_FIELD_KEY) {
+          return { ...x, options: this.statuses };
+        }
+        return x;
+      });
+    },
+
+    /**
      * Set categories options for form field category (SWAP;CONNEXT;LND;...)
      */
     setCategoriesOptions() {
@@ -213,6 +245,9 @@ export default {
         }
         return x;
       });
+    },
+
+    setDefaultCategory() {
       // eslint-disable-next-line camelcase
       if (this.issue) {
         // eslint-disable-next-line camelcase
@@ -221,14 +256,6 @@ export default {
         // eslint-disable-next-line camelcase
         this.formFieldsValues.category_id = this.categories[0].id.toString();
       }
-    },
-
-    /**
-     * Set or reset the form field values to the default state
-     */
-    resetFormValues() {
-      this.formFieldsValues = _.cloneDeep(DEFAULT_FORM_FIELDS_VALUES);
-      this.setCategoriesOptions();
     },
   },
 };
