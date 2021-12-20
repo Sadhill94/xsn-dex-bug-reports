@@ -40,6 +40,12 @@
                   class="input"
                   @onChange="formFieldsValues[field.key] = $event.toString()"
                 />
+
+                <file-uploader
+                  v-else-if="field.type === 'files'"
+                  @onFilesChange="formFieldsValues[field.key] = $event"
+                />
+
                 <input
                   v-else
                   type="text"
@@ -72,17 +78,19 @@ import BrandSelect from '@/components/BrandSelect';
 import {
   CATEGORY_ID_FIELD_KEY,
   DEFAULT_FORM_FIELDS_VALUES,
+  FILES_FIELD_KEY,
   FORM_METHODS,
   PRIVATE_BUG_FORM_FIELDS,
   REPORT_BUG_FORM_FIELDS,
   STATUS_ID_FIELD_KEY,
 } from '@/constant/form';
 import { ROUTES } from '@/constant/routes';
+import FileUploader from '@/components/FileUploader';
 
 export default {
   name: 'FormIssue',
 
-  components: { BrandSelect, FormRow },
+  components: { FileUploader, BrandSelect, FormRow },
 
   props: {
     categories: {
@@ -172,34 +180,13 @@ export default {
       this.validateFieldsAndSetErrors();
 
       if (this.fieldsWithErrors.length === 0) {
-        this.isLoading = true;
-        axios
-          .post(`${ROUTES.issues.url}/${this.method}`, this.formFieldsValues)
-          .then((res) => {
-            this.$displayNotification({
-              message:
-                res?.data?.message || 'Thanks for your bug report submission !',
-              type: 'success',
-            });
+        const url = `${ROUTES.issues.url}/${this.method}`;
+        const formData = this.setToFormData();
+        const headers = {
+          'Content-Type': 'multipart/form-data',
+        };
 
-            if (this.method === FORM_METHODS.edit) {
-              this.$emit('onEditCardSucces');
-              // this.formFieldsValues = _.cloneDeep(this.issue);
-            } else {
-              this.resetFormValues();
-            }
-          })
-          .catch((err) => {
-            this.$displayNotification({
-              message:
-                err?.response?.data?.message ||
-                'Something went wrong, please notify @Sadhill in the discord.',
-              type: 'error',
-            });
-          })
-          .finally(() => {
-            this.isLoading = false;
-          });
+        this.submitForm(url, formData, headers);
       } else {
         this.$displayNotification({
           message: 'All fields marked by an * are mandatory',
@@ -216,6 +203,7 @@ export default {
       this.formFields.forEach((field) => {
         if (
           field.isRequired &&
+          field.type !== 'files' &&
           _.isEmpty(this.formFieldsValues[field.key]?.trim())
         ) {
           fieldsWithErrors.push(field.key);
@@ -226,6 +214,48 @@ export default {
 
     hasError(field) {
       return this.fieldsWithErrors.includes(field);
+    },
+
+    setToFormData() {
+      const data = new FormData();
+      Object.keys(this.formFieldsValues).forEach((field) => {
+        if (field === FILES_FIELD_KEY && this.method === FORM_METHODS.create) {
+          this.formFieldsValues[field].forEach((blob, i) => {
+            data.append(`files[${i}]`, blob.file);
+          });
+        } else {
+          data.append(field, this.formFieldsValues[field]);
+        }
+      });
+      return data;
+    },
+
+    submitForm(url, data, headers) {
+      this.isLoading = true;
+      axios
+        .post(url, data, headers)
+        .then((res) => {
+          this.$displayNotification({
+            message:
+              res?.data?.message || 'Thanks for your bug report submission !',
+            type: 'success',
+          });
+
+          if (this.method === FORM_METHODS.edit) {
+            this.$emit('onEditCardSuccess');
+          }
+        })
+        .catch((err) => {
+          this.$displayNotification({
+            message:
+              err?.response?.data?.message ||
+              'Something went wrong, please notify @Sadhill in the discord.',
+            type: 'error',
+          });
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
 
     /**

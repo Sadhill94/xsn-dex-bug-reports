@@ -39,7 +39,7 @@
             :statuses="statuses"
             :method="FORM_METHODS.edit"
             :is-on-public-page="false"
-            @onEditCardSucces="refreshData"
+            @onEditCardSuccess="refreshData"
           >
             <template #form-header>
               <p>
