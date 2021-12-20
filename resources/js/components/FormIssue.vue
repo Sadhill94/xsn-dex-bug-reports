@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import { POSITION } from 'vue-toastification';
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -155,44 +154,34 @@ export default {
         axios
           .post(`${ROUTES.issue.url}/${this.method}`, this.formFieldsValues)
           .then((res) => {
-            this.displayFormNotification(
-              'success',
-              res?.data?.message || 'Thanks for your bug report submission !'
-            );
+            this.$displayNotification({
+              message:
+                res?.data?.message || 'Thanks for your bug report submission !',
+              type: 'success',
+            });
 
             if (this.method === FORM_METHODS.create) {
               this.resetFormValues();
             }
           })
           .catch((err) => {
-            this.displayFormNotification(
-              'error',
-              err?.response?.data?.message ||
-                'Something went wrong, please notify @Sadhill in the discord.'
-            );
+            this.$displayNotification({
+              message:
+                err?.response?.data?.message ||
+                'Something went wrong, please notify @Sadhill in the discord.',
+              type: 'error',
+            });
           })
           .finally(() => {
             this.isLoading = false;
           });
       } else {
-        this.displayFormNotification(
-          'error',
-          'All fields marked by an * are mandatory'
-        );
+        this.$displayNotification({
+          message: 'All fields marked by an * are mandatory',
+          type: 'error',
+        });
       }
     },
-
-    displayFormNotification(type, message) {
-      this.$toast(message, {
-        timeout: 3500,
-        type,
-        position: POSITION.TOP_CENTER,
-        toastClassName: 'xsn-toast',
-        closeButton: false,
-        hideProgressBar: true,
-      });
-    },
-
     /**
      * Handler that loop through all formFields and verify the required one have values.
      * Set fieldsWithErrors data property with the result of the loop

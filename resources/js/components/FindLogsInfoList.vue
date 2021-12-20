@@ -144,12 +144,10 @@ export default {
   methods: {
     copyPath(path) {
       navigator.clipboard.writeText(path);
-      this.$toast('Copied to clipboard!', {
+      this.$displayNotification({
+        message: 'Copied to clipboard!',
         timeout: 1500,
         position: POSITION.BOTTOM_CENTER,
-        toastClassName: 'xsn-toast',
-        closeButton: false,
-        hideProgressBar: true,
       });
     },
   },
