@@ -33,7 +33,10 @@ Route::group(['prefix' => 'dashboard'], function(){
         ->name('dashboard');
 });
 
-Route::group(['prefix' => 'issue'], function(){
+Route::group(['prefix' => 'issues'], function(){
+    Route::get('/', [IssueController::class, 'list'])
+        ->name('list-issues');
+
     Route::post('/create', [IssueController::class, 'create'])
         ->name('create-issue');
 

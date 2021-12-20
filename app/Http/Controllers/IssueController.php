@@ -5,45 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\Issue;
 use App\Models\Category;
 use App\Models\Status;
+use App\Services\IssuesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 
 class IssueController extends Controller
 {
+    protected $issuesService;
+
+    public function __construct(IssuesService $issuesService)
+    {
+        $this->issuesService = $issuesService;
+    }
+
+
     public function index()
     {
-        $statuses = Status::all();
-        $categories = Category::all();
-
-        $allIssuesByStatus = [];
-        $allIssuesByCategory = [];
-
-        foreach ($statuses as $status) {
-            $allIssuesByStatus[$status->id] =
-                [
-                    'id' => $status->id,
-                    'name' => $status->name,
-                    'items' => $status->issues()
-                ];
-        }
-
-        foreach ($categories as $category) {
-            $allIssuesByCategory[$category->id] =
-            [
-                'id' => $category->id,
-                'name' => $category->name,
-                'items' => $category->issues()
-            ];
-        }
+        $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
+        $issues = $this->issuesService->getAllIssues();
+        $categories = $this->issuesService->getAllIssueCategories();
 
         return Inertia::render('Dashboard/index', [
-            'categories' => Category::all(),
-            'issues' => Issue::orderBy('created_at', 'DESC')->with(['category', 'status'])->get(),
-            'issues_by_filter' => [
-                'statuses' => collect($allIssuesByStatus),
-                'categories' => collect($allIssuesByCategory),
-            ]
+            'issues' => $issues,
+            'issues_by_filter' => $issues_by_filter,
+            'categories' => $categories
+            ]);
+    }
+
+    public function list()
+    {
+        $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
+        $issues = $this->issuesService->getAllIssues();
+        $categories = $this->issuesService->getAllIssueCategories();
+
+        return response([
+            'issues' => $issues,
+            'issues_by_filter' => $issues_by_filter,
+            'categories' => $categories
         ]);
     }
 
