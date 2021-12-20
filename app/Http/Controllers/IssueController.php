@@ -95,20 +95,14 @@ class IssueController extends Controller
             'category_id' => ['required'],
         ]);
 
-        $to_validate_status = Status::where('name', '=', Config::get('constants.statuses.to_validate'))->first();
 
-        $issue = new Issue();
-        $issue->description = $request->description;
-        $issue->os = $request->os;
-        $issue->version = $request->version;
-        $issue->steps_to_reproduce = $request->steps_to_reproduce;
-        $issue->user_discord_id = $request->user_discord_id;
-        $issue->category_id = $request->category_id;
-        $issue->extra_infos = $request->extra_infos ?? null;
-        $issue->status_id = $to_validate_status->id;
-        $issue->save();
+        $data = $request->post();
+        $issue = $this->issuesService->create($data);
 
-        return response(['message' => 'Issue successfully reported. Thanks']);
+        return response([
+            'message' => 'Issue successfully reported. Thanks',
+            'data' => $issue
+        ]);
     }
 
     public function delete($id){

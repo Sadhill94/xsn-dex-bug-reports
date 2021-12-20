@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\IssuesRepository;
+use Illuminate\Support\Facades\Config;
 
 class IssuesService
 {
@@ -43,6 +44,9 @@ class IssuesService
 
     public function create($data)
     {
+        $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+        $data['status_id'] = $to_validate_status->id;
+
         return $this->issuesRepository->create($data);
     }
 
