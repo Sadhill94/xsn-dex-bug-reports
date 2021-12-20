@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Models\Category;
 use App\Models\Issue;
 use App\Models\Status;
+use Exception;
 
 class IssuesRepository
 {
@@ -42,5 +43,17 @@ class IssuesRepository
         $issue->save();
 
         return Issue::find($issue->id);
+    }
+
+    public function delete($id)
+    {
+        $issue = Issue::findOrFail($id);
+
+        try {
+            $issue->deleteOrFail();
+            return 0;
+        } catch(Exception $ex) {
+            return 1;
+        }
     }
 }

@@ -106,7 +106,6 @@ class IssueController extends Controller
     }
 
     public function delete($id){
-        $issue = Issue::findOrFail($id);
-        $issue->delete();
+        $this->issuesService->delete($id);
     }
 }

@@ -50,6 +50,11 @@ class IssuesService
         return $this->issuesRepository->create($data);
     }
 
+    public function delete($id)
+    {
+        return $this->issuesRepository->delete($id);
+    }
+
 
     private function formatPayload($items): array
     {
