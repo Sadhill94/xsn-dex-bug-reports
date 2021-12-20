@@ -111,4 +111,9 @@ class IssueController extends Controller
 
         return response(['message' => 'Issue successfully reported. Thanks']);
     }
+
+    public function delete($id){
+        $issue = Issue::findOrFail($id);
+        $issue->delete();
+    }
 }

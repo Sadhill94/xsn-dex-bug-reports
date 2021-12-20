@@ -25,12 +25,19 @@ Route::group(['prefix' => 'report-a-bug'], function(){
     Route::get('/', [IssueController::class, 'categories'])
     ->name('bug-report');
 
-    Route::post('/', [IssueController::class, 'create'])
-        ->name('create-issue');
+
 });
 
 Route::group(['prefix' => 'dashboard'], function(){
     Route::get('/', [IssueController::class, 'index'])
         ->name('dashboard');
+});
+
+Route::group(['prefix' => 'issue'], function(){
+    Route::post('/create', [IssueController::class, 'create'])
+        ->name('create-issue');
+
+    Route::delete('/{id}', [IssueController::class, 'delete'])
+        ->name('delete-issue');
 });
 

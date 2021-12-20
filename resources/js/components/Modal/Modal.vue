@@ -24,5 +24,14 @@ export default {
       default: false,
     },
   },
+
+  /**
+   * Avoid the body to be scrollable when the modal is open
+   */
+  watch: {
+    isOpen() {
+      document.querySelector('body').classList.toggle('overflow-hidden');
+    },
+  },
 };
 </script>

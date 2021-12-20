@@ -40,12 +40,18 @@
       </template>
 
       <template #footer>
-        <modal-footer @onSave="handleSaveCard" @onCancel="handleCancelEdit" />
+        <modal-footer @onCancel="handleCancelEdit">
+          <button class="btn btn--small bg-red-500" @click="confirmDelete">
+            Delete
+          </button>
+        </modal-footer>
       </template>
     </modal>
   </dashboard-layout>
 </template>
 <script>
+import axios from 'axios';
+
 import { ALL_FILTER_ID } from '@/constant/filtersId';
 
 import DashboardLayout from '@/layouts/DashboardLayout';
@@ -57,6 +63,7 @@ import ModalBody from '@/components/Modal/ModalBody';
 
 import FormIssue from '@/components/FormIssue';
 import { FORM_METHODS } from '@/constant/form';
+import { ROUTES } from '@/constant/routes';
 
 export default {
   components: {
@@ -165,6 +172,19 @@ export default {
     handleCancelEdit() {
       this.isModalOpen = false;
       // TODO
+    },
+
+    confirmDelete() {
+      if (confirm('Confirm your wish to delete')) {
+        this.deleteIssue();
+      }
+    },
+
+    deleteIssue() {
+      axios
+        .delete(`${ROUTES.issue.url}/${this.currentSelectedIssue.id}`)
+        .then((res) => {})
+        .catch((err) => console.log('err  => ', err));
     },
 
     addDashboardhLinkForAuthorizedPerson() {

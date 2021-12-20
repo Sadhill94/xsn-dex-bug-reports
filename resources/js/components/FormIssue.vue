@@ -52,7 +52,8 @@
 
       <div class="pt-12 text-center">
         <button type="submit" class="btn btn--tertiary">
-          Submit <span v-show="isLoading">in progress...</span>
+          {{ method === FORM_METHODS.create ? 'Submit' : 'Save changes' }}
+          <span v-show="isLoading">in progress...</span>
         </button>
       </div>
     </form>
@@ -98,7 +99,7 @@ export default {
 
     method: {
       type: String,
-      default: 'create',
+      default: FORM_METHODS.create,
     },
   },
 
@@ -120,6 +121,12 @@ export default {
     } else {
       this.resetFormValues();
     }
+  },
+
+  computed: {
+    FORM_METHODS() {
+      return FORM_METHODS;
+    },
   },
 
   watch: {
@@ -146,7 +153,7 @@ export default {
       if (this.fieldsWithErrors.length === 0) {
         this.isLoading = true;
         axios
-          .post(ROUTES.bugReport.url, this.formFieldsValues)
+          .post(`${ROUTES.issue.url}/${this.method}`, this.formFieldsValues)
           .then((res) => {
             this.displayFormNotification(
               'success',
@@ -164,7 +171,9 @@ export default {
                 'Something went wrong, please notify @Sadhill in the discord.'
             );
           })
-          .finally(() => (this.isLoading = false));
+          .finally(() => {
+            this.isLoading = false;
+          });
       } else {
         this.displayFormNotification(
           'error',
