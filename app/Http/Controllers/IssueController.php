@@ -83,6 +83,27 @@ class IssueController extends Controller
         ]);
     }
 
+    public function edit(Request $request)
+    {
+        request()->validate([
+            'description' => ['required'],
+            'os' => ['required'],
+            'version' => ['required'],
+            'steps_to_reproduce' => ['required'],
+            'user_discord_id' => ['required'],
+            'category_id' => ['required'],
+            'status_id' => ['required'],
+        ]);
+
+        $data = $request->post();
+        $issue = $this->issuesService->edit($data);
+
+        return response([
+            'message' => 'Issue successfully reported. Thanks',
+            'data' => $issue
+        ]);
+    }
+
     public function delete($id){
         $this->issuesService->delete($id);
     }

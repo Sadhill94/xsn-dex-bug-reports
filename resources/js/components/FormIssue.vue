@@ -38,7 +38,7 @@
                   :options="field.options"
                   :value="formFieldsValues[field.key]"
                   class="input"
-                  @change="formFieldsValues[field.key] = $event.toString()"
+                  @onChange="formFieldsValues[field.key] = $event.toString()"
                 />
                 <input
                   v-else
@@ -125,7 +125,7 @@ export default {
 
     if (!this.isOnPublicPage && this.issue) {
       this.formFields = [...PRIVATE_BUG_FORM_FIELDS, ...this.formFields];
-      this.formFieldsValues = this.issue;
+      this.formFieldsValues = _.cloneDeep(this.issue);
       this.setCategoriesOptions();
       this.setStatusesOptions();
     } else {
@@ -151,6 +151,17 @@ export default {
         }
       },
     },
+
+    issue: {
+      deep: true,
+      handler(val) {
+        if (val) {
+          this.formFieldsValues = _.cloneDeep(val);
+        } else {
+          this.resetFormValues();
+        }
+      },
+    },
   },
   methods: {
     /**
@@ -171,7 +182,10 @@ export default {
               type: 'success',
             });
 
-            if (this.method === FORM_METHODS.create) {
+            if (this.method === FORM_METHODS.edit) {
+              this.$emit('onEditCardSucces');
+              // this.formFieldsValues = _.cloneDeep(this.issue);
+            } else {
               this.resetFormValues();
             }
           })

@@ -51,9 +51,29 @@ class IssuesRepository
         $issue->category_id = $data['category_id'];
         $issue->extra_infos = $data['extra_infos'] ?? null;
         $issue->status_id = $data['status_id'];
+
         $issue->save();
 
         return Issue::find($issue->id);
+    }
+
+    public function edit($data)
+    {
+        $issue = Issue::find($data['id']);
+
+        $issue->description = $data['description'];
+        $issue->os = $data['os'];
+        $issue->version = $data['version'];
+        $issue->steps_to_reproduce = $data['steps_to_reproduce'];
+        $issue->user_discord_id = $data['user_discord_id'];
+        $issue->category_id = $data['category_id'];
+        $issue->status_id = $data['status_id'];
+        $issue->github_link = $data['github_link'] ?? null;
+        $issue->extra_infos = $data['extra_infos'] ?? null;
+
+        $issue->save();
+
+        return $issue;
     }
 
     public function delete($id)

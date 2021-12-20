@@ -37,6 +37,9 @@ Route::group(['prefix' => 'issues'], function(){
     Route::post('/create', [IssueController::class, 'create'])
         ->name('create-issue');
 
+    Route::post('/edit', [IssueController::class, 'edit'])
+        ->name('edit-issue');
+
     Route::delete('/{id}', [IssueController::class, 'delete'])
         ->name('delete-issue');
 });

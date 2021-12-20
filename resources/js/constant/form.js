@@ -91,4 +91,10 @@ export const PRIVATE_BUG_FORM_FIELDS = [
     type: 'text',
     isRequired: false,
   },
+  {
+    key: 'github_link',
+    label: 'Github link',
+    type: 'text',
+    isRequired: false,
+  },
 ];

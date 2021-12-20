@@ -13,6 +13,8 @@ class Issue extends Model
     protected $fillable = [
         'description',
         'os',
+        'assignee',
+        'github_link',
         'version',
         'steps_to_reproduce',
         'extra_infos',

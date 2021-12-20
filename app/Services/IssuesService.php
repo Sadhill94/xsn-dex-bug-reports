@@ -72,6 +72,11 @@ class IssuesService
         return $this->issuesRepository->create($data);
     }
 
+    public function edit($data)
+    {
+        return $this->issuesRepository->edit($data);
+    }
+
     public function delete($id)
     {
         return $this->issuesRepository->delete($id);

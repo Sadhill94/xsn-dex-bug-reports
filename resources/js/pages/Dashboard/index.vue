@@ -23,11 +23,12 @@
       <div class="border-t md:border-0">
         <dashboard-issues-list
           :items="currentIssuesList"
+          :key="currentSelectedIssue.id"
           @onEditCardClick="handleEditCard"
         />
       </div>
     </div>
-    <modal :is-open="isModalOpen" @onClose="isModalOpen = false">
+    <modal :is-open="isModalOpen" @onClose="handleCloseModal">
       <template #default>
         <modal-body>
           <form-issue
@@ -38,6 +39,7 @@
             :statuses="statuses"
             :method="FORM_METHODS.edit"
             :is-on-public-page="false"
+            @onEditCardSucces="refreshData"
           >
             <template #form-header>
               <p>
@@ -50,7 +52,7 @@
       </template>
 
       <template #footer>
-        <modal-footer @onCancel="handleCancelEdit">
+        <modal-footer @onCancel="handleCloseModal">
           <button class="btn btn--small bg-red-500" @click="confirmDelete">
             Delete
           </button>
@@ -183,16 +185,11 @@ export default {
     handleEditCard(issue) {
       this.currentSelectedIssue = issue;
       this.isModalOpen = true;
-      // TODO
     },
 
-    handleSaveCard() {
-      // TODO
-    },
-
-    handleCancelEdit() {
+    handleCloseModal() {
       this.isModalOpen = false;
-      // TODO
+      this.currentSelectedIssue = { id: '' };
     },
 
     confirmDelete() {
@@ -227,7 +224,7 @@ export default {
         .then((res) => {
           this.allIssues = res?.data?.issues || [];
           this.issuesByFilter = res?.data?.issues_by_filter || {};
-          this.isModalOpen = false;
+          this.handleCloseModal();
         })
         .catch((err) => {
           this.$displayNotification({
