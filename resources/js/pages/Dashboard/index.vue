@@ -28,7 +28,15 @@
     </div>
     <modal :is-open="isModalOpen" @onClose="isModalOpen = false">
       <template #default>
-        <modal-body />
+        <modal-body>
+          <form-issue
+            v-if="currentSelectedIssue.id"
+            :key="currentSelectedIssue.id"
+            :issue="currentSelectedIssue"
+            :categories="categories"
+            :method="FORM_METHODS.edit"
+          />
+        </modal-body>
       </template>
 
       <template #footer>
@@ -38,16 +46,21 @@
   </dashboard-layout>
 </template>
 <script>
+import { ALL_FILTER_ID } from '@/constant/filtersId';
+
 import DashboardLayout from '@/layouts/DashboardLayout';
 import DashboardIssuesList from '@/components/Dashboard/DashboardIssuesList';
-import Modal from '@/components/Modal/Modal';
 
-import { ALL_FILTER_ID } from '@/constant/filtersId';
+import Modal from '@/components/Modal/Modal';
 import ModalFooter from '@/components/Modal/ModalFooter';
 import ModalBody from '@/components/Modal/ModalBody';
 
+import FormIssue from '@/components/FormIssue';
+import { FORM_METHODS } from '@/constant/form';
+
 export default {
   components: {
+    FormIssue,
     ModalBody,
     ModalFooter,
     Modal,
@@ -65,12 +78,17 @@ export default {
       type: Array,
       default: () => [],
     },
+    categories: {
+      type: Array,
+      default: () => [],
+    },
   },
 
   data() {
     return {
       isModalOpen: false,
       filters: [],
+      currentSelectedIssue: {},
       currentFilteredView: {
         filterId: ALL_FILTER_ID,
         subFilterId: '',
@@ -107,6 +125,10 @@ export default {
       }
       return relatedItems;
     },
+
+    FORM_METHODS() {
+      return FORM_METHODS;
+    },
   },
 
   methods: {
@@ -131,8 +153,8 @@ export default {
     },
 
     handleEditCard(issue) {
+      this.currentSelectedIssue = issue;
       this.isModalOpen = true;
-      console.log('hello');
       // TODO
     },
 

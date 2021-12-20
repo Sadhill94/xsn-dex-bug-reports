@@ -28,6 +28,7 @@ class IssueFactory extends Factory
             'os' => $this->osVersions[rand(0, 2)],
             'version' => '4.3.2',
             'steps_to_reproduce' => $this->faker->text(rand(80,120)),
+            'user_discord_id' => $this->faker->userName,
             'extra_infos' => $this->faker->text(rand(30, 90)),
             'status_id' => Status::inRandomOrder()->first(),
             'category_id' => Category::inRandomOrder()->first()

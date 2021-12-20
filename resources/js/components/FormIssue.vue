@@ -34,6 +34,7 @@
                 <brand-select
                   v-else-if="field.type === 'select'"
                   :options="field.options"
+                  :value="formFieldsValues[field.key]"
                   class="input"
                   @change="formFieldsValues[field.key] = $event.toString()"
                 />
@@ -69,8 +70,10 @@ import BrandSelect from '@/components/BrandSelect';
 import {
   CATEGORY_ID_FIELD_KEY,
   DEFAULT_FORM_FIELDS_VALUES,
+  FORM_METHODS,
   REPORT_BUG_FORM_FIELDS,
 } from '@/constant/form';
+import { ROUTES } from '@/constant/routes';
 
 export default {
   name: 'FormIssue',
@@ -82,13 +85,20 @@ export default {
       type: Array,
       default: () => [],
     },
+
     isOnPublicPage: {
       type: Boolean,
       default: true,
     },
+
     issue: {
       type: Object,
       default: null,
+    },
+
+    method: {
+      type: String,
+      default: 'create',
     },
   },
 
@@ -106,6 +116,7 @@ export default {
 
     if (this.issue) {
       this.formFieldsValues = this.issue;
+      this.setCategoriesOptions();
     } else {
       this.resetFormValues();
     }
@@ -135,14 +146,16 @@ export default {
       if (this.fieldsWithErrors.length === 0) {
         this.isLoading = true;
         axios
-          .post('/report-a-bug', this.formFieldsValues)
+          .post(ROUTES.bugReport.url, this.formFieldsValues)
           .then((res) => {
             this.displayFormNotification(
               'success',
-              res?.data?.message ||
-                'Thanks for your bug report submission ! Long live to the DEX'
+              res?.data?.message || 'Thanks for your bug report submission !'
             );
-            this.resetFormValues();
+
+            if (this.method === FORM_METHODS.create) {
+              this.resetFormValues();
+            }
           })
           .catch((err) => {
             this.displayFormNotification(
@@ -203,7 +216,13 @@ export default {
         return x;
       });
       // eslint-disable-next-line camelcase
-      this.formFieldsValues.category_id = this.categories[0].id.toString();
+      if (this.issue) {
+        // eslint-disable-next-line camelcase
+        this.formFieldsValues.category_id = this.issue.category_id;
+      } else {
+        // eslint-disable-next-line camelcase
+        this.formFieldsValues.category_id = this.categories[0].id.toString();
+      }
     },
 
     /**

@@ -1,5 +1,10 @@
 export const CATEGORY_ID_FIELD_KEY = 'category_id';
 
+export const FORM_METHODS = {
+  create: 'create',
+  edit: 'edit',
+};
+
 export const DEFAULT_FORM_FIELDS_VALUES = {
   description: '',
   os: 'Windows',

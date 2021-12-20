@@ -3,6 +3,7 @@
     id="brand-select"
     name="brand-select"
     @change="$emit('onChange', $event.target.value)"
+    v-model="localValue"
     class="pl-3 pr-10 uppercase"
   >
     <option
@@ -24,7 +25,34 @@ export default {
       type: Array,
       default: () => [],
     },
+
+    value: {
+      type: String,
+      default: '',
+    },
   },
+
+  data() {
+    return {
+      localValue: '',
+    };
+  },
+
+  mounted() {
+    if (this.value) {
+      this.localValue = this.value;
+    }
+  },
+
+  watch: {
+    value(newValue) {
+      console.log('NEW VALUE');
+      if (newValue) {
+        this.localValue = newValue;
+      }
+    },
+  },
+
   filters: {
     removeUnderscore(value) {
       return value.replace('_', ' ');
