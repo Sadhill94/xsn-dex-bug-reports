@@ -14,6 +14,10 @@ class IssuesRepository
     {
         return Category::all();
     }
+    public function findCategoryByName($name)
+    {
+        return Category::where('name', '=', $name)->first();
+    }
 
     public function getStatuses()
     {
@@ -27,6 +31,13 @@ class IssuesRepository
     public function getAll()
     {
          return Issue::orderBy('created_at', 'DESC')->with(['category', 'status'])->get();
+    }
+
+    public function getIssuesWithCategoryAndStatusWhereNotIn($property, $arr)
+    {
+        return Issue::whereNotIn($property, $arr)
+            ->with(['category', 'status'])
+            ->get();
     }
 
     public function create($data)

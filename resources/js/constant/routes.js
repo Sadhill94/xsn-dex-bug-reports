@@ -14,8 +14,8 @@ export const ROUTES = {
     url: '/dashboard',
   },
 
-  issue: {
-    routeName: 'issue',
-    url: '/issue',
+  issues: {
+    routeName: 'issues',
+    url: '/issues',
   },
 };

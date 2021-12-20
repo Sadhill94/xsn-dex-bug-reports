@@ -26,6 +26,30 @@ class IssuesService
         return $this->issuesRepository->getAll();
     }
 
+    public function getOnlyPublicIssues(){
+        $closed_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+        $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+
+        $issuesNotUnderValidationOrClosed = $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$closed_status->id, $to_validate_status->id]);
+
+        $public_issues = collect($issuesNotUnderValidationOrClosed)
+            ->map(function($item) {
+                if ($item->status->name == Config::get('constants.statuses.submitted_to_team')) {
+                    // force for public to show open status instead of to validate/submitted to the team
+                    $item->status->name = Config::get('constants.statuses.open');
+                }
+                return $item;
+            });
+
+        return [
+            'all' => $public_issues,
+            'open' => self::filterByOpenStatus($public_issues),
+            'in_progress' => self::filterByInProgress($public_issues),
+            'closed' => self::filterByClosed($public_issues),
+        ];
+    }
+
+
     public function getIssuesByCategoriesAndStatuses(): array
     {
         $categories = self::getAllIssueCategories();
@@ -35,10 +59,8 @@ class IssuesService
         $allIssuesByCategory = self::formatPayload($categories);
 
         return [
-            'issues_by_filter' => [
-                'statuses' => collect($allIssuesByStatus),
-                'categories' => collect($allIssuesByCategory),
-            ]
+            'statuses' => collect($allIssuesByStatus),
+            'categories' => collect($allIssuesByCategory),
         ];
     }
 
@@ -69,5 +91,26 @@ class IssuesService
                 ];
         }
         return $formattedPayload;
+    }
+
+    private function filterByOpenStatus($collection)
+    {
+        return $collection->filter(function($item){
+            return $item->status->name == Config::get('constants.statuses.open');
+        })->values();
+    }
+
+    private function filterByInProgress($collection)
+    {
+        return $collection->filter(function($item){
+            return $item->status->name == Config::get('constants.statuses.in_progress');
+        })->values();
+    }
+
+    private function filterByClosed($collection)
+    {
+        return $collection->filter(function($item){
+            return $item->status->name == Config::get('constants.statuses.closed');
+        })->values();
     }
 }
