@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\File;
 use App\Repository\IssuesRepository;
 use Illuminate\Support\Facades\Config;
 
@@ -55,12 +56,26 @@ class IssuesService
         ];
     }
 
+    public function storeFiles($files, $issueId)
+    {
+        foreach ($files as $file) {
+            $fileName = time().'_'.$file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads', $fileName, 'public');
+
+            $this->issuesRepository->createFile($fileName, $filePath, $issueId);
+        }
+    }
+
     public function create($data)
     {
         $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
         $data['status_id'] = $to_validate_status->id;
 
-        return $this->issuesRepository->create($data);
+        $issue = $this->issuesRepository->create($data);
+
+        self::storeFiles($data['files'], $issue->id);
+
+        return $issue;
     }
 
     public function edit($data)

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Category;
+use App\Models\File;
 use App\Models\Issue;
 use App\Models\Status;
 use Exception;
@@ -38,6 +39,18 @@ class IssuesRepository
         return Issue::whereNotIn($property, $arr)
             ->with(['category', 'status'])
             ->get();
+    }
+
+   public function createFile($fileName, $filePath, $issueId)
+    {
+        $fileModel = new File();
+        $fileModel->name = $fileName;
+        $fileModel->file_path = '/storage/'.$filePath;
+        $fileModel->issue_id = $issueId;
+
+        $fileModel->save();
+
+        return File::find($fileModel->id);
     }
 
     public function create($data)

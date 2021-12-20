@@ -65,6 +65,8 @@ class IssueController extends Controller
 
     public function create(Request $request)
     {
+        $allowed_extensions = ['jpeg', 'jpg','png', 'gif', 'log', 'txt'];
+
         request()->validate([
             'description' => ['required'],
             'os' => ['required'],
@@ -72,9 +74,19 @@ class IssueController extends Controller
             'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
+            'files' => ['required'],
         ]);
 
+        foreach ($request->file('files') as $file) {
+            $extension = $file->getClientOriginalExtension();
+            if(!in_array($extension, $allowed_extensions)) {
+                return response(['message' => $extension.': file type not allowed'], 400);
+            }
+        }
+
         $data = $request->post();
+        $data['files'] = $request->file('files');
+
         $issue = $this->issuesService->create($data);
 
         return response([
