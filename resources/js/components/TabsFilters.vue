@@ -4,8 +4,9 @@
       <label class="sr-only">Select a tab</label>
       <brand-select
         :options="tabs"
+        :value="tabs[0].name"
         class="w-full"
-        @change="$emit('onFilterSelect', $event)"
+        @onChange="$emit('onFilterSelect', $event)"
       />
     </div>
     <div class="hidden sm:block">

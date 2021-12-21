@@ -40,11 +40,13 @@
 
         <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
           <div class="flex-shrink-0 flex items-center px-4 pb-6">
-            <img
-              class="h-auto w-16"
-              src="/images/xsn-logo.png"
-              alt="xsn logo"
-            />
+            <Link :href="route('home')">
+              <img
+                class="h-auto w-16"
+                src="/images/xsn-logo.png"
+                alt="xsn logo"
+              />
+            </Link>
             <Link
               v-show="isOpen"
               :href="route('home')"

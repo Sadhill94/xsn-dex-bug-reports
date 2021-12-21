@@ -1,8 +1,11 @@
 <template>
   <nav>
-    <div class="brand-container brand-container--xxl">
+    <div
+      class="brand-container brand-container--xxl"
+      :class="onDashboard && 'navbar--dashboard'"
+    >
       <div class="relative flex items-center justify-between h-24 md:h-32">
-        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
           <!-- Mobile menu button-->
           <button
             type="button"
@@ -50,19 +53,16 @@
           class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
         >
           <div class="flex-shrink-0 flex items-center">
-            <img
-              class="block lg:hidden w-24 h-auto"
-              src="/images/xsn-logo.png"
-              alt="xsn logo"
-            />
-            <img
-              class="hidden lg:block w-32 h-auto"
-              src="/images/xsn-logo.png"
-              alt="xsn logo"
-            />
+            <Link :href="route('home')">
+              <img
+                class="hidden lg:block w-32 h-auto"
+                src="/images/xsn-logo.png"
+                alt="xsn logo"
+              />
+            </Link>
           </div>
-          <div class="hidden sm:flex items-center sm:ml-12">
-            <ul class="flex space-x-14">
+          <div class="hidden md:flex items-center lg:ml-12">
+            <ul class="flex space-x-8 xl:space-x-14">
               <li v-for="link in links" :key="link.name">
                 <Link
                   v-if="shouldShowLink(link.routeName)"
@@ -79,7 +79,7 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="sm:hidden" id="mobile-menu" v-show="isMenuOpen">
+    <div class="md:hidden" id="mobile-menu" v-show="isMenuOpen">
       <div class="px-14 pt-2 pb-10">
         <ul class="space-y-5">
           <li v-for="link in links" :key="link.name">
@@ -102,6 +102,12 @@ import { NAV_LINKS } from '@/constant/navbar';
 
 export default {
   name: 'Navbar',
+  props: {
+    onDashboard: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   data() {
     return {
@@ -131,6 +137,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.navbar--dashboard {
+  @apply px-4;
+}
 #mobile-menu {
   ul li {
     @apply block;
