@@ -9,6 +9,11 @@ export const ROUTES = {
     url: '/report-a-bug',
   },
 
+  contribute: {
+    routeName: 'contribute',
+    url: '/contribute',
+  },
+
   dashboard: {
     routeName: 'manage',
     url: '/manager/dashboard',

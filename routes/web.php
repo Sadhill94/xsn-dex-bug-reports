@@ -34,7 +34,7 @@ Route::group(['prefix' => 'manager'], function() {
 });
 
 Route::get('/contribute', [IssueController::class, 'contributors'])
-    ->name('contributors');
+    ->name('contribute');
 
 
 Route::get('/', [IssueController::class, 'public_active'])

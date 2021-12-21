@@ -18,6 +18,15 @@
     </mobile-sidebar>
 
     <desktop-sidebar class="hidden md:flex">
+      <div class="absolute">
+        <Link :href="route('home')">
+          <img
+            class="block lg:hidden w-32 h-auto"
+            src="/images/xsn-logo.png"
+            alt="xsn logo"
+          />
+        </Link>
+      </div>
       <nav-filters-list
         class="justify-center flex flex-col flex-1 px-2 space-y-16"
         :filters="filters"
@@ -37,7 +46,7 @@
 
       <!-- MAIN content -->
       <main class="flex-1">
-        <navbar class="hidden md:block mb-12 bg-primary" />
+        <navbar class="hidden md:block mb-12 bg-primary" :on-dashboard="true" />
         <slot />
       </main>
     </div>
