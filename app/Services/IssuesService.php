@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\File;
 use App\Repository\IssuesRepository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 
 class IssuesService
@@ -73,7 +74,9 @@ class IssuesService
 
         $issue = $this->issuesRepository->create($data);
 
-        self::storeFiles($data['files'], $issue->id);
+        if(Arr::exists($data, 'files')){
+            self::storeFiles($data['files'], $issue->id);
+        }
 
         return $issue;
     }

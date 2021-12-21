@@ -79,7 +79,7 @@ export const REPORT_BUG_FORM_FIELDS = [
     key: FILES_FIELD_KEY,
     label: 'Files',
     type: 'files',
-    isRequired: true,
+    isRequired: false,
   },
 ];
 

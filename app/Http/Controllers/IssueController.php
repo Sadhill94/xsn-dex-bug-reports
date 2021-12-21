@@ -80,7 +80,7 @@ class IssueController extends Controller
 
     public function create(Request $request)
     {
-        $allowed_extensions = ['jpeg', 'jpg','png', 'gif', 'log', 'txt'];
+        $allowed_extensions = ['jpeg', 'jpg', 'png', 'gif', 'log', 'txt'];
 
         request()->validate([
             'description' => ['required'],
@@ -89,18 +89,21 @@ class IssueController extends Controller
             'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
-            'files' => ['required'],
         ]);
 
-        foreach ($request->file('files') as $file) {
-            $extension = $file->getClientOriginalExtension();
-            if(!in_array($extension, $allowed_extensions)) {
-                return response(['message' => $extension.': file type not allowed'], 400);
+        $data = $request->post();
+
+        if($request->file('files')){
+            foreach ($request->file('files') as $file) {
+                $extension = $file->getClientOriginalExtension();
+                if(!in_array($extension, $allowed_extensions)) {
+                    return response(['message' => $extension.': file type not allowed'], 400);
+                }
             }
+
+            $data['files'] = $request->file('files');
         }
 
-        $data = $request->post();
-        $data['files'] = $request->file('files');
 
         $issue = $this->issuesService->create($data);
 
@@ -126,7 +129,7 @@ class IssueController extends Controller
         $issue = $this->issuesService->edit($data);
 
         return response([
-            'message' => 'Issue successfully reported. Thanks',
+            'message' => 'Issue successfully edited.',
             'data' => $issue
         ]);
     }
