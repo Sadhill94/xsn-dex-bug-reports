@@ -15,6 +15,10 @@ export default {
     DashboardTemplate,
   },
 
+  mounted() {
+    console.log('contribute issues', this.issues_by_filter);
+  },
+
   props: {
     issues_by_filter: {
       type: Object,
