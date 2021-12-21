@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Models\File;
+use App\Models\Status;
 use App\Repository\IssuesRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
@@ -28,6 +30,19 @@ class IssuesService
         return $this->issuesRepository->getAll();
     }
 
+    public function getIssuesForContributors(){
+        $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+
+        $contributors_issues = $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
+
+        return [
+            'all' => $contributors_issues,
+            'open' => self::filterByOpenStatus($contributors_issues),
+            'in_progress' => self::filterByInProgress($contributors_issues),
+            'closed' => self::filterByClosed($contributors_issues),
+        ];
+
+    }
     public function getOnlyPublicIssues(){
         $closed_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.closed'));
         $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
@@ -42,6 +57,39 @@ class IssuesService
         ];
     }
 
+
+    public function getIssuesByCategoriesAndStatusesForContributors(): array
+    {
+        $categories = self::getAllIssueCategories();
+        $statuses = self::getAllIssueStatuses();
+
+        $issues_by_categories = [];
+        $issues_by_statuses = [];
+
+        foreach ($categories as $category) {
+            $issues_by_categories[$category->id] =
+                [
+                    'id' => $category->id,
+                    'name' => $category->name,
+                    'items' => $category->issuesForContributors()
+                ];
+        }
+        foreach ($statuses as $status) {
+            if($status->name != Config::get('constants.statuses.to_validate')) {
+            $issues_by_statuses[$status->id] =
+                [
+                    'id' => $status->id,
+                    'name' => $status->name,
+                    'items' => $status->issuesForContributors()
+                ];
+            }
+        }
+
+        return [
+            'statuses' => $issues_by_statuses,
+            'categories' => $issues_by_categories,
+        ];
+    }
 
     public function getIssuesByCategoriesAndStatuses(): array
     {

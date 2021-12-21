@@ -19,8 +19,8 @@ class IssueController extends Controller
 
     public function contributors()
     {
-        $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
-        $issues = $this->issuesService->getAllIssues();
+        $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatusesForContributors();
+        $issues = $this->issuesService->getIssuesForContributors();
         $categories = $this->issuesService->getAllIssueCategories();
         $statuses = $this->issuesService->getAllIssueStatuses();
 
