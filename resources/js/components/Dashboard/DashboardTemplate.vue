@@ -9,7 +9,7 @@
   >
     <div class="px-6 md:px-20">
       <h1 class="text-2xl font-semibold text-tertiary mb-0 leading-loose">
-        {{ 'Dashboard' | formatForManager }}
+        {{ `Dashboard ${isManagerDashboardPage ? '- Manager' : ''}` }}
       </h1>
       <div class="sticky pt-6 pb-3 top-0 bg-primary z-10 md:hidden">
         <h4 class="uppercase tracking-wider">
@@ -26,6 +26,7 @@
         <dashboard-issues-list
           :items="currentIssuesList"
           :key="currentSelectedIssue.id"
+          :can-edit="isManagerDashboardPage"
           @onOpenCardClick="handleOpenCard"
         />
       </div>
@@ -159,6 +160,10 @@ export default {
       return !!this.$page?.props?.auth?.user;
     },
 
+    isManagerDashboardPage() {
+      return location?.pathname?.includes(ROUTES.manager.url);
+    },
+
     FORM_METHODS() {
       return FORM_METHODS;
     },
@@ -201,26 +206,22 @@ export default {
         .then((res) => {
           this.allIssues = res?.data?.issues || [];
           this.issuesByFilter = res?.data?.issues_by_filter || {};
-          this.handleCloseModal();
+          // ux detail
+          setTimeout(() => {
+            this.handleCloseModal();
+          }, 1500);
         })
         .catch((err) => {
           this.$displayNotification({
             message: `Error while trying to refresh the data. Retry and in case contact @Sadhill : ${err.response.statusText}`,
             type: 'error',
           });
-          console.log('ERROR', err);
         });
     },
   },
   filters: {
     humanizeDate(value) {
       return formatDate(value);
-    },
-    formatForManager(value) {
-      if (location.pathname.includes(ROUTES.manager.url)) {
-        return `${value} - Manager`;
-      }
-      return value;
     },
   },
 };

@@ -72,8 +72,13 @@
         </div>
       </div>
 
-      <div class="pt-12 text-center">
-        <button type="submit" class="btn btn--tertiary">
+      <div class="pt-12 text-center" v-if="!isReadOnly">
+        <button
+          type="submit"
+          class="btn btn--tertiary"
+          :class="isLoading && 'cursor-not-allowed'"
+          :disabled="isLoading"
+        >
           {{ method === FORM_METHODS.create ? 'Submit' : 'Save changes' }}
           <span v-show="isLoading">in progress...</span>
         </button>
@@ -282,6 +287,11 @@ export default {
 
           if (this.method === FORM_METHODS.edit) {
             this.$emit('onEditCardSuccess');
+          } else {
+            // ux detail
+            setTimeout(() => {
+              this.resetFormValues();
+            }, 1000);
           }
         })
         .catch((err) => {
@@ -293,7 +303,10 @@ export default {
           });
         })
         .finally(() => {
-          this.isLoading = false;
+          // ux detail
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1000);
         });
     },
 

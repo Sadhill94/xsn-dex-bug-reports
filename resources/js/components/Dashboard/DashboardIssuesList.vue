@@ -9,15 +9,15 @@
       data-aos="fade-up"
       data-aos-duration="500"
       :data-aos-delay="index * 150"
-      class="w-full lg:w-1/2 xl:w-1/3 p-6 lg:p-8"
+      class="w-full lg:w-1/2 xl:w-1/3 p-6 lg:p-8 relative"
     >
       <issue-card :item="issue" class="h-full">
-        <div class="text-center pt-6 w-32 mx-auto">
+        <div class="text-center pt-24 lg:pt-20 w-full mx-auto">
           <button
-            class="btn btn--small btn--quaternary"
+            class="btn btn--small btn--quaternary absolute left-0 right-0 max-w-sm mx-auto bottom-14"
             @click="$emit('onOpenCardClick', issue)"
           >
-            edit
+            {{ canEdit ? 'edit' : 'view details' }}
           </button>
         </div>
       </issue-card>
@@ -37,6 +37,10 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    canEdit: {
+      type: Boolean,
+      default: false,
     },
   },
 };
