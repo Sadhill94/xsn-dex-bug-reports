@@ -41,10 +41,21 @@
                   @onChange="formFieldsValues[field.key] = $event.toString()"
                 />
 
-                <file-uploader
-                  v-else-if="field.type === 'files'"
-                  @onFilesChange="formFieldsValues[field.key] = $event"
-                />
+                <div v-else-if="field.type === 'files'">
+                  <file-uploader
+                    :is-readonly="!isPublicPage"
+                    @onFilesChange="formFieldsValues[field.key] = $event"
+                  />
+                  <div v-if="!isPublicPage">
+                    <files-display
+                      :files="formFieldsValues.files"
+                      v-if="formFieldsValues.files.length > 0"
+                    />
+                    <div v-else>
+                      <h6 class="text-white">No files</h6>
+                    </div>
+                  </div>
+                </div>
 
                 <input
                   v-else
@@ -86,11 +97,12 @@ import {
 } from '@/constant/form';
 import { ROUTES } from '@/constant/routes';
 import FileUploader from '@/components/FileUploader';
+import FilesDisplay from '@/components/Dashboard/FilesDisplay';
 
 export default {
   name: 'FormIssue',
 
-  components: { FileUploader, BrandSelect, FormRow },
+  components: { FilesDisplay, FileUploader, BrandSelect, FormRow },
 
   props: {
     categories: {
@@ -103,9 +115,14 @@ export default {
       default: () => [],
     },
 
-    isOnPublicPage: {
+    isPublicPage: {
       type: Boolean,
       default: true,
+    },
+
+    isManager: {
+      type: Boolean,
+      required: true,
     },
 
     issue: {
@@ -131,7 +148,7 @@ export default {
   mounted() {
     this.formFields = REPORT_BUG_FORM_FIELDS;
 
-    if (!this.isOnPublicPage && this.issue) {
+    if (!this.isPublicPage && this.issue) {
       this.formFields = [...PRIVATE_BUG_FORM_FIELDS, ...this.formFields];
       this.formFieldsValues = _.cloneDeep(this.issue);
       this.setCategoriesOptions();
@@ -144,6 +161,9 @@ export default {
   computed: {
     FORM_METHODS() {
       return FORM_METHODS;
+    },
+    isReadOnly() {
+      return !this.isPublicPage && !this.isManager;
     },
   },
 

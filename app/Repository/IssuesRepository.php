@@ -31,7 +31,7 @@ class IssuesRepository
 
     public function getAll()
     {
-         return Issue::orderBy('created_at', 'DESC')->with(['category', 'status'])->get();
+         return Issue::orderBy('created_at', 'DESC')->with(['category', 'status', 'files'])->get();
     }
 
     public function getIssuesWithCategoryAndStatusWhereNotIn($property, $arr)
