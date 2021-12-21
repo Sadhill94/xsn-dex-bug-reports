@@ -2,11 +2,12 @@
   <div>
     <mobile-sidebar
       class="md:hidden"
+      v-if="isMobileNavbarOpen"
       :is-open="isMobileNavbarOpen"
       @onToggle="isMobileNavbarOpen = !isMobileNavbarOpen"
     >
       <nav-filters-list
-        class="mt-5 px-6 space-y-8"
+        class="mt-5 px-10 md:px-6 space-y-8"
         :filters="filters"
         :current-filtered-view="currentFilteredView"
         :total-issues-number="totalIssuesNumber"

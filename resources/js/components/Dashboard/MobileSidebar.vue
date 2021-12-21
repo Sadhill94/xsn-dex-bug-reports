@@ -24,7 +24,7 @@
       leave-to-class="-translate-x-full"
     >
       <div
-        class="relative flex-1 flex flex-col max-w-sm w-full bg-primary"
+        class="relative flex-1 flex flex-col max-w-md md:max-w-sm w-full bg-primary"
         style="z-index: 99"
         v-show="isOpen"
       >
@@ -45,6 +45,13 @@
               src="/images/xsn-logo.png"
               alt="xsn logo"
             />
+            <Link
+              v-show="isOpen"
+              :href="route('home')"
+              class="uppercase text-tertiary border-b border-tertiary ml-4"
+              style="z-index: 9999"
+              >Back to home page</Link
+            >
           </div>
           <slot />
         </div>

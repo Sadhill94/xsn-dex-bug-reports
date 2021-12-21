@@ -125,8 +125,6 @@ export default {
   },
 
   mounted() {
-    this.addDashboardLinkForAuthorizedPerson();
-
     this.issuesByFilter = this.issues_by_filter;
     this.allIssues = this.issues;
   },
