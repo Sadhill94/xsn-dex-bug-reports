@@ -5,6 +5,14 @@
     :categories="categories"
     :statuses="statuses"
   >
+    <template #delete>
+      <button
+        class="btn btn--small bg-red-500"
+        @click="$emit('confirmDelete', currentSelectedIssue.id)"
+      >
+        Delete
+      </button>
+    </template>
   </dashboard-template>
 </template>
 <script>

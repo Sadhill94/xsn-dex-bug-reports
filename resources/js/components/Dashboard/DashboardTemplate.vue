@@ -20,6 +20,7 @@
           -> {{ currentFilteredView.subFilterName }}
         </h5>
       </div>
+      {{ isManager }}
       <div class="border-t md:border-0">
         <dashboard-issues-list
           :items="currentIssuesList"
@@ -38,8 +39,8 @@
             :categories="categories"
             :statuses="statuses"
             :method="FORM_METHODS.edit"
-            :is-on-public-page="false"
-            :is-on-manager="true"
+            :is-public-page="false"
+            :is-manager="isManager"
             @onEditCardSuccess="refreshData"
           >
             <template #form-header>
@@ -54,12 +55,7 @@
 
       <template #footer>
         <modal-footer @onCancel="handleCloseModal">
-          <button
-            class="btn btn--small bg-red-500"
-            @click="$emit('confirmDelete', currentSelectedIssue.id)"
-          >
-            Delete
-          </button>
+          <slot name="delete" />
         </modal-footer>
       </template>
     </modal>
@@ -156,6 +152,10 @@ export default {
         return this.allIssues;
       }
       return relatedItems;
+    },
+
+    isManager() {
+      return !!this.$page?.props?.auth?.user;
     },
 
     FORM_METHODS() {

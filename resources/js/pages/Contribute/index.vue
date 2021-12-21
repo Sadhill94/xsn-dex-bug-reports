@@ -1,20 +1,22 @@
 <template>
   <dashboard-template
-    :current-filtered-view="currentFilteredView"
-    :total-issues-number="allIssues.length"
+    :issues_by_filter="issues_by_filter"
+    :issues="issues"
+    :categories="categories"
+    :statuses="statuses"
   >
   </dashboard-template>
 </template>
-
 <script>
 import DashboardTemplate from '@/components/Dashboard/DashboardTemplate';
 
 export default {
-  name: 'DashboardLayout',
   components: {
     DashboardTemplate,
   },
+
   props: {
+    // eslint-disable-next-line camelcase
     issues_by_filter: {
       type: Object,
       default: () => null,
