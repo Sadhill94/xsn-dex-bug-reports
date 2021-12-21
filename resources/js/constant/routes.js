@@ -14,7 +14,7 @@ export const ROUTES = {
     url: '/contribute',
   },
 
-  dashboard: {
+  manager: {
     routeName: 'manage',
     url: '/manager/dashboard',
   },

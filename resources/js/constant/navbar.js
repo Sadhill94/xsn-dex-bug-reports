@@ -15,6 +15,6 @@ export const NAV_LINKS = [
   },
   {
     name: 'Dashboard',
-    ...ROUTES.dashboard,
+    ...ROUTES.manager,
   },
 ];

@@ -8,7 +8,9 @@
     @onAllViewClick="handleAllViewClick"
   >
     <div class="px-6 md:px-20">
-      <h1 class="text-2xl font-semibold text-tertiary mb-0">Dashboard</h1>
+      <h1 class="text-2xl font-semibold text-tertiary mb-0 leading-loose">
+        {{ 'Dashboard' | formatForManager }}
+      </h1>
       <div class="sticky pt-6 pb-3 top-0 bg-primary z-10 md:hidden">
         <h4 class="uppercase tracking-wider">
           {{ currentFilteredView.filterId }}
@@ -20,7 +22,6 @@
           -> {{ currentFilteredView.subFilterName }}
         </h5>
       </div>
-      {{ isManager }}
       <div class="border-t md:border-0">
         <dashboard-issues-list
           :items="currentIssuesList"
@@ -214,6 +215,12 @@ export default {
   filters: {
     humanizeDate(value) {
       return formatDate(value);
+    },
+    formatForManager(value) {
+      if (location.pathname.includes(ROUTES.manager.url)) {
+        return `${value} - Manager`;
+      }
+      return value;
     },
   },
 };
