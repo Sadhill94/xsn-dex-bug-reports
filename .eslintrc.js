@@ -9,6 +9,9 @@ module.exports = {
     ecmaVersion: 2021,
     sourceType: 'module',
   },
+  rules: {
+    'camelcase': 'off',
+  },
   plugins: ['prettier'],
   extends: [
     '@liip-lausanne',
