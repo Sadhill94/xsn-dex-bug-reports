@@ -15,7 +15,7 @@
         <div class="text-center pt-6 w-32 mx-auto">
           <button
             class="btn btn--small btn--quaternary"
-            @click="$emit('onEditCardClick', issue)"
+            @click="$emit('onOpenCardClick', issue)"
           >
             edit
           </button>

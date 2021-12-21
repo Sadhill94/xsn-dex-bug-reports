@@ -10,8 +10,8 @@ export const ROUTES = {
   },
 
   dashboard: {
-    routeName: 'dashboard',
-    url: '/dashboard',
+    routeName: 'manage',
+    url: '/manager/dashboard',
   },
 
   issues: {
