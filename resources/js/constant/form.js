@@ -11,15 +11,13 @@ export const DEFAULT_FORM_FIELDS_VALUES = {
   description: '',
   os: 'Windows',
   version: '',
-  /* eslint-disable */
   steps_to_reproduce: '',
   category_id: '',
   user_discord_id: '',
   extra_infos: '',
   status_id: '',
   github_link: '',
-  files: []
-  /* eslint-enable */
+  files: [],
 };
 
 export const REPORT_BUG_FORM_FIELDS = [

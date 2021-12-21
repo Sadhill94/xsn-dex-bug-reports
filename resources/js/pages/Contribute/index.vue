@@ -16,7 +16,6 @@ export default {
   },
 
   props: {
-    // eslint-disable-next-line camelcase
     issues_by_filter: {
       type: Object,
       default: () => null,

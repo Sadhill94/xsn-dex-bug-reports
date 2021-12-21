@@ -166,10 +166,7 @@ export default {
       return FORM_METHODS;
     },
     isReadOnly() {
-      if (location.pathname.includes(ROUTES.contribute.url)) {
-        return true;
-      }
-      return false;
+      return location.pathname.includes(ROUTES.contribute.url);
     },
   },
 
@@ -339,12 +336,9 @@ export default {
      * Otherwise the select the first value in the array of categories as default
      */
     setDefaultCategory() {
-      // eslint-disable-next-line camelcase
       if (this.issue) {
-        // eslint-disable-next-line camelcase
         this.formFieldsValues.category_id = this.issue.category_id;
       } else {
-        // eslint-disable-next-line camelcase
         this.formFieldsValues.category_id = this.categories[0].id.toString();
       }
     },

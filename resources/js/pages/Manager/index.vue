@@ -21,7 +21,6 @@ export default {
   },
 
   props: {
-    // eslint-disable-next-line camelcase
     issues_by_filter: {
       type: Object,
       default: () => null,
@@ -64,7 +63,7 @@ export default {
       };
       axios
         .delete(`${ROUTES.issues.url}/${issueId}`)
-        .then((res) => {
+        .then(() => {
           notification.message = 'Successfully deleted';
           notification.type = 'success';
           this.refreshData();

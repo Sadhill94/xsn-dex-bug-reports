@@ -53,7 +53,6 @@ export default {
       default: () => ({
         all: [],
         open: [],
-        // eslint-disable-next-line camelcase
         in_progress: [],
       }),
     },
