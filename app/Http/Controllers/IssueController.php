@@ -17,19 +17,34 @@ class IssueController extends Controller
     }
 
 
-    public function index()
+    public function contributors()
     {
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
         $issues = $this->issuesService->getAllIssues();
         $categories = $this->issuesService->getAllIssueCategories();
         $statuses = $this->issuesService->getAllIssueStatuses();
 
-        return Inertia::render('Dashboard/index', [
+        return Inertia::render('Contribute/index', [
             'issues' => $issues,
             'issues_by_filter' => $issues_by_filter,
             'categories' => $categories,
             'statuses' => $statuses
-            ]);
+        ]);
+    }
+
+    public function manager(Request $request)
+    {
+        $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
+        $issues = $this->issuesService->getAllIssues();
+        $categories = $this->issuesService->getAllIssueCategories();
+        $statuses = $this->issuesService->getAllIssueStatuses();
+
+        return Inertia::render('Manager/index', [
+            'issues' => $issues,
+            'issues_by_filter' => $issues_by_filter,
+            'categories' => $categories,
+            'statuses' => $statuses
+        ]);
     }
 
     public function list()
