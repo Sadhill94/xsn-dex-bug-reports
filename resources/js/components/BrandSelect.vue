@@ -4,6 +4,7 @@
     name="brand-select"
     @change="$emit('onChange', $event.target.value)"
     v-model="localValue"
+    :disabled="isReadonly"
     class="pl-3 pr-10 uppercase"
   >
     <option
@@ -29,6 +30,10 @@ export default {
     value: {
       type: String,
       default: '',
+    },
+
+    isReadonly: {
+      type: Boolean,
     },
   },
 

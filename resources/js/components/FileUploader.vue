@@ -7,7 +7,6 @@
       :multiple="true"
       :deletable="true"
       :meta="true"
-      :readonly="isReadonly"
       :accept="fileConfig.accept"
       :maxSize="fileConfig.maxSize"
       :maxFiles="fileConfig.maxFiles"
@@ -38,13 +37,6 @@ const FILE_UPLOADER_CONFIG = {
 };
 export default {
   name: 'FileUploader',
-
-  props: {
-    isReadonly: {
-      type: Boolean,
-      default: true,
-    },
-  },
 
   data() {
     return {

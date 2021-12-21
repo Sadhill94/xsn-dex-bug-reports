@@ -30,6 +30,7 @@
                   v-if="field.type === 'textarea'"
                   rows="8"
                   class="input"
+                  :readonly="isReadOnly"
                   v-model="formFieldsValues[field.key]"
                 ></textarea>
 
@@ -38,15 +39,16 @@
                   :options="field.options"
                   :value="formFieldsValues[field.key]"
                   class="input"
+                  :is-readonly="isReadOnly"
                   @onChange="formFieldsValues[field.key] = $event.toString()"
                 />
 
-                <div v-else-if="field.type === 'files'">
+                <div v-else-if="field.type === 'files'" class="w-full">
                   <file-uploader
-                    :is-readonly="!isPublicPage"
+                    v-if="isPublicPage"
                     @onFilesChange="formFieldsValues[field.key] = $event"
                   />
-                  <div v-if="!isPublicPage">
+                  <div v-else-if="!isPublicPage">
                     <files-display
                       :files="formFieldsValues.files"
                       v-if="formFieldsValues.files.length > 0"
@@ -59,8 +61,9 @@
 
                 <input
                   v-else
-                  type="text"
                   v-model="formFieldsValues[field.key]"
+                  type="text"
+                  :readonly="isReadOnly"
                   class="input"
                 />
               </template>
@@ -122,7 +125,7 @@ export default {
 
     isManager: {
       type: Boolean,
-      required: true,
+      default: false,
     },
 
     issue: {
@@ -163,7 +166,10 @@ export default {
       return FORM_METHODS;
     },
     isReadOnly() {
-      return !this.isPublicPage && !this.isManager;
+      if (location.pathname.includes(ROUTES.contribute.url)) {
+        return true;
+      }
+      return false;
     },
   },
 
