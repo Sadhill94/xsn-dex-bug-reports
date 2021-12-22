@@ -31,13 +31,15 @@ class IssuesRepository
 
     public function getAll()
     {
-         return Issue::orderBy('created_at', 'DESC')->with(['category', 'status', 'files'])->get();
+         return Issue::orderBy('created_at', 'DESC')
+             ->with(['category', 'status', 'files'])
+             ->get();
     }
 
     public function getIssuesWithCategoryAndStatusWhereNotIn($property, $arr)
     {
         return Issue::whereNotIn($property, $arr)
-            ->with(['category', 'status'])
+            ->with(['category', 'status', 'files'])
             ->orderBy('created_at', 'DESC')
             ->get();
     }

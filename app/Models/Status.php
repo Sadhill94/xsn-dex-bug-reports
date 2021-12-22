@@ -16,9 +16,12 @@ class Status extends Model
         'name',
     ];
 
-    public function issues()
+    public function issues($orderBy = 'DESC')
     {
-        return $this->hasMany(Issue::class)->with('category')->get();
+        return $this->hasMany(Issue::class)
+            ->with(['category', 'files'])
+            ->orderBy('created_at', $orderBy)
+            ->get();
     }
 
     public function issuesForContributors()
@@ -26,7 +29,7 @@ class Status extends Model
         $invalid_status = Status::where('name', '=',Config::get('constants.statuses.to_validate'))->first();
 
         return $this->hasMany(Issue::class)
-            ->with('category')
+            ->with(['category', 'files'])
             ->where('status_id', '!=', $invalid_status->id)
             ->orderBy('created_at', 'DESC')
             ->get();

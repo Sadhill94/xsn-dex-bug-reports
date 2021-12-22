@@ -16,16 +16,19 @@ class Category extends Model
         'name',
     ];
 
-    public function issues(): Collection
+    public function issues($orderBy = 'DESC'): Collection
     {
-        return $this->hasMany(Issue::class)->with('status')->get();
+        return $this->hasMany(Issue::class)
+            ->with(['status', 'files'])
+            ->orderBy('created_at', $orderBy)
+            ->get();
     }
 
     public function issuesForContributors(): Collection
     {
         $invalid_status = Status::where('name', '=',Config::get('constants.statuses.to_validate'))->first();
         return $this->hasMany(Issue::class)
-            ->with('status')
+            ->with(['status', 'files'])
             ->where('status_id', '!=', $invalid_status->id)
             ->orderBy('created_at', 'DESC')
             ->get();

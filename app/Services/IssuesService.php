@@ -196,7 +196,7 @@ class IssuesService
                 [
                     'id' => $item->id,
                     'name' => $item->name,
-                    'items' => $item->issues()
+                    'items' => $item->issues($item->name == Config::get('constants.statuses.to_validate') ? 'ASC' : 'DESC')
                 ];
         }
         return $formattedPayload;
