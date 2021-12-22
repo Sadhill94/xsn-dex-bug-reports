@@ -1,6 +1,8 @@
 <template>
-  <div class="sticky top-0 pr-12 pt-4 pb-2 bg-transparent text-right z-50">
-    <div class="text-right">
+  <div
+    class="fixed right-0 top-0 pr-12 pt-4 pb-2 bg-transparent text-right z-50 w-64"
+  >
+    <div class="text-right inline-block">
       <button
         type="button"
         @click="$emit('onToggle')"

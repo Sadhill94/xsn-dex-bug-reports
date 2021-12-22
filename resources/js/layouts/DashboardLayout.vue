@@ -11,9 +11,18 @@
         :filters="filters"
         :current-filtered-view="currentFilteredView"
         :total-issues-number="totalIssuesNumber"
-        @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
-        @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
-        @onAllViewClick="$emit('onAllViewClick', $event)"
+        @onSubFilterViewClick="
+          $emit('onSubFilterViewClick', $event);
+          isMobileNavbarOpen = false;
+        "
+        @onKanbanViewClick="
+          $emit('onKanbanViewClick', $event);
+          isMobileNavbarOpen = false;
+        "
+        @onAllViewClick="
+          $emit('onAllViewClick', $event);
+          isMobileNavbarOpen = false;
+        "
       />
     </mobile-sidebar>
 

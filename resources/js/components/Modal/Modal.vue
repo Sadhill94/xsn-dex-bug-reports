@@ -49,7 +49,7 @@ export default {
    */
   watch: {
     isOpen() {
-      document.querySelector('body').classList.toggle('lg:overflow-hidden');
+      document.querySelector('body').classList.toggle('overflow-hidden');
     },
   },
 };
