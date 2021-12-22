@@ -23,8 +23,14 @@
               "
             >
               <template slot="label"
-                >{{ field.label }} {{ field.isRequired ? '*' : '' }}</template
-              >
+                >{{ field.label }} {{ field.isRequired ? '*' : '' }}
+                <p
+                  v-if="field.key === 'version'"
+                  class="caption-lg font-normal"
+                >
+                  Latest: {{ latestDexVersion }}
+                </p>
+              </template>
               <template slot="inputs">
                 <textarea
                   v-if="field.type === 'textarea'"
@@ -97,6 +103,7 @@ import BrandSelect from '@/components/BrandSelect';
 import {
   CATEGORY_ID_FIELD_KEY,
   DEFAULT_FORM_FIELDS_VALUES,
+  DEX_WALLET_GITHUB_REPO_URL,
   FILES_FIELD_KEY,
   FORM_METHODS,
   PRIVATE_BUG_FORM_FIELDS,
@@ -150,10 +157,12 @@ export default {
       fieldsWithErrors: [],
       formFieldsValues: {},
       isLoading: false,
+      latestDexVersion: '',
     };
   },
 
   mounted() {
+    this.getLatestDexVersion();
     this.formFields = REPORT_BUG_FORM_FIELDS;
 
     if (!this.isPublicPage && this.issue) {
@@ -354,6 +363,12 @@ export default {
       } else {
         this.formFieldsValues.category_id = this.categories[0].id.toString();
       }
+    },
+
+    async getLatestDexVersion() {
+      axios.get(DEX_WALLET_GITHUB_REPO_URL).then((res) => {
+        this.latestDexVersion = res.data[0]?.tag_name;
+      });
     },
   },
 };

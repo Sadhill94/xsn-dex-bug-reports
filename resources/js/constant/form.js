@@ -1,3 +1,6 @@
+export const DEX_WALLET_GITHUB_REPO_URL =
+  'https://api.github.com/repos/X9Developers/stakenet-light-wallet/releases';
+
 export const CATEGORY_ID_FIELD_KEY = 'category_id';
 export const STATUS_ID_FIELD_KEY = 'status_id';
 export const FILES_FIELD_KEY = 'files';
