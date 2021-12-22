@@ -6,8 +6,8 @@ const Notificator = {
     Vue.prototype.$displayNotification = function ({
       message,
       type = 'info',
-      duration = 3500,
-      position = POSITION.TOP_CENTER,
+      duration = 2000,
+      position = POSITION.BOTTOM_CENTER,
     }) {
       Vue.$toast(message, {
         timeout: duration,

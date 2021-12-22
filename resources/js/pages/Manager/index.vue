@@ -58,9 +58,7 @@ export default {
     },
 
     deleteIssue(issueId) {
-      const notification = {
-        duration: 1500,
-      };
+      const notification = {};
       axios
         .delete(`${ROUTES.issues.url}/${issueId}`)
         .then(() => {

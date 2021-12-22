@@ -219,6 +219,7 @@ export default {
           this.$displayNotification({
             message: `Error while trying to refresh the data. Retry and in case contact @Sadhill : ${err.response.statusText}`,
             type: 'error',
+            duration: 3500,
           });
         });
     },

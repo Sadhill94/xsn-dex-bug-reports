@@ -54,8 +54,6 @@ export default {
       navigator.clipboard.writeText(path);
       this.$displayNotification({
         message: 'Copied to clipboard!',
-        timeout: 1500,
-        position: POSITION.BOTTOM_CENTER,
       });
     },
   },
