@@ -19,8 +19,7 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
 
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware('guest');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
@@ -34,17 +33,14 @@ Route::group(['prefix' => 'manager'], function() {
 });
 
 Route::get('/contribute', [IssueController::class, 'contributors'])
-    ->middleware('guest')
     ->name('contribute');
 
 
 Route::get('/', [IssueController::class, 'public_active'])
-    ->middleware('guest')
     ->name('home');
 
 Route::group(['prefix' => 'report-a-bug'], function(){
     Route::get('/', [IssueController::class, 'showReportBug'])
-        ->middleware('guest')
         ->name('bug-report');
 });
 
@@ -54,7 +50,6 @@ Route::group(['prefix' => 'issues'], function(){
         ->name('list-issues');
 
     Route::post('/create', [IssueController::class, 'create'])
-        ->middleware('guest')
         ->name('create-issue');
 
     Route::post('/edit', [IssueController::class, 'edit'])
