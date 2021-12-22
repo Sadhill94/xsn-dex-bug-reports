@@ -1,6 +1,5 @@
 require('./bootstrap');
 require('./plugins/vue-toastification');
-require('./plugins/aos');
 require('./plugins/notificator');
 require('./plugins/file-agent');
 

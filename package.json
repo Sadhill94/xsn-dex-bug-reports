@@ -49,14 +49,12 @@
     "vue": "^2.6.12",
     "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.12",
-    "vue-toastification": "^1.7.14"
+    "vue-toastification": "^1.7.14",
+      "vue-file-agent": "^1.7.3"
   },
   "dependencies": {
     "@inertiajs/inertia": "^0.10.1",
     "@inertiajs/inertia-vue": "^0.7.2",
-    "@inertiajs/progress": "^0.2.6",
-    "aos": "^3.0.0-beta.6",
-    "vue-file-agent": "^1.7.3",
-    "vuetify": "^2.5.8"
+    "@inertiajs/progress": "^0.2.6"
   }
 }

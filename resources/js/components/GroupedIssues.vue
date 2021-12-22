@@ -15,9 +15,6 @@
         <div
           v-for="(issue, index) in getCurrentSelectedIssuesStatus"
           :key="issue.id"
-          data-aos="fade-up"
-          data-aos-duration="500"
-          :data-aos-delay="index * 150"
           class="w-full md:w-1/2 xl:w-1/3 p-6 lg:p-8"
         >
           <issue-card :item="issue" class="h-full" />

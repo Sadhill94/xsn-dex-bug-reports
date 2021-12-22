@@ -23,10 +23,10 @@ class Category extends Model
 
     public function issuesForContributors(): Collection
     {
-        $status = Status::where('name', '=',Config::get('constants.statuses.to_validate'))->first();
+        $invalid_status = Status::where('name', '=',Config::get('constants.statuses.to_validate'))->first();
         return $this->hasMany(Issue::class)
             ->with('status')
-            ->where('status_id', '!=', $status->id)
+            ->where('status_id', '!=', $invalid_status->id)
             ->orderBy('created_at', 'DESC')
             ->get();
     }
