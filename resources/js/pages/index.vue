@@ -16,9 +16,16 @@
       <br class="hidden lg:block" />
     </div>
     <div class="brand-container brand-container--lg text-center">
-      <a href="#reported-issues" class="btn btn--tertiary btn--large">
-        See reported issues
-      </a>
+      <div
+        class="flex flex-col md:flex-row items-center md:justify-between max-w-2xl md:max-w-5xl mx-auto space-y-8 md:space-y-0 md:space-x-32"
+      >
+        <a href="#reported-issues" class="btn btn--tertiary btn--large">
+          See reported issues
+        </a>
+        <Link :href="route('bug-report')" class="btn btn--danger btn--large">
+          Report a bug
+        </Link>
+      </div>
     </div>
     <br class="lg:hidden" />
     <br />

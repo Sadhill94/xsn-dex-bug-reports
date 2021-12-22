@@ -24,6 +24,10 @@
         @apply bg-quaternary;
     }
 
+    &--danger {
+        @apply bg-red-500;
+    }
+
     &--small {
         @apply p-2 text-body-md;
     }
