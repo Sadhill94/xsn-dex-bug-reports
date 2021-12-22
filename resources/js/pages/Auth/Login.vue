@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen flex flex-col items-center justify-center">
+  <section class="min-h-screen flex flex-col items-center justify-center p-12">
     <div v-show="Object.keys(errors).length > 0" class="mb-24">
       <ul class="space-y-4">
         <li v-for="(err, index) in errors" :key="index" class="text-red-600 h5">
@@ -34,6 +34,9 @@
           Submit
         </button>
       </div>
+    </div>
+    <div class="text-center mt-20 md:mt-32">
+      <Link class="btn btn--tertiary" href="/"> Back to home </Link>
     </div>
   </section>
 </template>

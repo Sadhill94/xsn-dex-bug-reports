@@ -25,7 +25,7 @@
 
           <!-- Footer links -->
           <div
-            class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 xl:mt-0 xl:col-span-2"
+            class="md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 xl:mt-0 xl:col-span-2"
           >
             <div
               class="sm:grid sm:grid-cols-2 md:gap-8 col-span-1 md:col-span-2"
