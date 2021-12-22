@@ -38,6 +38,7 @@ class IssuesRepository
     {
         return Issue::whereNotIn($property, $arr)
             ->with(['category', 'status'])
+            ->orderBy('created_at', 'DESC')
             ->get();
     }
 

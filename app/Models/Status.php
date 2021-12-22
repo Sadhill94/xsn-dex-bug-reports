@@ -28,6 +28,7 @@ class Status extends Model
         return $this->hasMany(Issue::class)
             ->with('category')
             ->where('status_id', '!=', $status->id)
+            ->orderBy('created_at', 'DESC')
             ->get();
     }
 }
