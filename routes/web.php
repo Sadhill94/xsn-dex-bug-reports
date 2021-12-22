@@ -34,23 +34,27 @@ Route::group(['prefix' => 'manager'], function() {
 });
 
 Route::get('/contribute', [IssueController::class, 'contributors'])
+    ->middleware('guest')
     ->name('contribute');
 
 
 Route::get('/', [IssueController::class, 'public_active'])
+    ->middleware('guest')
     ->name('home');
 
 Route::group(['prefix' => 'report-a-bug'], function(){
     Route::get('/', [IssueController::class, 'showReportBug'])
+        ->middleware('guest')
         ->name('bug-report');
 });
 
 Route::group(['prefix' => 'issues'], function(){
     Route::get('/', [IssueController::class, 'list'])
+        ->middleware('guest')
         ->name('list-issues');
 
     Route::post('/create', [IssueController::class, 'create'])
-        ->middleware('auth')
+        ->middleware('guest')
         ->name('create-issue');
 
     Route::post('/edit', [IssueController::class, 'edit'])
