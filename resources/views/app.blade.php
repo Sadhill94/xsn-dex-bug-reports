@@ -6,6 +6,7 @@
     <meta name="description" content="Report and browse issues of the Stakenet DEX ">
     <title inertia>{{ config('app.name', 'Stakenet DEX bug reports') }}</title>
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="36x36" href="/favicon-36x36.png">
     <script src="{{ mix('/js/app.js') }}" defer></script>
     @routes
   </head>
