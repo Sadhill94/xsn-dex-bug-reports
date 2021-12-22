@@ -45,10 +45,11 @@
       />
 
       <!-- MAIN content -->
-      <main class="flex-1">
+      <main class="flex-1 min-h-screen">
         <navbar class="hidden md:block mb-12 bg-primary" :on-dashboard="true" />
         <slot />
       </main>
+      <brand-footer />
     </div>
   </div>
 </template>
@@ -59,10 +60,12 @@ import DesktopSidebar from '@/components/Dashboard/DesktopSidebar';
 import MobileSidebar from '@/components/Dashboard/MobileSidebar';
 import MobileDashboardNavbar from '@/components/Dashboard/MobileDashboardNavbar';
 import NavFiltersList from '@/components/Dashboard/NavFiltersList';
+import BrandFooter from '@/components/BrandFooter';
 
 export default {
   name: 'DashboardLayout',
   components: {
+    BrandFooter,
     NavFiltersList,
     MobileDashboardNavbar,
     MobileSidebar,

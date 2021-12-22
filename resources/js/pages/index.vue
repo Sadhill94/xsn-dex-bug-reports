@@ -26,7 +26,7 @@
       <h2 class="mb-8">Where to find your logs</h2>
       <find-logs-info-list />
     </div>
-    <div class="brand-container brand-container--xxl lg:pt-24 pb-24">
+    <div class="brand-container brand-container--xxl pb-12 lg:pt-24">
       <h2 id="reported-issues" class="mb-8">Reported issues</h2>
       <grouped-issues :items="issues" />
     </div>

@@ -7,7 +7,10 @@
         :active-tab="currentSelectedStatus"
       />
     </div>
-    <div class="grouped-issues-container h-px">
+    <div
+      class="grouped-issues-container"
+      :class="getCurrentSelectedIssuesStatus.length < 1 && 'h-px'"
+    >
       <div
         v-if="getCurrentSelectedIssuesStatus.length > 0"
         class="flex justify-center md:justify-between items-stretch flex-wrap pt-6"
