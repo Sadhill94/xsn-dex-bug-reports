@@ -42,7 +42,7 @@
           <div class="flex-shrink-0 flex items-center px-4 pb-6">
             <Link :href="route('home')">
               <img
-                class="h-auto w-16"
+                class="h-auto w-20"
                 src="/images/xsn-logo.png"
                 alt="xsn logo"
               />

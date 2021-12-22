@@ -21,7 +21,7 @@
       <div class="absolute">
         <Link :href="route('home')">
           <img
-            class="block lg:hidden w-32 h-auto"
+            class="block lg:hidden w-28 h-auto"
             src="/images/xsn-logo.png"
             alt="xsn logo"
           />

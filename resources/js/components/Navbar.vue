@@ -55,7 +55,7 @@
           <div class="flex-shrink-0 flex items-center">
             <Link :href="route('home')">
               <img
-                class="hidden lg:block w-32 h-auto"
+                class="hidden lg:block w-28 h-auto"
                 src="/images/xsn-logo.png"
                 alt="xsn logo"
               />
