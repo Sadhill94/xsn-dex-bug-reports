@@ -46,7 +46,7 @@ Route::group(['prefix' => 'report-a-bug'], function(){
 
 Route::group(['prefix' => 'issues'], function(){
     Route::get('/', [IssueController::class, 'list'])
-        ->middleware('guest')
+        ->middleware('auth')
         ->name('list-issues');
 
     Route::post('/create', [IssueController::class, 'create'])
