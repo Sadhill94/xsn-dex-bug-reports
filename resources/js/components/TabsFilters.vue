@@ -11,7 +11,7 @@
     </div>
     <div class="hidden sm:block">
       <div class="border-b border-tertiary">
-        <nav class="-mb-px flex space-x-8 text-center" aria-label="Tabs">
+        <nav class="-mb-px flex text-center" aria-label="Tabs">
           <button
             v-for="tab in tabs"
             :key="tab.name"
