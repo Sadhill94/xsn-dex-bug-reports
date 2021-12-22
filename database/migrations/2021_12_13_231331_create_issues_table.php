@@ -21,7 +21,7 @@ class CreateIssuesTable extends Migration
             $table->text('steps_to_reproduce');
             $table->text('extra_infos')->nullable();
             $table->text('user_discord_id')->nullable();
-            $table->text('github_link')->default('');
+            $table->text('github_link')->nullable();
             $table->uuid('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->uuid('category_id');

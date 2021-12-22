@@ -50,6 +50,11 @@ export default {
     },
   },
 
+  mounted() {
+    //debug for production test
+    console.log('issue =>', this.item);
+  },
+
   filters: {
     humanizeDate(value) {
       return formatDate(value);
