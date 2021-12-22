@@ -52,6 +52,7 @@
                 <div v-else-if="field.type === 'files'" class="w-full">
                   <file-uploader
                     v-if="isPublicPage"
+                    :has-submitted="hasSubmitted"
                     @onFilesChange="formFieldsValues[field.key] = $event"
                   />
                   <div v-else-if="!isPublicPage">
@@ -157,6 +158,7 @@ export default {
       fieldsWithErrors: [],
       formFieldsValues: {},
       isLoading: false,
+      hasSubmitted: false,
       latestDexVersion: '',
     };
   },
@@ -298,9 +300,10 @@ export default {
             this.$emit('onEditCardSuccess');
           } else {
             // ux detail
+            this.hasSubmitted = true;
             setTimeout(() => {
               this.resetFormValues();
-            }, 1000);
+            }, 600);
           }
         })
         .catch((err) => {
@@ -326,6 +329,7 @@ export default {
       this.formFieldsValues = _.cloneDeep(DEFAULT_FORM_FIELDS_VALUES);
       this.setCategoriesOptions();
       this.setDefaultCategory();
+      this.hasSubmitted = false;
     },
 
     /**

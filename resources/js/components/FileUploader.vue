@@ -38,6 +38,13 @@ const FILE_UPLOADER_CONFIG = {
 export default {
   name: 'FileUploader',
 
+  props: {
+    hasSubmitted: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   data() {
     return {
       fileRecords: [],
@@ -56,6 +63,12 @@ export default {
       handler(val) {
         this.$emit('onFilesChange', val);
       },
+    },
+    hasSubmitted(newVal) {
+      console.log('HAS SUBMITTED NEW VAL', newVal);
+      if (newVal) {
+        this.fileRecords = [];
+      }
     },
   },
   methods: {
