@@ -20,7 +20,7 @@ new Vue({
   render: (h) =>
     h(InertiaApp, {
       props: {
-        title: (title) => `${title} - XSN BUG REPORTS`,
+        title: 'Stakenet DEX bug reports',
         initialPage: JSON.parse(app.dataset.page),
         resolveComponent: (name) => require(`./pages/${name}`).default,
       },

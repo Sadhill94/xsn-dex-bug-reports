@@ -5,7 +5,7 @@
     <div
       v-for="(issue, index) in items"
       :key="issue.id"
-      class="w-full lg:w-1/2 xl:w-1/3 p-6 lg:p-8 relative"
+      class="w-full sm:w-9/12 md:w-full lg:w-1/2 xl:w-1/3 p-6 lg:p-8 relative"
     >
       <issue-card :item="issue" class="h-full">
         <div class="text-center pt-24 lg:pt-20 w-full mx-auto">

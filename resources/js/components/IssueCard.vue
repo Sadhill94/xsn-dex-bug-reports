@@ -21,7 +21,8 @@
       <a
         :href="item.github_link"
         target="_blank"
-        class="flex justify-center items-center hover:opacity-50 transition-opacity duration-200"
+        rel="noreferrer noopener"
+        class="inline-flex justify-center items-center hover:opacity-50 transition-opacity duration-200"
         >View in Github
         <img src="/images/external-link.png" class="w-6 ml-3" />
       </a>

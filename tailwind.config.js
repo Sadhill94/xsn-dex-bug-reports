@@ -39,7 +39,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#090d1c', // darker
-        secondary: '#0f1223', // lighter
+        secondary: '#1b2037', // lighter
         tertiary: '#989dcc',
         quaternary: '#818CF8',
       },

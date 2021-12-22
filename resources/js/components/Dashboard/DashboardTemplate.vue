@@ -14,7 +14,7 @@
       <a
         href="https://github.com/X9Developers/stakenet-light-wallet"
         target="_blank"
-        class="h4 mb-0 flex items-center hover:opacity-70 transition-opacity duration-200"
+        class="h4 mb-0 inline-flex items-center hover:opacity-70 transition-opacity duration-200"
         >Github repository
         <img src="/images/external-link.png" class="w-8 ml-3" />
       </a>
