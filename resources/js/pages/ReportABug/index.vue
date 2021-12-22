@@ -1,5 +1,5 @@
 <template>
-  <app-layout class="pb-24">
+  <app-layout>
     <div class="brand-container brand-container--lg">
       <h1>Report a bug</h1>
       <p>
