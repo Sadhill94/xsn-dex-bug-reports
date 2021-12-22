@@ -1,3 +1,5 @@
+export const MANAGER_ROUTE_NAME = 'manage';
+
 export const ROUTES = {
   home: {
     routeName: 'home',
@@ -15,7 +17,7 @@ export const ROUTES = {
   },
 
   manager: {
-    routeName: 'manage',
+    routeName: MANAGER_ROUTE_NAME,
     url: '/manager/dashboard',
   },
 

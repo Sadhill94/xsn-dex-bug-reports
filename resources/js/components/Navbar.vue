@@ -99,6 +99,7 @@
 
 <script>
 import { NAV_LINKS } from '@/constant/navbar';
+import { MANAGER_ROUTE_NAME } from '@/constant/routes';
 
 export default {
   name: 'Navbar',
@@ -126,9 +127,9 @@ export default {
   },
   methods: {
     shouldShowLink(routeName) {
-      if (routeName === 'dashboard' && this.hasDashboardAccess) {
+      if (routeName === MANAGER_ROUTE_NAME && this.hasDashboardAccess) {
         return true;
-      } else if (routeName === 'dashboard' && !this.hasDashboardAccess) {
+      } else if (routeName === MANAGER_ROUTE_NAME && !this.hasDashboardAccess) {
         return false;
       }
       return true;

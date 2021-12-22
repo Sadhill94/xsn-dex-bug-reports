@@ -9,8 +9,8 @@
           <div class="hidden xl:block space-y-4 xl:col-span-1 self-center">
             <p class="text-gray-400 mb-0">Enjoyed your visit ?</p>
             <p class="text-gray-400 pr-12">
-              If you want to support a lost soul (named Sadhill), that made this
-              website :
+              If you want to support the lost soul (named Sadhill), that made
+              this website :
             </p>
             <p class="text-gray-400">
               XSN:
@@ -69,7 +69,7 @@
             <div class="xl:hidden md:col-span-3 space-y-4 md:mt-6">
               <p class="text-gray-400 mb-0">Enjoyed your visit ?</p>
               <p class="text-gray-400 max-w-lg sm:max-w-3xl md:max-w-7xl">
-                If you want to support a lost soul (named Sadhill), that made
+                If you want to support the lost soul (named Sadhill), that made
                 this website :
               </p>
               <p class="text-gray-400">
