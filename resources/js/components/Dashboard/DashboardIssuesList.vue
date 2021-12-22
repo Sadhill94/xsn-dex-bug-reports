@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="items.length > 0"
     class="flex justify-center md:justify-between items-stretch flex-wrap pt-6 z-0"
   >
     <div
@@ -21,6 +20,13 @@
           </button>
         </div>
       </issue-card>
+    </div>
+    <div
+      v-show="items.length < 1"
+      class="flex justify-center items-center w-full"
+      style="min-height: 20rem"
+    >
+      <h4>No issues matching this filter</h4>
     </div>
   </div>
 </template>

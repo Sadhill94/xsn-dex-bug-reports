@@ -11,6 +11,13 @@
       <h1 class="text-2xl font-semibold text-tertiary mb-0 leading-loose">
         {{ `Dashboard ${isManagerDashboardPage ? '- Manager' : ''}` }}
       </h1>
+      <a
+        href="https://github.com/X9Developers/stakenet-light-wallet"
+        target="_blank"
+        class="h4 mb-0 flex items-center hover:opacity-70 transition-opacity duration-200"
+        >Github repository
+        <img src="/images/external-link.png" class="w-8 ml-3" />
+      </a>
       <div class="sticky pt-6 pb-3 top-0 bg-primary z-10 md:hidden">
         <h4 class="uppercase tracking-wider">
           {{ currentFilteredView.filterId }}
@@ -150,9 +157,6 @@ export default {
         return [];
       }
 
-      if (relatedItems.length < 1) {
-        return this.allIssues;
-      }
       return relatedItems;
     },
 

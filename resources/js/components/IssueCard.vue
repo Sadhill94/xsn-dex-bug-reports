@@ -18,9 +18,13 @@
       />
     </div>
     <div class="text-center pt-5" v-if="item.github_link">
-      <a :href="item.github_link" class="font-bold hover:text-secondary"
-        >View in Github</a
-      >
+      <a
+        :href="item.github_link"
+        target="_blank"
+        class="flex justify-center items-center hover:opacity-50 transition-opacity duration-200"
+        >View in Github
+        <img src="/images/external-link.png" class="w-6 ml-3" />
+      </a>
     </div>
     <div>
       <slot />

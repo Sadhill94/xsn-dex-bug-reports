@@ -1,6 +1,7 @@
 export const CATEGORY_ID_FIELD_KEY = 'category_id';
 export const STATUS_ID_FIELD_KEY = 'status_id';
 export const FILES_FIELD_KEY = 'files';
+export const VERSION_FIELD_KEY = 'version';
 
 export const FORM_METHODS = {
   create: 'create',
@@ -10,14 +11,14 @@ export const FORM_METHODS = {
 export const DEFAULT_FORM_FIELDS_VALUES = {
   description: '',
   os: 'Windows',
-  version: '',
+  [VERSION_FIELD_KEY]: '',
   steps_to_reproduce: '',
-  category_id: '',
+  [CATEGORY_ID_FIELD_KEY]: '',
   user_discord_id: '',
   extra_infos: '',
-  status_id: '',
+  [STATUS_ID_FIELD_KEY]: '',
   github_link: '',
-  files: [],
+  [FILES_FIELD_KEY]: [],
 };
 
 export const REPORT_BUG_FORM_FIELDS = [
@@ -52,7 +53,7 @@ export const REPORT_BUG_FORM_FIELDS = [
     isRequired: true,
   },
   {
-    key: 'version',
+    key: VERSION_FIELD_KEY,
     label: 'DEX version',
     type: 'text',
     isRequired: true,
