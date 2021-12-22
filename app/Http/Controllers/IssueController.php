@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Services\IssuesService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class IssueController extends Controller
 {
@@ -17,12 +18,17 @@ class IssueController extends Controller
     }
 
 
-    public function contributors()
+    /**
+     * Get the issues formatted and render the contributors view
+     * @return Response
+     */
+    public function contributors(): Response
     {
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatusesForContributors();
-        $issues = $this->issuesService->getIssuesForContributors();
-        $categories = $this->issuesService->getAllIssueCategories();
-        $statuses = $this->issuesService->getAllIssueStatuses();
+        $issues = $this->issuesService->getOnlyContributorIssues();
+
+        $categories = $this->issuesService->getCategories();
+        $statuses = $this->issuesService->getStatuses();
 
         return Inertia::render('Contribute/index', [
             'issues' => $issues,
@@ -32,12 +38,16 @@ class IssueController extends Controller
         ]);
     }
 
-    public function manager(Request $request)
+    /**
+     * Get the issues formatted and render the manager view
+     * @return Response
+     */
+    public function manager(): Response
     {
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
         $issues = $this->issuesService->getAllIssues();
-        $categories = $this->issuesService->getAllIssueCategories();
-        $statuses = $this->issuesService->getAllIssueStatuses();
+        $categories = $this->issuesService->getCategories();
+        $statuses = $this->issuesService->getStatuses();
 
         return Inertia::render('Manager/index', [
             'issues' => $issues,
@@ -47,12 +57,15 @@ class IssueController extends Controller
         ]);
     }
 
+    /**
+     * Get the issues filtered without rendering a view
+     */
     public function list()
     {
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
         $issues = $this->issuesService->getAllIssues();
-        $categories = $this->issuesService->getAllIssueCategories();
-        $statuses = $this->issuesService->getAllIssueStatuses();
+        $categories = $this->issuesService->getCategories();
+        $statuses = $this->issuesService->getStatuses();
 
         return response([
             'issues' => $issues,
@@ -62,22 +75,36 @@ class IssueController extends Controller
         ]);
     }
 
-   public function public_active()
-   {
+    /**
+    * Get public issues and return the home view
+    * @return Response
+    */
+    public function public_active(): Response
+    {
        $public_issues = $this->issuesService->getOnlyPublicIssues();
 
        return Inertia::render('index', [
            'issues' => $public_issues
        ]);
-   }
+    }
 
-    public function showReportBug()
+    /**
+    * Get the categories needed for the report page and render the view
+    * @return Response
+    */
+    public function showReportBug(): Response
     {
         return Inertia::render('ReportABug/index', [
             'categories' => Category::all()
         ]);
     }
 
+    /**
+    * Create an issue
+    * Validate the files(if any) extensions
+    * Sto
+    * @param Request $request
+    */
     public function create(Request $request)
     {
         $allowed_extensions = ['jpeg', 'jpg', 'png', 'gif', 'log', 'txt'];
@@ -113,6 +140,11 @@ class IssueController extends Controller
         ]);
     }
 
+    /**
+    * Edit an issue
+    * Files aren't allowed for edit the original issue
+    * @param Request $request
+    */
     public function edit(Request $request)
     {
         request()->validate([

@@ -41,18 +41,6 @@ class IssuesRepository
             ->get();
     }
 
-   public function createFile($fileName, $filePath, $issueId)
-    {
-        $fileModel = new File();
-        $fileModel->name = $fileName;
-        $fileModel->file_path = '/storage/'.$filePath;
-        $fileModel->issue_id = $issueId;
-
-        $fileModel->save();
-
-        return File::find($fileModel->id);
-    }
-
     public function create($data)
     {
         $issue = new Issue();
@@ -99,5 +87,17 @@ class IssuesRepository
         } catch(Exception $ex) {
             return 1;
         }
+    }
+
+    public function createFile($fileName, $filePath, $issueId)
+    {
+        $fileModel = new File();
+        $fileModel->name = $fileName;
+        $fileModel->file_path = '/storage/'.$filePath;
+        $fileModel->issue_id = $issueId;
+
+        $fileModel->save();
+
+        return File::find($fileModel->id);
     }
 }
