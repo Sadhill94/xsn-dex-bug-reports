@@ -14,6 +14,7 @@ export const FORM_METHODS = {
 export const DEFAULT_FORM_FIELDS_VALUES = {
   description: '',
   os: 'Windows',
+  os_distribution: '',
   [VERSION_FIELD_KEY]: '',
   steps_to_reproduce: '',
   [CATEGORY_ID_FIELD_KEY]: '',
@@ -54,6 +55,12 @@ export const REPORT_BUG_FORM_FIELDS = [
       },
     ],
     isRequired: true,
+  },
+  {
+    key: 'os_distribution',
+    label: 'OS distribution',
+    type: 'text',
+    isRequired: false,
   },
   {
     key: VERSION_FIELD_KEY,

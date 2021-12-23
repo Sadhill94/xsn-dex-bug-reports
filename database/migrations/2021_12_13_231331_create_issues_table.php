@@ -17,6 +17,7 @@ class CreateIssuesTable extends Migration
             $table->uuid('id')->primary();
             $table->text('description');
             $table->text('os');
+            $table->text('os_distribution')->nullable();
             $table->text('version');
             $table->text('steps_to_reproduce');
             $table->text('extra_infos')->nullable();
