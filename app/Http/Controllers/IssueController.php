@@ -122,7 +122,7 @@ class IssueController extends Controller
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
             'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000|size:2000'],
-            'files' => ['max:1'],
+            'files' => ['max:4'],
         ], $messages);
 
         $data = $request->post();
