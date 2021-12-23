@@ -17,7 +17,7 @@
         class="w-44 lg:w-56"
       />
     </div>
-    <div class="text-center pt-5" v-if="item.github_link">
+    <div class="text-center pt-5" v-if="hasGithubLink">
       <a
         :href="item.github_link"
         target="_blank"
@@ -50,9 +50,14 @@ export default {
     },
   },
 
-  mounted() {
-    //debug for production test
-    console.log('issue =>', this.item);
+  computed: {
+    hasGithubLink() {
+      if (this.issue.github_link) {
+        // backend production env has this value
+        return this.issue.github_link !== 'null';
+      }
+      return false;
+    },
   },
 
   filters: {
