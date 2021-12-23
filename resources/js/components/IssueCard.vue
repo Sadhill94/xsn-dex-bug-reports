@@ -52,9 +52,9 @@ export default {
 
   computed: {
     hasGithubLink() {
-      if (this.issue.github_link) {
+      if (this.item?.github_link) {
         // backend production env has this value
-        return this.issue.github_link !== 'null';
+        return this.item.github_link !== 'null';
       }
       return false;
     },
