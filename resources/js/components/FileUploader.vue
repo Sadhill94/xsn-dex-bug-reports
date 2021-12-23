@@ -65,7 +65,6 @@ export default {
       },
     },
     hasSubmitted(newVal) {
-      console.log('HAS SUBMITTED NEW VAL', newVal);
       if (newVal) {
         this.fileRecords = [];
       }

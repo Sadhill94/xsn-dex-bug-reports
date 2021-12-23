@@ -99,7 +99,6 @@
 <script>
 import { SOCIALS, LEGALS } from '@/constant/footerLinks';
 import FooterLink from '@/components/FooterLink';
-import { POSITION } from 'vue-toastification';
 
 const XSN_ADDRESS = '7T7spTX1K7KjZWDnDs4QrUKDJ1nHRTVQgM';
 

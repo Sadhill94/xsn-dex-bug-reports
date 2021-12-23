@@ -53,14 +53,6 @@ export default {
       },
     };
   },
-  watch: {
-    errors: {
-      deep: true,
-      handler(val) {
-        console.log('val', val);
-      },
-    },
-  },
   methods: {
     handleSubmit() {
       try {

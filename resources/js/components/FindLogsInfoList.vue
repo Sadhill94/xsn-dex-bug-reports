@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import { POSITION } from 'vue-toastification';
 import { OS_LIST } from '@/constant/osList';
 
 export default {

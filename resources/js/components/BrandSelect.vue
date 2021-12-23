@@ -51,7 +51,6 @@ export default {
 
   watch: {
     value(newValue) {
-      console.log('NEW VALUE');
       if (newValue) {
         this.localValue = newValue;
       }
