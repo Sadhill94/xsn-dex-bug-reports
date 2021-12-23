@@ -26,12 +26,14 @@ class IssueFactory extends Factory
         return [
             'description' => $this->faker->text(rand(25,70)),
             'os' => $this->osVersions[rand(0, 2)],
-            'version' => '4.3.2',
-            'steps_to_reproduce' => $this->faker->text(rand(80,120)),
+            'version' => '0.4.4.0',
+            'steps_to_reproduce' => $this->faker->text(rand(120,240)),
             'user_discord_id' => $this->faker->userName,
-            'extra_infos' => $this->faker->text(rand(30, 90)),
+            'github_link' => rand(1, 4) == 3 ? $this->faker->url : null,
+            'extra_infos' => $this->faker->text(rand(50, 90)),
             'status_id' => Status::inRandomOrder()->first(),
-            'category_id' => Category::inRandomOrder()->first()
+            'category_id' => Category::inRandomOrder()->first(),
+            'created_at' => $this->faker->dateTimeThisMonth()
         ];
     }
 }
