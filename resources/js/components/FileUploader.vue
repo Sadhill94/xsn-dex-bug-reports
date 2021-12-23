@@ -11,10 +11,7 @@
       :maxSize="fileConfig.maxSize"
       :maxFiles="fileConfig.maxFiles"
       :helpText="fileConfig.helpText"
-      :errorText="{
-        type: 'Invalid file type. Only images or zip Allowed',
-        size: 'Files should not exceed 10MB in size',
-      }"
+      :errorText="fileConfig.errorText"
       @beforedelete="onBeforeDelete($event)"
       @delete="fileDeleted($event)"
       v-model="fileRecords"
@@ -26,13 +23,13 @@
 const FILE_UPLOADER_CONFIG = {
   theme: 'list',
   accept: '.jpeg, .jpg, .png, .gif, .log, .txt',
-  maxSize: '10MB',
-  maxFiles: 6,
+  maxSize: '2MB',
+  maxFiles: 4,
   helpText: 'Load your logs or screenshots',
   errorText: {
     type:
       'Invalid file type. Only .jpeg, .jpg, .png, .gif, .log or .txt allowed',
-    size: 'Files too heavy.',
+    size: 'File too heavy. 2MB/file max',
   },
 };
 export default {

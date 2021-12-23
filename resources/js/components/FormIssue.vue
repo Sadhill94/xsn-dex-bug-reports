@@ -18,18 +18,13 @@
               v-for="field in formFields"
               :key="field.key"
               class="form-group"
+              :additional-infos="field.additionalInfos"
               :class="
                 field.isRequired && hasError(field.key) ? 'has-error' : ''
               "
             >
               <template slot="label"
                 >{{ field.label }} {{ field.isRequired ? '*' : '' }}
-                <p
-                  v-if="field.key === 'version'"
-                  class="caption-lg font-normal"
-                >
-                  Latest: {{ latestDexVersion }}
-                </p>
               </template>
               <template slot="inputs">
                 <textarea
@@ -110,6 +105,7 @@ import {
   PRIVATE_BUG_FORM_FIELDS,
   REPORT_BUG_FORM_FIELDS,
   STATUS_ID_FIELD_KEY,
+  VERSION_FIELD_KEY,
 } from '@/constant/form';
 import { ROUTES } from '@/constant/routes';
 import FileUploader from '@/components/FileUploader';
@@ -371,7 +367,27 @@ export default {
 
     async getLatestDexVersion() {
       axios.get(DEX_WALLET_GITHUB_REPO_URL).then((res) => {
-        this.latestDexVersion = res.data[0]?.tag_name;
+        this.setLastDexVersionValueAndAsAdditionalInfos(
+          res.data[0]?.tag_name || 'unknown'
+        );
+      });
+    },
+
+    setLastDexVersionValueAndAsAdditionalInfos(dexVersionAdditionalInfo) {
+      // set additional info for dex version
+      this.formFields = this.formFields.map((field) => {
+        if (field.key === VERSION_FIELD_KEY) {
+          const additionalInfos = [`Latest: ${dexVersionAdditionalInfo}`];
+          return { ...field, additionalInfos };
+        }
+        return field;
+      });
+
+      // fill the default value for dex version
+      Object.keys(this.formFieldsValues).forEach((fieldKey) => {
+        if (fieldKey === VERSION_FIELD_KEY) {
+          this.formFieldsValues[fieldKey] = dexVersionAdditionalInfo;
+        }
       });
     },
   },

@@ -59,6 +59,7 @@ export const REPORT_BUG_FORM_FIELDS = [
   {
     key: 'os_distribution',
     label: 'OS distribution',
+    additionalInfos: ['Fedora, Ubuntu, Sierra, ...'],
     type: 'text',
     isRequired: false,
   },
@@ -89,6 +90,10 @@ export const REPORT_BUG_FORM_FIELDS = [
   {
     key: FILES_FIELD_KEY,
     label: 'Files',
+    additionalInfos: [
+      'Authorized formats: log, txt, jpg, jpeg, png, gifs',
+      '4 files maximum per reports and each file size of 2MB maximum',
+    ],
     type: 'files',
     isRequired: false,
   },
