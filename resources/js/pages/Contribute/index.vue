@@ -1,37 +1,11 @@
 <template>
-  <dashboard-template
-    :issues_by_filter="issues_by_filter"
-    :issues="issues"
-    :categories="categories"
-    :statuses="statuses"
-  >
-  </dashboard-template>
+  <section class="min-h-screen max-h-screen flex justify-center items-center">
+    <h1 class="uppercase">Coming soon</h1>
+  </section>
 </template>
+
 <script>
-import DashboardTemplate from '@/components/Dashboard/DashboardTemplate';
-
 export default {
-  components: {
-    DashboardTemplate,
-  },
-
-  props: {
-    issues_by_filter: {
-      type: Object,
-      default: () => null,
-    },
-    issues: {
-      type: Array,
-      default: () => [],
-    },
-    categories: {
-      type: Array,
-      default: () => [],
-    },
-    statuses: {
-      type: Array,
-      default: () => [],
-    },
-  },
+  name: 'index',
 };
 </script>

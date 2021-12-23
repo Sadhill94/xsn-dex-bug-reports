@@ -11,6 +11,11 @@ export const ROUTES = {
     url: '/report-a-bug',
   },
 
+  dashboard: {
+    routeName: 'dashboard',
+    url: '/dashboard',
+  },
+
   contribute: {
     routeName: 'contribute',
     url: '/contribute',

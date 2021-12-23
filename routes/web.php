@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\IssueController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,16 +33,20 @@ Route::group(['prefix' => 'manager'], function() {
     ->name('manage');
 });
 
-Route::get('/contribute', [IssueController::class, 'contributors'])
-    ->name('contribute');
 
+Route::group(['prefix' => '/'], function() {
+    Route::get('/', [IssueController::class, 'public_active'])
+        ->name('home');
 
-Route::get('/', [IssueController::class, 'public_active'])
-    ->name('home');
-
-Route::group(['prefix' => 'report-a-bug'], function(){
-    Route::get('/', [IssueController::class, 'showReportBug'])
+    Route::get('report-a-bug', [IssueController::class, 'showReportBug'])
         ->name('bug-report');
+
+    Route::get('dashboard', [IssueController::class, 'contributors'])
+        ->name('dashboard');
+
+    Route::get('contribute', function(){
+        return Inertia::render('Contribute/index');
+    })->name('contribute');
 });
 
 Route::group(['prefix' => 'issues'], function(){

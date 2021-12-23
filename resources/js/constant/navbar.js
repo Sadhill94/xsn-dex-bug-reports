@@ -10,11 +10,15 @@ export const NAV_LINKS = [
     ...ROUTES.bugReport,
   },
   {
+    name: 'Dashboard',
+    ...ROUTES.dashboard,
+  },
+  {
     name: 'Contribute',
     ...ROUTES.contribute,
   },
   {
-    name: 'Dashboard',
+    name: 'DEX Dashboard',
     ...ROUTES.manager,
   },
 ];
