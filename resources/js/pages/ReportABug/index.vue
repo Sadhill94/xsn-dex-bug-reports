@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="brand-container brand-container--lg lg:pt-24">
-      <form-issue :categories="categories" />
+      <form-issue :categories="categories" :is-read-only="false" />
     </div>
   </app-layout>
 </template>

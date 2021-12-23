@@ -132,11 +132,6 @@ export default {
       default: true,
     },
 
-    isManager: {
-      type: Boolean,
-      default: false,
-    },
-
     issue: {
       type: Object,
       default: null,
@@ -145,6 +140,11 @@ export default {
     method: {
       type: String,
       default: FORM_METHODS.create,
+    },
+
+    isReadOnly: {
+      type: Boolean,
+      default: true,
     },
   },
 
@@ -176,9 +176,6 @@ export default {
   computed: {
     FORM_METHODS() {
       return FORM_METHODS;
-    },
-    isReadOnly() {
-      return !location?.pathname?.includes('/manager/dashboard');
     },
   },
 

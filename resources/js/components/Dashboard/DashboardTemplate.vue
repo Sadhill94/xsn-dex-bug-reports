@@ -7,18 +7,29 @@
     @onKanbanViewClick="handleKanbanViewClick"
     @onAllViewClick="handleAllViewClick"
   >
-    <div class="px-6 md:px-12 xl:px-20">
-      <h1 class="text-2xl font-semibold text-tertiary mb-0 leading-loose">
-        {{ `Dashboard ${isManagerDashboardPage ? '- Manager' : ''}` }}
-      </h1>
-      <a
-        href="https://github.com/X9Developers/stakenet-light-wallet"
-        target="_blank"
-        class="h4 mb-0 inline-flex items-center hover:opacity-70 transition-opacity duration-200"
-        >Github repository
-        <img src="/images/external-link.png" class="w-8 ml-3" />
-      </a>
-      <div class="sticky pt-6 pb-3 top-0 bg-primary z-10 md:hidden">
+    <div class="pt-16 lg:pt-0 px-6 md:px-12 xl:px-20">
+      <div
+        class="flex flex-col lg:flex-row lg:items-center justify-between px-8 flex-wrap"
+      >
+        <h1 class="text-2xl font-semibold text-tertiary mb-0">
+          {{ `Dashboard ${isManagerDashboardPage ? '- Manager' : ''}` }}
+        </h1>
+        <a
+          href="https://github.com/X9Developers/stakenet-light-wallet"
+          target="_blank"
+          class="h4 mb-8 md:mb-0 mt-4 lg:mt-0 inline-flex items-center hover:opacity-70 transition-opacity duration-200"
+          >Github repository
+          <img src="/images/external-link.png" class="w-8 ml-3" />
+        </a>
+      </div>
+
+      <h2
+        class="hidden md:inline-block text-white mb-0 uppercase ml-8 mt-8 lg:mt-12 tracking-wider border-b border-quaternary pb-2 text-quaternary"
+      >
+        {{ currentFilteredView.subFilterName || currentFilteredView.filterId }}
+      </h2>
+
+      <div class="sticky pt-6 pb-3 px-10 top-0 bg-primary z-10 md:hidden">
         <h4 class="uppercase tracking-wider">
           {{ currentFilteredView.filterId }}
         </h4>
@@ -49,7 +60,7 @@
             :statuses="statuses"
             :method="FORM_METHODS.edit"
             :is-public-page="false"
-            :is-manager="isManager"
+            :is-read-only="isReadOnly"
             @onEditCardSuccess="refreshData"
           >
             <template #form-header>
@@ -115,6 +126,11 @@ export default {
       type: Array,
       default: () => [],
     },
+
+    isReadOnly: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {
@@ -160,12 +176,8 @@ export default {
       return relatedItems;
     },
 
-    isManager() {
-      return !!this.$page?.props?.auth?.user;
-    },
-
     isManagerDashboardPage() {
-      return location?.pathname?.includes(ROUTES.manager.url);
+      return location?.pathname === ROUTES.manager.url;
     },
 
     FORM_METHODS() {
