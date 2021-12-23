@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Services\IssuesService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -107,8 +108,12 @@ class IssueController extends Controller
     */
     public function create(Request $request)
     {
-        $allowed_extensions = ['jpeg', 'jpg', 'png', 'gif', 'log', 'txt'];
-
+        $messages = [
+            "files.max" => "Maximum amount of files authorized is: 4",
+            "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",
+            "files.*.max" => "File too big, maximum allowed is 2MB/file",
+            "files.*.size" => "File too big, maximum allowed is 2MB/file",
+        ];
         request()->validate([
             'description' => ['required'],
             'os' => ['required'],
@@ -116,21 +121,14 @@ class IssueController extends Controller
             'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
-        ]);
+            'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000|size:2000'],
+            'files' => ['max:1'],
+        ], $messages);
 
         $data = $request->post();
-
         if($request->file('files')){
-            foreach ($request->file('files') as $file) {
-                $extension = $file->getClientOriginalExtension();
-                if(!in_array($extension, $allowed_extensions)) {
-                    return response(['message' => $extension.': file type not allowed'], 400);
-                }
-            }
-
             $data['files'] = $request->file('files');
         }
-
 
         $issue = $this->issuesService->create($data);
 

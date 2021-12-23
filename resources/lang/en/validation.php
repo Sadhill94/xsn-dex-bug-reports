@@ -81,6 +81,8 @@ return [
     'max' => [
         'numeric' => 'The :attribute must not be greater than :max.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
+        'files*' => 'The  must not be greater than :max kilobytes.',
+        'files.*' => 'The  must not be greater than :max kilobytes.',
         'string' => 'The :attribute must not be greater than :max characters.',
         'array' => 'The :attribute must not have more than :max items.',
     ],
@@ -113,6 +115,9 @@ return [
     'size' => [
         'numeric' => 'The :attribute must be :size.',
         'file' => 'The :attribute must be :size kilobytes.',
+        'files' => 'The :attribute must be :size kilobytes.',
+        'files*' => 'The :attribute must be :size kilobytes.',
+        'files.*' => 'The :attribute must be :size kilobytes.',
         'string' => 'The :attribute must be :size characters.',
         'array' => 'The :attribute must contain :size items.',
     ],
