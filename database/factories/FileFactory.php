@@ -43,7 +43,7 @@ class FileFactory extends Factory
             $filePath = $this->faker->file(storage_path().'/app/public/uploads/tests', public_path().'/storage/uploads/tests/', false);
             return [
                 'name' => time().'_'.$this->faker->word,
-                'file_path' => '/storage/uploads/tests'.$filePath
+                'file_path' => '/storage/uploads/tests/'.$filePath
             ];
         });
     }

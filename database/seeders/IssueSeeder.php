@@ -10,7 +10,7 @@ class IssueSeeder extends Seeder
     public function run()
     {
         Issue::factory()
-            ->count(60)
+            ->count(45)
             ->create();
     }
 }
