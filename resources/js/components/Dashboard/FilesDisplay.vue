@@ -16,7 +16,7 @@
           src="/images/logFile.png"
           class="w-24"
         />
-        <img v-else :src="file.file_path" class="w-full h-full sm:h-32" />
+        <img v-else :src="file.file_path" class="h-auto w-28 sm:w-32" />
         <span class="pt-2 caption-lg text-center">
           {{ file.name | removeTimeStamp }}</span
         >

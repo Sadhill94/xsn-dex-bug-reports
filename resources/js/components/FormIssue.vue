@@ -178,7 +178,7 @@ export default {
       return FORM_METHODS;
     },
     isReadOnly() {
-      return location?.pathname?.includes(ROUTES.contribute.url);
+      return !location?.pathname?.includes('/manager/dashboard');
     },
   },
 
