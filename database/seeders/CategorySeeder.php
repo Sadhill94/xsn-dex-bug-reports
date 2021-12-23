@@ -39,5 +39,10 @@ class CategorySeeder extends Seeder
             'id' => Uuid::uuid4()->toString(),
             'name' => 'SSUI',
         ]);
+
+        DB::table('categories')->insert([
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'OTHERS',
+        ]);
     }
 }
