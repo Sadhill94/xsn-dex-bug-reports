@@ -95,7 +95,7 @@ class IssueController extends Controller
     public function showReportBug(): Response
     {
         return Inertia::render('ReportABug/index', [
-            'categories' => Category::all()
+            'categories' => $this->issuesService->getCategories()
         ]);
     }
 

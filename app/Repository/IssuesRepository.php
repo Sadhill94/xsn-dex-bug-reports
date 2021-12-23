@@ -13,7 +13,7 @@ class IssuesRepository
 
     public function getCategories()
     {
-        return Category::all();
+        return Category::orderBy('order')->get();
     }
     public function findCategoryByName($name)
     {
@@ -22,7 +22,7 @@ class IssuesRepository
 
     public function getStatuses()
     {
-        return Status::all();
+        return Status::orderBy('order')->get();
     }
     public function findStatusByName($name)
     {
@@ -50,6 +50,7 @@ class IssuesRepository
         $issue->description = $data['description'];
         $issue->os = $data['os'];
         $issue->version = $data['version'];
+        $issue->os_distribution = $data['os_distribution'] ?? null;
         $issue->steps_to_reproduce = $data['steps_to_reproduce'];
         $issue->user_discord_id = $data['user_discord_id'];
         $issue->category_id = $data['category_id'];
@@ -67,6 +68,7 @@ class IssuesRepository
 
         $issue->description = $data['description'];
         $issue->os = $data['os'];
+        $issue->version = $data['os_distribution'] ?? null;
         $issue->version = $data['version'];
         $issue->steps_to_reproduce = $data['steps_to_reproduce'];
         $issue->user_discord_id = $data['user_discord_id'];

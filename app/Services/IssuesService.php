@@ -33,18 +33,23 @@ class IssuesService
         return $this->issuesRepository->getAll();
     }
 
-   /*
-   |--------------------------------------------------------------------------
-   |   Specific getters
-   |--------------------------------------------------------------------------
-   */
+    public function getToValidateStatus(){
+        return $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    |   Specific getters
+    |--------------------------------------------------------------------------
+    */
 
     /**
      *  Returns all issues that haven't the to validate status.
      * Raw output
      */
     public function getOnlyContributorIssues(){
-        $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+        $to_validate_status = self::getToValidateStatus();
 
         return  $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
     }
@@ -98,15 +103,17 @@ class IssuesService
      */
     public function getOnlyPublicIssues(): array
     {
-        $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+        $to_validate_status = self::getToValidateStatus();
 
         $public_issues = $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
 
+        $statusesNames = Config::get('constants.statuses');
         return [
             'all' => $public_issues,
-            'open' => self::filterByOpenStatus($public_issues),
-            'in_progress' => self::filterByInProgress($public_issues),
-            'closed' => self::filterByClosed($public_issues),
+            'open' => self::filterStatusNameBy($public_issues, $statusesNames['open']),
+            'in_progress' => self::filterStatusNameBy($public_issues,$statusesNames['in_progress']),
+            'in_review' => self::filterStatusNameBy($public_issues, $statusesNames['in_review']),
+            'closed' => self::filterStatusNameBy($public_issues, $statusesNames['closed']),
         ];
     }
 
@@ -160,7 +167,7 @@ class IssuesService
 
     public function create($data)
     {
-        $to_validate_status = $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
+        $to_validate_status = self::getToValidateStatus();
         $data['status_id'] = $to_validate_status->id;
 
         $issue = $this->issuesRepository->create($data);
@@ -207,25 +214,10 @@ class IssuesService
     |   Filters
     |--------------------------------------------------------------------------
     */
-
-    private function filterByOpenStatus($collection)
+    private function filterStatusNameBy($collection, $filterBy)
     {
-        return $collection->filter(function($item){
-            return $item->status->name == Config::get('constants.statuses.open');
-        })->values();
-    }
-
-    private function filterByInProgress($collection)
-    {
-        return $collection->filter(function($item){
-            return $item->status->name == Config::get('constants.statuses.in_progress');
-        })->values();
-    }
-
-    private function filterByClosed($collection)
-    {
-        return $collection->filter(function($item){
-            return $item->status->name == Config::get('constants.statuses.closed');
+        return $collection->filter(function($item) use ($filterBy){
+            return $item->status->name == $filterBy;
         })->values();
     }
 }
