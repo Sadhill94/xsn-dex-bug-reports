@@ -2,7 +2,7 @@
   <modal-wrapper :is-open="isOpen" @onClose="$emit('onClose')">
     <div
       v-show="isOpen"
-      class="relative inline-block align-bottom bg-secondary rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-11/12 md:w-2/3 xl:w-6/12 sm:p-6"
+      class="relative inline-block align-bottom bg-secondary rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-11/12 md:w-10/12 xl:w-6/12 sm:p-6"
     >
       <div class="absolute text-white top-10 left-12">
         <button @click="$emit('onClose')">

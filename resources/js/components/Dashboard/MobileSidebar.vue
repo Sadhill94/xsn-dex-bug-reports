@@ -24,7 +24,7 @@
       leave-to-class="-translate-x-full"
     >
       <div
-        class="relative flex-1 flex flex-col max-w-md md:max-w-sm w-full bg-primary"
+        class="relative flex-1 flex flex-col max-w-md md:max-w-lg w-full bg-primary"
         style="z-index: 99"
         v-show="isOpen"
       >

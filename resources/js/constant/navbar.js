@@ -14,11 +14,11 @@ export const NAV_LINKS = [
     ...ROUTES.dashboard,
   },
   {
-    name: 'Contribute',
-    ...ROUTES.contribute,
-  },
-  {
     name: 'DEX Dashboard',
     ...ROUTES.manager,
+  },
+  {
+    name: 'Contribute',
+    ...ROUTES.contribute,
   },
 ];

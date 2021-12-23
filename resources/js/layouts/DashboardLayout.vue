@@ -1,7 +1,7 @@
 <template>
   <div>
     <mobile-sidebar
-      class="md:hidden"
+      class="lg:hidden"
       v-if="isMobileNavbarOpen"
       :is-open="isMobileNavbarOpen"
       @onToggle="isMobileNavbarOpen = !isMobileNavbarOpen"
@@ -26,11 +26,11 @@
       />
     </mobile-sidebar>
 
-    <desktop-sidebar class="hidden md:flex">
+    <desktop-sidebar class="hidden lg:flex">
       <div class="absolute">
         <Link :href="route('home')">
           <img
-            class="block lg:hidden w-28 h-auto"
+            class="block xl:hidden w-28 h-auto"
             src="/images/xsn-logo.png"
             alt="xsn logo"
           />
@@ -48,14 +48,14 @@
     </desktop-sidebar>
     <div class="main-content-container flex flex-col flex-1">
       <mobile-dashboard-navbar
-        class="md:hidden"
+        class="lg:hidden"
         :is-open="isMobileNavbarOpen"
         @onToggle="isMobileNavbarOpen = !isMobileNavbarOpen"
       />
 
       <!-- MAIN content -->
       <main class="flex-1 min-h-screen">
-        <navbar class="hidden md:block mb-12 bg-primary" :on-dashboard="true" />
+        <navbar class="hidden lg:block mb-12 bg-primary" :on-dashboard="true" />
         <slot />
       </main>
       <brand-footer />
@@ -103,7 +103,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@screen md {
+@screen lg {
   .static-sidebar-container {
     width: 24rem;
   }

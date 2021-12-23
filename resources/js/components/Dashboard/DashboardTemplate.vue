@@ -7,7 +7,7 @@
     @onKanbanViewClick="handleKanbanViewClick"
     @onAllViewClick="handleAllViewClick"
   >
-    <div class="px-6 md:px-20 lg:px-12 xl:px-20">
+    <div class="px-6 md:px-12 xl:px-20">
       <h1 class="text-2xl font-semibold text-tertiary mb-0 leading-loose">
         {{ `Dashboard ${isManagerDashboardPage ? '- Manager' : ''}` }}
       </h1>
@@ -231,22 +231,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@screen md {
-  .static-sidebar-container {
-    width: 24rem;
-  }
-  .main-content-container {
-    padding-left: 24rem;
-  }
-}
-
-@screen lg {
-  .static-sidebar-container {
-    width: 30rem;
-  }
-  .main-content-container {
-    padding-left: 30rem;
-  }
-}
-</style>

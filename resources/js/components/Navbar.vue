@@ -50,12 +50,12 @@
           </button>
         </div>
         <div
-          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+          class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start xl:px-20"
         >
           <div class="flex-shrink-0 flex items-center">
             <Link :href="route('home')">
               <img
-                class="hidden lg:block w-28 h-auto"
+                class="hidden xl:block w-28 h-auto"
                 src="/images/xsn-logo.png"
                 alt="xsn logo"
               />
