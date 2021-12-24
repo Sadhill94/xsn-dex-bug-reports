@@ -30,4 +30,8 @@ export const ROUTES = {
     routeName: 'issues',
     url: '/issues/list',
   },
+  issue: {
+    routeName: 'display-issue',
+    url: '/issues/',
+  },
 };

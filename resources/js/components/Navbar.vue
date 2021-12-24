@@ -65,7 +65,6 @@
             <ul class="flex space-x-8 xl:space-x-14">
               <li v-for="link in links" :key="link.name">
                 <Link
-                  v-if="shouldShowLink(link.routeName)"
                   :href="route(link.routeName)"
                   class="nav-link"
                   :class="{ active: $page.url === link.url }"
@@ -84,7 +83,6 @@
         <ul class="space-y-5">
           <li v-for="link in links" :key="link.name">
             <Link
-              v-if="shouldShowLink(link.routeName)"
               :href="route(link.routeName)"
               class="nav-link"
               :class="{ 'active-mobile': $page.url === link.url }"
@@ -119,20 +117,6 @@ export default {
   computed: {
     links() {
       return NAV_LINKS;
-    },
-
-    hasDashboardAccess() {
-      return localStorage.getItem('has-dashboard-access');
-    },
-  },
-  methods: {
-    shouldShowLink(routeName) {
-      if (routeName === MANAGER_ROUTE_NAME && this.hasDashboardAccess) {
-        return true;
-      } else if (routeName === MANAGER_ROUTE_NAME && !this.hasDashboardAccess) {
-        return false;
-      }
-      return true;
     },
   },
 };

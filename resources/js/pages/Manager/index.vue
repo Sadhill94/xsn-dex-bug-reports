@@ -4,7 +4,6 @@
     :issues="issues"
     :categories="categories"
     :statuses="statuses"
-    :is-read-only="false"
   >
     <template #delete>
       <button class="btn btn--small btn--danger sm:mt-4" @click="confirmDelete">

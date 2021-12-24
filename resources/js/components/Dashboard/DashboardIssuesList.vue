@@ -3,18 +3,19 @@
     class="flex justify-center md:justify-between items-stretch flex-wrap pt-6 pb-16 md:pb-20 z-0"
   >
     <div
-      v-for="(issue, index) in items"
-      :key="issue.id"
+      v-for="issue in items"
+      :key="issue.description"
       class="w-full sm:w-9/12 md:w-1/2 xl:w-1/3 p-6 lg:p-8 relative"
     >
       <issue-card :item="issue" class="h-full">
         <div class="text-center pt-24 lg:pt-20 w-full mx-auto">
-          <button
+          <a
+            :href="`${ISSUE_ROUTE}${issue.id}`"
+            target="_blank"
             class="btn btn--small btn--quaternary absolute left-0 right-0 max-w-sm mx-auto bottom-14"
-            @click="$emit('onOpenCardClick', issue)"
           >
-            {{ canEdit ? 'edit' : 'view details' }}
-          </button>
+            view details
+          </a>
         </div>
       </issue-card>
     </div>
@@ -30,6 +31,7 @@
 
 <script>
 import IssueCard from '@/components/IssueCard';
+import { ROUTES } from '@/constant/routes';
 
 export default {
   name: 'DashboardIssuesList',
@@ -41,9 +43,10 @@ export default {
       type: Array,
       default: () => [],
     },
-    canEdit: {
-      type: Boolean,
-      default: false,
+  },
+  computed: {
+    ISSUE_ROUTE() {
+      return ROUTES.issue.url;
     },
   },
 };

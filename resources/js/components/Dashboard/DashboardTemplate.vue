@@ -11,9 +11,7 @@
       <div
         class="flex flex-col lg:flex-row lg:items-center justify-between px-8 flex-wrap"
       >
-        <h1 class="text-2xl font-semibold text-tertiary mb-0">
-          {{ `Dashboard ${isManagerDashboardPage ? '- Manager' : ''}` }}
-        </h1>
+        <h1 class="text-2xl font-semibold text-tertiary mb-0">Dashboard</h1>
         <a
           href="https://github.com/X9Developers/stakenet-light-wallet"
           target="_blank"
@@ -44,67 +42,25 @@
         <dashboard-issues-list
           :items="currentIssuesList"
           :key="currentSelectedIssue.id"
-          :can-edit="isManagerDashboardPage"
-          @onOpenCardClick="handleOpenCard"
         />
       </div>
     </div>
-    <modal :is-open="isModalOpen" @onClose="handleCloseModal">
-      <template #default>
-        <modal-body>
-          <form-issue
-            v-if="currentSelectedIssue.id"
-            :key="currentSelectedIssue.id"
-            :issue="currentSelectedIssue"
-            :categories="categories"
-            :statuses="statuses"
-            :method="FORM_METHODS.edit"
-            :is-public-page="false"
-            :is-read-only="isReadOnly"
-            @onEditCardSuccess="refreshData"
-          >
-            <template #form-header>
-              <p>
-                Reported on :
-                {{ currentSelectedIssue.created_at | humanizeDate }}
-              </p>
-            </template>
-          </form-issue>
-        </modal-body>
-      </template>
-
-      <template #footer>
-        <modal-footer @onCancel="handleCloseModal">
-          <slot name="delete" />
-        </modal-footer>
-      </template>
-    </modal>
   </dashboard-layout>
 </template>
 
 <script>
+import axios from 'axios';
 import { ALL_FILTER_ID } from '@/constant/filtersId';
+import { ROUTES } from '@/constant/routes';
 
 import DashboardLayout from '@/layouts/DashboardLayout';
 import DashboardIssuesList from '@/components/Dashboard/DashboardIssuesList';
 
-import Modal from '@/components/Modal/Modal';
-import ModalFooter from '@/components/Modal/ModalFooter';
-import ModalBody from '@/components/Modal/ModalBody';
-
 import FormIssue from '@/components/FormIssue';
-import { FORM_METHODS } from '@/constant/form';
-import { ROUTES } from '@/constant/routes';
-import { formatDate } from '@/helpers/date';
-import axios from 'axios';
 
 export default {
   name: 'DashboardTemplate',
   components: {
-    FormIssue,
-    ModalBody,
-    ModalFooter,
-    Modal,
     DashboardIssuesList,
     DashboardLayout,
   },
@@ -126,17 +82,10 @@ export default {
       type: Array,
       default: () => [],
     },
-
-    isReadOnly: {
-      type: Boolean,
-      default: true,
-    },
   },
 
   data() {
     return {
-      isModalOpen: false,
-
       issuesByFilter: {},
       allIssues: [],
 
@@ -176,10 +125,6 @@ export default {
       return relatedItems;
     },
 
-    isManagerDashboardPage() {
-      return location?.pathname === ROUTES.manager.url;
-    },
-
     FORM_METHODS() {
       return FORM_METHODS;
     },
@@ -206,16 +151,6 @@ export default {
       };
     },
 
-    handleOpenCard(issue) {
-      this.currentSelectedIssue = issue;
-      this.isModalOpen = true;
-    },
-
-    handleCloseModal() {
-      this.isModalOpen = false;
-      this.currentSelectedIssue = { id: '' };
-    },
-
     refreshData() {
       axios
         .get(ROUTES.issues.url)
@@ -234,11 +169,6 @@ export default {
             duration: 3500,
           });
         });
-    },
-  },
-  filters: {
-    humanizeDate(value) {
-      return formatDate(value);
     },
   },
 };

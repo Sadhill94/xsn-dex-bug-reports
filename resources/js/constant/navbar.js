@@ -14,10 +14,6 @@ export const NAV_LINKS = [
     ...ROUTES.dashboard,
   },
   {
-    name: 'DEX Dashboard',
-    ...ROUTES.manager,
-  },
-  {
     name: 'Contribute',
     ...ROUTES.contribute,
   },
