@@ -51,7 +51,6 @@ Route::group(['prefix' => '/'], function() {
 
 Route::group(['prefix' => 'issues'], function(){
 
-
     Route::get('/{id}', [IssueController::class, 'display'])
         ->name('display-issue');
 
@@ -72,3 +71,4 @@ Route::group(['prefix' => 'issues'], function(){
         ->name('delete-issue');
 });
 
+Route::get('files/download/{id}', [IssueController::class, 'download_file']);

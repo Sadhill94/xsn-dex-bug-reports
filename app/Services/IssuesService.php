@@ -6,6 +6,7 @@ use App\Repository\IssuesRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Response;
 
 class IssuesService
 {
@@ -158,9 +159,9 @@ class IssuesService
     {
         foreach ($files as $file) {
             $data['fileName'] = time().'_'.$file->getClientOriginalName();
-            $data['displayName'] = $file->getClientOriginalName();
+            $data['display_name'] = $file->getClientOriginalName();
             $data['extension'] = $file->getClientOriginalExtension();
-            $data['size'] = $file->getSize()();
+            $data['size'] = $file->getSize();
             $data['filePath'] = $file->storeAs('uploads', $data['fileName'], 'public');
             $data['issue_id'] = $issueId;
             $this->issuesRepository->createFile($data);
@@ -201,6 +202,15 @@ class IssuesService
     public function delete($id): int
     {
         return $this->issuesRepository->delete($id);
+    }
+
+    public function downloadFile($id){
+        $file = $this->issuesRepository->getFileById($id);
+
+        if($file){
+            return response()->download(public_path().'/'.$file->file_path, $file->display_name);
+        }
+        return response('File not found', 404);
     }
 
     /**

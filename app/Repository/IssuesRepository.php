@@ -113,7 +113,7 @@ class IssuesRepository
         $fileModel->display_name = $data['display_name'];
         $fileModel->extension = $data['extension'];
         $fileModel->size = $data['size'];
-        $fileModel->issue_id = $data['issueId'];
+        $fileModel->issue_id = $data['issue_id'];
 
         $fileModel->save();
 
