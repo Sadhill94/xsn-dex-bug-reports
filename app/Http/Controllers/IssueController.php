@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Issue;
 use App\Services\IssuesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -99,6 +100,15 @@ class IssueController extends Controller
             'categories' => $this->issuesService->getCategories()
         ]);
     }
+
+
+    public function display($id): Response
+    {
+        $issue = $this->issuesService->getById($id);
+
+        return Inertia::render('Display/index', ['issue' => $issue]);
+    }
+
 
     /**
     * Create an issue

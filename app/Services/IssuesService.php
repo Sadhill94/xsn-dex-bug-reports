@@ -21,6 +21,11 @@ class IssuesService
     |--------------------------------------------------------------------------
     */
 
+
+    public function getById($id){
+        return $this->issuesRepository->getById($id);
+    }
+
     public function getStatuses(){
         return $this->issuesRepository->getStatuses();
     }

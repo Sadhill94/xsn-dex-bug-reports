@@ -28,6 +28,6 @@ export const ROUTES = {
 
   issues: {
     routeName: 'issues',
-    url: '/issues',
+    url: '/issues/list',
   },
 };

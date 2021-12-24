@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Issue extends Model
 {
-    use HasFactory, Uuids;
+    use HasFactory;
 
     protected $fillable = [
         'description',

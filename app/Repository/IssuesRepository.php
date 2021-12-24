@@ -11,6 +11,13 @@ use Exception;
 class IssuesRepository
 {
 
+    public function getById($id)
+    {
+        return Issue::with(['category', 'status', 'files'])
+            ->get()
+            ->find($id);
+    }
+
     public function getCategories()
     {
         return Category::orderBy('order')->get();

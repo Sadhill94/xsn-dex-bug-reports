@@ -50,9 +50,11 @@ Route::group(['prefix' => '/'], function() {
 });
 
 Route::group(['prefix' => 'issues'], function(){
-    Route::get('/', [IssueController::class, 'list'])
-        ->middleware('auth')
-        ->name('list-issues');
+
+
+    Route::get('/{id}', [IssueController::class, 'display'])
+        ->name('display-issue');
+
 
     Route::post('/create', [IssueController::class, 'create'])
         ->name('create-issue');
@@ -60,6 +62,10 @@ Route::group(['prefix' => 'issues'], function(){
     Route::post('/edit', [IssueController::class, 'edit'])
         ->middleware('auth')
         ->name('edit-issue');
+
+    Route::get('/list', [IssueController::class, 'list'])
+        ->middleware('auth')
+        ->name('list-issues');
 
     Route::delete('/{id}', [IssueController::class, 'delete'])
         ->middleware('auth')
