@@ -155,7 +155,6 @@ export default {
       formFieldsValues: {},
       isLoading: false,
       hasSubmitted: false,
-      latestDexVersion: '',
     };
   },
 
@@ -380,12 +379,14 @@ export default {
         return field;
       });
 
-      // fill the default value for dex version
-      Object.keys(this.formFieldsValues).forEach((fieldKey) => {
-        if (fieldKey === VERSION_FIELD_KEY) {
-          this.formFieldsValues[fieldKey] = dexVersionAdditionalInfo;
-        }
-      });
+      // fill the default value for dex version if we are on the create mode only
+      if (this.method === FORM_METHODS.create) {
+        Object.keys(this.formFieldsValues).forEach((fieldKey) => {
+          if (fieldKey === VERSION_FIELD_KEY) {
+            this.formFieldsValues[fieldKey] = dexVersionAdditionalInfo;
+          }
+        });
+      }
     },
   },
 };

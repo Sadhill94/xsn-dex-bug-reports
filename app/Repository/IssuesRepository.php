@@ -68,13 +68,17 @@ class IssuesRepository
 
         $issue->description = $data['description'];
         $issue->os = $data['os'];
-        $issue->version = $data['os_distribution'] ?? null;
+
+        $issue->os_distribution = $data['os_distribution'] ?? null;
         $issue->version = $data['version'];
+
         $issue->steps_to_reproduce = $data['steps_to_reproduce'];
         $issue->user_discord_id = $data['user_discord_id'];
         $issue->category_id = $data['category_id'];
         $issue->status_id = $data['status_id'];
+
         $issue->github_link = $data['github_link'] ?? null;
+        $issue->assignee = $data['assignee'] ?? null;
         $issue->extra_infos = $data['extra_infos'] ?? null;
 
         $issue->save();

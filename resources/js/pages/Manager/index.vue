@@ -7,7 +7,9 @@
     :is-read-only="false"
   >
     <template #delete>
-      <button class="btn btn--small btn--danger sm:mt-4">Delete</button>
+      <button class="btn btn--small btn--danger sm:mt-4" @click="confirmDelete">
+        Delete prout
+      </button>
     </template>
   </dashboard-template>
 </template>
@@ -53,12 +55,14 @@ export default {
     },
 
     confirmDelete(issueId) {
+      console.log('confirm');
       if (confirm('Confirm your wish to delete')) {
         this.deleteIssue(issueId);
       }
     },
 
     deleteIssue(issueId) {
+      console.log('issue id', issueId);
       const notification = {};
       axios
         .delete(`${ROUTES.issues.url}/${issueId}`)
