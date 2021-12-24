@@ -52,7 +52,7 @@ export default {
     copyPath(path) {
       navigator.clipboard.writeText(path);
       this.$displayNotification({
-        message: 'Copied to clipboard!',
+        message: 'Copied to the clipboard!',
       });
     },
   },

@@ -8,6 +8,10 @@
     .issue {
         @apply bg-secondary p-10 rounded-md;
 
+        @screen md {
+            @apply p-20;
+        }
+
         @screen lg {
             @apply p-20;
         }
@@ -16,7 +20,14 @@
                 @screen lg {
                     @apply w-full flex flex-row justify-between items-center;
                 }
+                .issue-share {
+                    @apply flex flex-row justify-start items-center;
+                    h3 {
+                        @apply ml-3;
+                    }
+                }
             }
+
 
             .status {
                 @apply border-b border-gray-200 py-6;
@@ -121,10 +132,10 @@
             }
 
             .rich-contents {
-                @apply mt-2;
+                @apply  border-t border-gray-200 pt-6;
 
                 @screen lg {
-                    @apply mt-8;
+                    @apply mt-16 border-0 pt-2;
                 }
                 .rich-contents-row {
                     @apply flex flex-col-reverse;
@@ -141,9 +152,9 @@
                     }
 
                     &:first-child {
-                        @apply mt-8;
+                        @apply mt-6 pt-6 border-t border-gray-200;
                         @screen lg {
-                            @apply pr-12 mt-0;
+                            @apply pr-12 mt-0 pt-0 border-t-0;
                         }
                         @screen xl {
                             @apply pr-24;
@@ -165,7 +176,9 @@
 
             .attachments {
                 @apply mt-10 pt-4 border-t border-gray-200;
-
+                @screen lg {
+                    @apply pt-8
+                }
                 &-list {
                     @apply flex flex-wrap justify-center;
                     @screen md {

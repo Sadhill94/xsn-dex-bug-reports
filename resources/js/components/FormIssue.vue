@@ -162,7 +162,7 @@ export default {
       this.validateFieldsAndSetErrors();
 
       if (this.fieldsWithErrors.length === 0) {
-        const url = `${ROUTES.issues.url}/create`;
+        const url = `${ROUTES.issue.url}create`;
         const formData = this.setToFormData();
         const headers = {
           'Content-Type': 'multipart/form-data',

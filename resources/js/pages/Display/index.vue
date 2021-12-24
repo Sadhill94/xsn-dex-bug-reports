@@ -4,7 +4,12 @@
       <div class="issue" v-if="issue">
         <div class="header">
           <div class="informations">
-            <h3>#{{ issue.id }} - Issue Information</h3>
+            <div class="issue-share">
+              <button class="h3" @click="handleCopyLink">
+                <img src="/images/link.png" class="w-7 md:w-9" />
+              </button>
+              <h3>Details issue #{{ issue.id }}</h3>
+            </div>
             <dl class="status">
               <div>
                 <dt>Status</dt>
@@ -133,7 +138,7 @@
                             />
                           </a>
                           <a
-                            :href="`download/${file.id}`"
+                            :href="`/files/download/${file.id}`"
                             target="_blank"
                             aria-label="download"
                           >
@@ -142,7 +147,9 @@
                         </div>
                         <div class="attachments-item-meta">
                           <p class="meta-name">
-                            {{ file.display_name }}.{{ file.extension }}
+                            {{ file.display_name | removeExtensionIfExist }}.{{
+                              file.extension
+                            }}
                           </p>
                           <div class="meta-update">
                             <p>{{ file.created_at | humanizeDate }}</p>
@@ -176,6 +183,12 @@ export default {
     },
   },
   methods: {
+    handleCopyLink() {
+      navigator.clipboard.writeText(location.href);
+      this.$displayNotification({
+        message: 'Issue link copied to the clipboard !',
+      });
+    },
     isPropertyNullOrEmpty(property) {
       if (this.issue[property]) {
         return this.issue[property] !== 'null';
@@ -187,6 +200,14 @@ export default {
   filters: {
     humanizeDate(value) {
       return formatDate(value, 'DD/MMM/YYYY');
+    },
+    removeExtensionIfExist(value) {
+      const values = value.split('.');
+      if (values.length > 1) {
+        return values[0];
+      } else {
+        return value;
+      }
     },
   },
   mounted() {
