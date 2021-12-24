@@ -98,7 +98,7 @@ class IssuesRepository
         $issue = Issue::findOrFail($id);
 
         try {
-            $issue->deleteOrFail();
+            $issue->delete();
             return 0;
         } catch(Exception $ex) {
             return 1;

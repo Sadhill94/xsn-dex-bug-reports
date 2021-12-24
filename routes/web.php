@@ -27,13 +27,6 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
 
-//Route::group(['prefix' => 'manager'], function() {
-//    Route::get('/dashboard', [IssueController::class, 'manager'])
-//    ->middleware('auth')
-//    ->name('manage');
-//});
-
-
 Route::group(['prefix' => '/'], function() {
     Route::get('/', [IssueController::class, 'home'])
         ->name('home');

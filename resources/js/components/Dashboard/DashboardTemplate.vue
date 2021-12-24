@@ -46,6 +46,7 @@
         <dashboard-issues-list
           :items="currentIssuesList"
           :key="currentSelectedIssue.id"
+          @refreshData="refreshData"
         />
       </div>
     </div>

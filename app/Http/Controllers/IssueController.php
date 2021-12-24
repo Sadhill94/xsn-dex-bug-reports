@@ -30,7 +30,7 @@ class IssueController extends Controller
         $categories = $this->issuesService->getCategories();
         $statuses = $this->issuesService->getStatuses();
 
-        return Inertia::render('Manager/index', [
+        return Inertia::render('Dashboard/index', [
             'issues' => $issues,
             'issues_by_filter' => $issues_by_filter,
             'categories' => $categories,

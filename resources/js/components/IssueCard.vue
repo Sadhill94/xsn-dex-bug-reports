@@ -14,15 +14,28 @@
       </p>
     </div>
     <h4 class="leading-9 pt-6 font-normal">{{ item.description }}</h4>
-    <div class="pt-24">
-      <div class="text-center w-full mx-auto absolute inset-x-0 bottom-10">
-        <a
-          :href="getIssueUrl"
-          target="_blank"
-          class="btn btn--secondary max-w-sm mx-auto text-body-sm"
-        >
-          view details
-        </a>
+    <div :class="isManager ? 'pt-36' : 'pt-24'">
+      <div
+        class="text-center w-full mx-auto absolute inset-x-0"
+        :class="isManager ? 'bottom-0' : 'bottom-10'"
+      >
+        <div class="relative">
+          <a
+            :href="getIssueUrl"
+            target="_blank"
+            class="btn btn--secondary text-body-sm"
+          >
+            view details
+          </a>
+        </div>
+        <div class="mt-10 pb-6 flex justify-around" v-show="isManager">
+          <button @click="confirmDelete" class="caption-lg uppercase">
+            Delete
+          </button>
+          <a :href="getIssueUrl" target="_blank" class="caption-lg uppercase"
+            >Edit</a
+          >
+        </div>
       </div>
     </div>
   </article>
@@ -33,6 +46,7 @@ import { formatDate } from '@/helpers/date';
 
 import IssueStatusPill from '@/components/IssueStatusPill';
 import { ROUTES } from '@/constant/routes';
+import axios from 'axios';
 
 export default {
   name: 'IssueCard',
@@ -47,6 +61,9 @@ export default {
   },
 
   computed: {
+    isManager() {
+      return this.$page?.props?.auth?.user;
+    },
     getIssueUrl() {
       return ROUTES.web.issue.display.url.replace('{id}', this.item.id);
     },
@@ -58,7 +75,31 @@ export default {
       return false;
     },
   },
+  methods: {
+    confirmDelete() {
+      if (confirm('Confirm your wish to delete')) {
+        this.deleteIssue(this.item.id);
+      }
+    },
 
+    deleteIssue(issueId) {
+      const notification = {};
+      axios
+        .delete(ROUTES.api.issue.delete.url.replace('{id}', issueId))
+        .then(() => {
+          notification.message = 'Successfully deleted';
+          notification.type = 'success';
+          this.$emit('refreshData');
+        })
+        .catch((err) => {
+          notification.message = err.response.statusText;
+          notification.type = 'error';
+        })
+        .finally(() => {
+          this.$displayNotification(notification);
+        });
+    },
+  },
   filters: {
     humanizeDate(value) {
       return formatDate(value);

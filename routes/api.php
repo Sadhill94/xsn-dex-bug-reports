@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->group(function () {
-    Route::get('employee', [EmployeeController::class, 'index']);
-});
 Route::group(['prefix' => 'issues'], function() {
 
     Route::post('/create', [IssueController::class, 'create'])
