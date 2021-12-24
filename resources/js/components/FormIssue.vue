@@ -31,7 +31,6 @@
                   v-if="field.type === 'textarea'"
                   rows="8"
                   class="input"
-                  :readonly="isReadOnly"
                   v-model="formFieldsValues[field.key]"
                 ></textarea>
 
@@ -40,32 +39,20 @@
                   :options="field.options"
                   :value="formFieldsValues[field.key]"
                   class="input"
-                  :is-readonly="isReadOnly"
                   @onChange="formFieldsValues[field.key] = $event.toString()"
                 />
 
                 <div v-else-if="field.type === 'files'" class="w-full">
                   <file-uploader
-                    v-if="isPublicPage"
                     :has-submitted="hasSubmitted"
                     @onFilesChange="formFieldsValues[field.key] = $event"
                   />
-                  <div v-else-if="!isPublicPage">
-                    <files-display
-                      :files="formFieldsValues.files"
-                      v-if="formFieldsValues.files.length > 0"
-                    />
-                    <div v-else>
-                      <h6 class="text-white">No files</h6>
-                    </div>
-                  </div>
                 </div>
 
                 <input
                   v-else
                   v-model="formFieldsValues[field.key]"
                   type="text"
-                  :readonly="isReadOnly"
                   class="input"
                 />
               </template>
@@ -74,14 +61,14 @@
         </div>
       </div>
 
-      <div class="pt-12 text-center" v-if="!isReadOnly">
+      <div class="pt-12 text-center">
         <button
           type="submit"
           class="btn btn--tertiary"
           :class="isLoading && 'cursor-not-allowed'"
           :disabled="isLoading"
         >
-          {{ method === FORM_METHODS.create ? 'Submit' : 'Save changes' }}
+          Submit
           <span v-show="isLoading">in progress...</span>
         </button>
       </div>
@@ -101,20 +88,18 @@ import {
   DEFAULT_FORM_FIELDS_VALUES,
   DEX_WALLET_GITHUB_REPO_URL,
   FILES_FIELD_KEY,
-  FORM_METHODS,
-  PRIVATE_BUG_FORM_FIELDS,
   REPORT_BUG_FORM_FIELDS,
   STATUS_ID_FIELD_KEY,
   VERSION_FIELD_KEY,
 } from '@/constant/form';
+
 import { ROUTES } from '@/constant/routes';
 import FileUploader from '@/components/FileUploader';
-import FilesDisplay from '@/components/Dashboard/FilesDisplay';
 
 export default {
   name: 'FormIssue',
 
-  components: { FilesDisplay, FileUploader, BrandSelect, FormRow },
+  components: { BrandSelect, FileUploader, FormRow },
 
   props: {
     categories: {
@@ -125,26 +110,6 @@ export default {
     statuses: {
       type: Array,
       default: () => [],
-    },
-
-    isPublicPage: {
-      type: Boolean,
-      default: true,
-    },
-
-    issue: {
-      type: Object,
-      default: null,
-    },
-
-    method: {
-      type: String,
-      default: FORM_METHODS.create,
-    },
-
-    isReadOnly: {
-      type: Boolean,
-      default: true,
     },
   },
 
@@ -161,21 +126,7 @@ export default {
   mounted() {
     this.getLatestDexVersion();
     this.formFields = REPORT_BUG_FORM_FIELDS;
-
-    if (!this.isPublicPage && this.issue) {
-      this.formFields = [...PRIVATE_BUG_FORM_FIELDS, ...this.formFields];
-      this.formFieldsValues = _.cloneDeep(this.issue);
-      this.setCategoriesOptions();
-      this.setStatusesOptions();
-    } else {
-      this.resetFormValues();
-    }
-  },
-
-  computed: {
-    FORM_METHODS() {
-      return FORM_METHODS;
-    },
+    this.resetFormValues();
   },
 
   watch: {
@@ -211,7 +162,7 @@ export default {
       this.validateFieldsAndSetErrors();
 
       if (this.fieldsWithErrors.length === 0) {
-        const url = `${ROUTES.issues.url}/${this.method}`;
+        const url = `${ROUTES.issues.url}/create`;
         const formData = this.setToFormData();
         const headers = {
           'Content-Type': 'multipart/form-data',
@@ -260,7 +211,7 @@ export default {
     setToFormData() {
       const data = new FormData();
       Object.keys(this.formFieldsValues).forEach((field) => {
-        if (field === FILES_FIELD_KEY && this.method === FORM_METHODS.create) {
+        if (field === FILES_FIELD_KEY) {
           this.formFieldsValues[field].forEach((fileRecord, i) => {
             data.append(`files[${i}]`, fileRecord.file);
           });
@@ -288,15 +239,11 @@ export default {
             type: 'success',
           });
 
-          if (this.method === FORM_METHODS.edit) {
-            this.$emit('onEditCardSuccess');
-          } else {
-            // ux detail
-            this.hasSubmitted = true;
-            setTimeout(() => {
-              this.resetFormValues();
-            }, 600);
-          }
+          // ux detail
+          this.hasSubmitted = true;
+          setTimeout(() => {
+            this.resetFormValues();
+          }, 600);
         })
         .catch((err) => {
           this.$displayNotification({
@@ -380,13 +327,11 @@ export default {
       });
 
       // fill the default value for dex version if we are on the create mode only
-      if (this.method === FORM_METHODS.create) {
-        Object.keys(this.formFieldsValues).forEach((fieldKey) => {
-          if (fieldKey === VERSION_FIELD_KEY) {
-            this.formFieldsValues[fieldKey] = dexVersionAdditionalInfo;
-          }
-        });
-      }
+      Object.keys(this.formFieldsValues).forEach((fieldKey) => {
+        if (fieldKey === VERSION_FIELD_KEY) {
+          this.formFieldsValues[fieldKey] = dexVersionAdditionalInfo;
+        }
+      });
     },
   },
 };
