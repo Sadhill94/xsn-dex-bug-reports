@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repository\IssuesRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 
 class IssuesService
 {
@@ -156,11 +157,19 @@ class IssuesService
     public function storeFiles($files, $issueId)
     {
         foreach ($files as $file) {
-            $fileName = time().'_'.$file->getClientOriginalName();
-            $filePath = $file->storeAs('uploads', $fileName, 'public');
-
-            $this->issuesRepository->createFile($fileName, $filePath, $issueId);
+            $data['fileName'] = time().'_'.$file->getClientOriginalName();
+            $data['displayName'] = $file->getClientOriginalName();
+            $data['extension'] = $file->getClientOriginalExtension();
+            $data['size'] = $file->getSize()();
+            $data['filePath'] = $file->storeAs('uploads', $data['fileName'], 'public');
+            $data['issue_id'] = $issueId;
+            $this->issuesRepository->createFile($data);
         }
+    }
+
+    public function deleteFile($id){
+        $file = $this->issuesRepository->getFileById($id);
+        Storage::delete($file->name);
     }
 
 

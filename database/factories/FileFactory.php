@@ -13,6 +13,8 @@ class FileFactory extends Factory
      * @var string
      */
     protected $model = File::class;
+    protected $extensions = ['jpg', 'png', 'log', 'txt'];
+
 
     /**
      * Define the model's default state.
@@ -22,6 +24,9 @@ class FileFactory extends Factory
     public function definition()
     {
         return [
+            'display_name' => $this->faker->word,
+            'extension' => $this->extensions[rand(0, 3)],
+            'size' => rand(400, 2000),
             'issue_id' => Issue::inRandomOrder()->first(),
         ];
     }
@@ -31,7 +36,7 @@ class FileFactory extends Factory
         return $this->state(function (array $attributes) {
             $file = $this->faker->image('public/storage/uploads/tests');
             return [
-                'name' => $this->faker->word,
+                'name' => time().'_'.$this->faker->word,
                 'file_path' => str_replace('public','' ,$file)
             ];
         });

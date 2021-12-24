@@ -105,15 +105,35 @@ class IssuesRepository
         }
     }
 
-    public function createFile($fileName, $filePath, $issueId)
+    public function createFile($data)
     {
         $fileModel = new File();
-        $fileModel->name = $fileName;
-        $fileModel->file_path = '/storage/'.$filePath;
-        $fileModel->issue_id = $issueId;
+        $fileModel->name = $data['fileName'];
+        $fileModel->file_path = '/storage/'.$data['filePath'];
+        $fileModel->display_name = $data['display_name'];
+        $fileModel->extension = $data['extension'];
+        $fileModel->size = $data['size'];
+        $fileModel->issue_id = $data['issueId'];
 
         $fileModel->save();
 
         return File::find($fileModel->id);
+    }
+
+    public function getFileById($id)
+    {
+        return File::findOrFail($id);
+    }
+
+    public function deleteFile($id)
+    {
+        $issue = File::findOrFail($id);
+
+        try {
+            $issue->deleteOrFail();
+            return 0;
+        } catch(Exception $ex) {
+            return 1;
+        }
     }
 }

@@ -157,9 +157,6 @@
                             @apply pl-24;
                         }
                     }
-                    dt {
-                        //@apply h6;
-                    }
                     dd {
                         @apply max-w-7xl;
                     }
@@ -167,7 +164,7 @@
             }
 
             .attachments {
-                @apply mt-5 pt-4 border-t border-gray-200;
+                @apply mt-10 pt-4 border-t border-gray-200;
 
                 &-list {
                     @apply flex flex-wrap justify-center;
@@ -175,7 +172,7 @@
                         @apply justify-between;
                     }
                     li {
-                        @apply border-2 border-quaternary rounded-md m-4 w-80 h-auto;
+                        @apply border border-quaternary bg-primary rounded-md m-4 w-80 h-auto;
 
                         @screen sm {
                             @apply m-8;
