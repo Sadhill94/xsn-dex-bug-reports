@@ -1,34 +1,29 @@
 <template>
-  <article class="bg-tertiary rounded-md p-6 lg:p-8" v-if="item">
+  <article class="bg-quaternary rounded-md p-8 relative" v-if="item">
     <div class="text-center border-b border-primary" v-if="item.category">
       <h6 class="tracking-widest text-primary">
         {{ item.category.name }}
       </h6>
     </div>
-    <h5 class="leading-9 pt-3">{{ item.description }}</h5>
-    <div class="flex items-center justify-between pt-2">
-      <div>
-        <p class="capitalize">{{ item.created_at | humanizeDate }}</p>
-        <p class="font-semibold pt-1">{{ item.os }}</p>
+    <div class="flex justify-between items-center pt-5">
+      <p class="capitalize text-body-md font-medium">
+        {{ item.created_at | humanizeDate }}
+      </p>
+      <p v-if="item.status" class="uppercase font-bold">
+        {{ item.status.name }}
+      </p>
+    </div>
+    <h4 class="leading-9 pt-6 font-normal">{{ item.description }}</h4>
+    <div class="pt-24">
+      <div class="text-center w-full mx-auto absolute inset-x-0 bottom-10">
+        <a
+          :href="getIssueUrl"
+          target="_blank"
+          class="btn btn--secondary max-w-sm mx-auto text-body-sm"
+        >
+          view details
+        </a>
       </div>
-      <issue-status-pill
-        v-if="item.status"
-        :name="item.status.name"
-        class="w-44 lg:w-56"
-      />
-    </div>
-    <div class="text-center pt-5" v-if="hasGithubLink">
-      <a
-        :href="item.github_link"
-        target="_blank"
-        rel="noreferrer noopener"
-        class="inline-flex justify-center items-center hover:opacity-50 transition-opacity duration-200"
-        >View in Github
-        <img src="/images/external-link.png" class="w-6 ml-3" />
-      </a>
-    </div>
-    <div>
-      <slot />
     </div>
   </article>
 </template>
@@ -37,6 +32,7 @@
 import { formatDate } from '@/helpers/date';
 
 import IssueStatusPill from '@/components/IssueStatusPill';
+import { ROUTES } from '@/constant/routes';
 
 export default {
   name: 'IssueCard',
@@ -51,6 +47,9 @@ export default {
   },
 
   computed: {
+    getIssueUrl() {
+      return ROUTES.web.issue.display.url.replace('{id}', this.item.id);
+    },
     hasGithubLink() {
       if (this.item?.github_link) {
         // backend production env has this value

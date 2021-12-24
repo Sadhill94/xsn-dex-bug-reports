@@ -19,32 +19,11 @@ class IssueController extends Controller
         $this->issuesService = $issuesService;
     }
 
-
-    /**
-     * Get the issues formatted and render the contributors view
-     * @return Response
-     */
-    public function contributors(): Response
-    {
-        $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatusesForContributors();
-        $issues = $this->issuesService->getOnlyContributorIssues();
-
-        $categories = $this->issuesService->getCategories();
-        $statuses = $this->issuesService->getStatuses();
-
-        return Inertia::render('Dashboard/index', [
-            'issues' => $issues,
-            'issues_by_filter' => $issues_by_filter,
-            'categories' => $categories,
-            'statuses' => $statuses
-        ]);
-    }
-
     /**
      * Get the issues formatted and render the manager view
      * @return Response
      */
-    public function manager(): Response
+    public function dashboard(): Response
     {
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
         $issues = $this->issuesService->getAllIssues();
@@ -81,7 +60,7 @@ class IssueController extends Controller
     * Get public issues and return the home view
     * @return Response
     */
-    public function public_active(): Response
+    public function home(): Response
     {
        $public_issues = $this->issuesService->getOnlyPublicIssues();
 

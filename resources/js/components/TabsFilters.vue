@@ -55,8 +55,11 @@ export default {
   &__title {
     @apply border-transparent text-gray-500 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium w-full flex justify-center items-center;
 
-    &:hover {
-      @apply text-gray-700 border-gray-200;
+    &:hover:not(.active) {
+      @apply text-quaternary border-quaternary transition-colors duration-200;
+      .tab__count {
+        @apply bg-quaternary text-white transition-colors duration-200;
+      }
     }
 
     &.active {

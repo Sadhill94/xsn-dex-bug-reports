@@ -30,9 +30,12 @@
 
 
             .status {
-                @apply border-b border-gray-200 py-6;
+                @apply border-b border-gray-200 py-6 text-center;
                 dd {
                     @apply uppercase;
+                    @screen lg {
+                        min-width: 12rem;
+                    }
                 }
 
                 @screen lg {

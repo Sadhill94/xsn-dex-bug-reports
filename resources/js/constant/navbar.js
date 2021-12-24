@@ -3,18 +3,18 @@ import { ROUTES } from '@/constant/routes';
 export const NAV_LINKS = [
   {
     name: 'Home',
-    ...ROUTES.home,
+    ...ROUTES.web.home,
   },
   {
     name: 'Report a bug',
-    ...ROUTES.bugReport,
+    ...ROUTES.web.bugReport,
   },
   {
     name: 'Dashboard',
-    ...ROUTES.dashboard,
+    ...ROUTES.web.dashboard,
   },
   {
     name: 'Contribute',
-    ...ROUTES.contribute,
+    ...ROUTES.web.contribute,
   },
 ];

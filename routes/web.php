@@ -27,21 +27,21 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
 
-Route::group(['prefix' => 'manager'], function() {
-    Route::get('/dashboard', [IssueController::class, 'manager'])
-    ->middleware('auth')
-    ->name('manage');
-});
+//Route::group(['prefix' => 'manager'], function() {
+//    Route::get('/dashboard', [IssueController::class, 'manager'])
+//    ->middleware('auth')
+//    ->name('manage');
+//});
 
 
 Route::group(['prefix' => '/'], function() {
-    Route::get('/', [IssueController::class, 'public_active'])
+    Route::get('/', [IssueController::class, 'home'])
         ->name('home');
 
     Route::get('report-a-bug', [IssueController::class, 'showReportBug'])
         ->name('bug-report');
 
-    Route::get('dashboard', [IssueController::class, 'contributors'])
+    Route::get('dashboard', [IssueController::class, 'dashboard'])
         ->name('dashboard');
 
     Route::get('contribute', function(){
@@ -50,25 +50,7 @@ Route::group(['prefix' => '/'], function() {
 });
 
 Route::group(['prefix' => 'issues'], function(){
-
     Route::get('/{id}', [IssueController::class, 'display'])
         ->name('display-issue');
-
-
-    Route::post('/create', [IssueController::class, 'create'])
-        ->name('create-issue');
-
-    Route::post('/edit', [IssueController::class, 'edit'])
-        ->middleware('auth')
-        ->name('edit-issue');
-
-    Route::get('/list', [IssueController::class, 'list'])
-        ->middleware('auth')
-        ->name('list-issues');
-
-    Route::delete('/{id}', [IssueController::class, 'delete'])
-        ->middleware('auth')
-        ->name('delete-issue');
 });
 
-Route::get('files/download/{id}', [IssueController::class, 'download_file']);

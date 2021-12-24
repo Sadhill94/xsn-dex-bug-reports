@@ -17,7 +17,11 @@
           target="_blank"
           class="h4 mb-8 md:mb-0 mt-4 lg:mt-0 inline-flex items-center hover:opacity-70 transition-opacity duration-200"
           >Github repository
-          <img src="/images/external-link.png" class="w-8 ml-3" />
+          <img
+            src="/images/external-link.png"
+            alt="external link"
+            class="w-8 ml-3"
+          />
         </a>
       </div>
 
@@ -55,8 +59,6 @@ import { ROUTES } from '@/constant/routes';
 
 import DashboardLayout from '@/layouts/DashboardLayout';
 import DashboardIssuesList from '@/components/Dashboard/DashboardIssuesList';
-
-import FormIssue from '@/components/FormIssue';
 
 export default {
   name: 'DashboardTemplate',
@@ -124,10 +126,6 @@ export default {
 
       return relatedItems;
     },
-
-    FORM_METHODS() {
-      return FORM_METHODS;
-    },
   },
 
   methods: {
@@ -153,7 +151,7 @@ export default {
 
     refreshData() {
       axios
-        .get(ROUTES.issues.url)
+        .get(ROUTES.api.issue.list.url)
         .then((res) => {
           this.allIssues = res?.data?.issues || [];
           this.issuesByFilter = res?.data?.issues_by_filter || {};

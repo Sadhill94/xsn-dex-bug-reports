@@ -5,7 +5,7 @@
     :categories="categories"
     :statuses="statuses"
   >
-    <template #delete>
+    <template>
       <button class="btn btn--small btn--danger sm:mt-4" @click="confirmDelete">
         Delete prout
       </button>
@@ -54,17 +54,15 @@ export default {
     },
 
     confirmDelete(issueId) {
-      console.log('confirm');
       if (confirm('Confirm your wish to delete')) {
         this.deleteIssue(issueId);
       }
     },
 
     deleteIssue(issueId) {
-      console.log('issue id', issueId);
       const notification = {};
       axios
-        .delete(`${ROUTES.issues.url}/${issueId}`)
+        .delete(ROUTES.api.issue.delete.url.replace('{id}', issueId))
         .then(() => {
           notification.message = 'Successfully deleted';
           notification.type = 'success';

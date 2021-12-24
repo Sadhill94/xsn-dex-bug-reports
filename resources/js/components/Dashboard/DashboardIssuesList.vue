@@ -7,17 +7,7 @@
       :key="issue.description"
       class="w-full sm:w-9/12 md:w-1/2 xl:w-1/3 p-6 lg:p-8 relative"
     >
-      <issue-card :item="issue" class="h-full">
-        <div class="text-center pt-24 lg:pt-20 w-full mx-auto">
-          <a
-            :href="`${ISSUE_ROUTE}${issue.id}`"
-            target="_blank"
-            class="btn btn--small btn--quaternary absolute left-0 right-0 max-w-sm mx-auto bottom-14"
-          >
-            view details
-          </a>
-        </div>
-      </issue-card>
+      <issue-card :item="issue" class="h-full" />
     </div>
     <div
       v-show="items.length < 1"
@@ -31,7 +21,6 @@
 
 <script>
 import IssueCard from '@/components/IssueCard';
-import { ROUTES } from '@/constant/routes';
 
 export default {
   name: 'DashboardIssuesList',
@@ -42,11 +31,6 @@ export default {
     items: {
       type: Array,
       default: () => [],
-    },
-  },
-  computed: {
-    ISSUE_ROUTE() {
-      return ROUTES.issue.url;
     },
   },
 };

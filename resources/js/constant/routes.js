@@ -1,37 +1,52 @@
-export const MANAGER_ROUTE_NAME = 'manage';
-
 export const ROUTES = {
-  home: {
-    routeName: 'home',
-    url: '/',
+  web: {
+    home: {
+      routeName: 'home',
+      url: '/',
+    },
+    bugReport: {
+      routeName: 'bug-report',
+      url: '/report-a-bug',
+    },
+    dashboard: {
+      routeName: 'dashboard',
+      url: '/dashboard',
+    },
+    contribute: {
+      routeName: 'contribute',
+      url: '/contribute',
+    },
+    issue: {
+      display: {
+        routeName: 'display-issue',
+        url: '/issues/{id}',
+      },
+    },
   },
-
-  bugReport: {
-    routeName: 'bug-report',
-    url: '/report-a-bug',
-  },
-
-  dashboard: {
-    routeName: 'dashboard',
-    url: '/dashboard',
-  },
-
-  contribute: {
-    routeName: 'contribute',
-    url: '/contribute',
-  },
-
-  manager: {
-    routeName: MANAGER_ROUTE_NAME,
-    url: '/manager/dashboard',
-  },
-
-  issues: {
-    routeName: 'issues',
-    url: '/issues/list',
-  },
-  issue: {
-    routeName: 'display-issue',
-    url: '/issues/',
+  api: {
+    issue: {
+      list: {
+        routeName: 'list-issues',
+        url: '/api/issues/list',
+      },
+      create: {
+        routeName: 'create-issue',
+        url: '/api/issues/create',
+      },
+      edit: {
+        routeName: 'edit-issue',
+        url: '/api/issues/edit',
+      },
+      delete: {
+        routeName: 'delete-issue',
+        url: '/api/issues/{id}',
+      },
+    },
+    file: {
+      download: {
+        routeName: '',
+        irl: '/api/files/download/{id}',
+      },
+    },
   },
 };

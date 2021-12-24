@@ -97,7 +97,6 @@
 
 <script>
 import { NAV_LINKS } from '@/constant/navbar';
-import { MANAGER_ROUTE_NAME } from '@/constant/routes';
 
 export default {
   name: 'Navbar',

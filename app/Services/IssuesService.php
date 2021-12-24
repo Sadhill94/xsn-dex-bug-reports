@@ -50,58 +50,6 @@ class IssuesService
     |   Specific getters
     |--------------------------------------------------------------------------
     */
-
-    /**
-     *  Returns all issues that haven't the to validate status.
-     * Raw output
-     */
-    public function getOnlyContributorIssues(){
-        $to_validate_status = self::getToValidateStatus();
-
-        return  $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
-    }
-
-    /**
-     * Get the issues for the contributing page
-     * Doesn't take into account the issues that have a 'to validate' status
-     * But since we have the sidebar on the left with the possibility to filter,
-     * we must adapt the payload as same as the getIssuesByCategoriesAndStatuses, but without the to validate status issues
-     * Filtered output
-     * @return array
-     */
-    public function getIssuesByCategoriesAndStatusesForContributors(): array
-    {
-        $categories = self::getCategories();
-        $statuses = self::getStatuses();
-
-        $issues_by_categories = [];
-        $issues_by_statuses = [];
-
-        foreach ($categories as $category) {
-            $issues_by_categories[$category->id] =
-                [
-                    'id' => $category->id,
-                    'name' => $category->name,
-                    'items' => $category->issuesForContributors()
-                ];
-        }
-        foreach ($statuses as $status) {
-            if($status->name != Config::get('constants.statuses.to_validate')) {
-            $issues_by_statuses[$status->id] =
-                [
-                    'id' => $status->id,
-                    'name' => $status->name,
-                    'items' => $status->issuesForContributors()
-                ];
-            }
-        }
-
-        return [
-            'statuses' => $issues_by_statuses,
-            'categories' => $issues_by_categories,
-        ];
-    }
-
     /**
      * Get the issues for the home page
      * Doesn't take into account the issues that have a 'to validate' status
@@ -142,7 +90,6 @@ class IssuesService
             'categories' => $allIssuesByCategory,
         ];
     }
-
 
     /*
     |--------------------------------------------------------------------------
