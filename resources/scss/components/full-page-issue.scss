@@ -1,0 +1,210 @@
+.issue-page {
+    dt {
+        @apply h6;
+    }
+    dd {
+        @apply p;
+    }
+    .issue {
+        @apply bg-secondary p-10 rounded-md;
+
+        @screen lg {
+            @apply p-20;
+        }
+        .header {
+            .informations {
+                @screen lg {
+                    @apply w-full flex flex-row justify-between items-center;
+                }
+            }
+
+            .status {
+                @apply border-b border-gray-200 py-6;
+                dd {
+                    @apply uppercase;
+                }
+
+                @screen lg {
+                    @apply border-b-0 py-0;
+                    dt {
+                        @apply hidden;
+                    }
+                    dd {
+                        @apply p-3 bg-quaternary rounded-md font-semibold;
+                    }
+                }
+                @screen lg {
+                    dd {
+                        @apply p-5;
+                    }
+                }
+            }
+        }
+
+        .body {
+            @screen lg {
+                @apply mt-12;
+            }
+            .details {
+                @apply flex flex-col items-center w-full divide-y divide-gray-200;
+
+                @screen lg {
+                    @apply flex-row justify-between items-start divide-y-0;
+                }
+
+                .details-row {
+                    @apply w-full;
+
+                    @screen lg {
+                        @apply w-1/2 max-w-5xl;
+                    }
+
+                    &:first-child {
+                        @screen lg {
+                            @apply pr-12;
+                        }
+                        @screen xl {
+                            @apply pr-24;
+                        }
+                    }
+                    &:last-child {
+                        @screen lg {
+                            @apply pl-12;
+                        }
+                        @screen xl {
+                            @apply pl-24;
+                        }
+                    }
+
+                    dl {
+                        @apply divide-y divide-gray-200;
+                    }
+                }
+
+                .details-column {
+                    @apply py-6;
+
+                    @screen lg {
+                        @apply py-4;
+                    }
+
+                    dt {
+                        @apply mb-3;
+                        @screen lg {
+                            @apply mb-0;
+                        }
+                    }
+                    dd {
+                        @apply mt-1 flex mb-0;
+
+                        span {
+                            @apply flex-grow;
+
+                            a {
+                                @apply font-normal border-b;
+
+                                &:hover {
+                                    @apply text-quaternary border-quaternary;
+                                }
+                            }
+                        }
+
+                        @screen sm {
+                            @apply mt-0 col-span-2;
+                        }
+                    }
+
+                    @screen lg {
+                        @apply py-5 grid grid-cols-3 gap-4;
+                    }
+                }
+            }
+
+            .rich-contents {
+                @apply mt-2;
+
+                @screen lg {
+                    @apply mt-8;
+                }
+                .rich-contents-row {
+                    @apply flex flex-col-reverse;
+                    @screen lg {
+                        @apply flex-row;
+                    }
+                }
+
+                .rich-contents-column {
+                    @apply w-full;
+
+                    @screen lg {
+                        @apply w-1/2;
+                    }
+
+                    &:first-child {
+                        @apply mt-8;
+                        @screen lg {
+                            @apply pr-12 mt-0;
+                        }
+                        @screen xl {
+                            @apply pr-24;
+                        }
+                    }
+                    &:last-child {
+                        @screen lg {
+                            @apply pl-12;
+                        }
+                        @screen xl {
+                            @apply pl-24;
+                        }
+                    }
+                    dt {
+                        //@apply h6;
+                    }
+                    dd {
+                        @apply max-w-7xl;
+                    }
+                }
+            }
+
+            .attachments {
+                @apply mt-5 pt-4 border-t border-gray-200;
+
+                &-list {
+                    @apply flex flex-wrap justify-center;
+                    @screen md {
+                        @apply justify-between;
+                    }
+                    li {
+                        @apply border-2 border-quaternary rounded-md m-4 w-80 h-auto;
+
+                        @screen sm {
+                            @apply m-8;
+                        }
+                    }
+                }
+                .attachments-item {
+                    @apply p-6;
+                    &-actions {
+                        @apply flex justify-around items-end mt-6 px-4;
+                        button,
+                        a {
+                            @apply cursor-pointer;
+                        }
+                    }
+                    &-meta {
+                        @apply text-center mt-4;
+                    }
+                    .meta-name {
+                        @apply caption-lg truncate;
+                    }
+                    .meta-update {
+                        @apply flex justify-between items-center mt-3;
+                        p, span {
+                            @apply text-body-sm font-medium;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
