@@ -1,10 +1,22 @@
+#edit-issue-page {
+    #brand-select {
+        @apply max-w-full;
+    }
+}
+
 .issue-page {
+    .input {
+        @apply max-w-full;
+    }
+
     dt {
         @apply h6;
     }
+
     dd {
         @apply p;
     }
+
     .issue {
         @apply bg-secondary p-10 rounded-md;
 
