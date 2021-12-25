@@ -171,47 +171,22 @@
 </template>
 <script>
 import AppLayout from '@/layouts/AppLayout';
-import { formatDate } from '@/helpers/date';
+
+import { SingleIssueMixin } from '@/mixins/single-issue';
+import { FiltersMixin } from '@/mixins/filters';
 
 export default {
   name: 'index',
+
+  mixins: [SingleIssueMixin, FiltersMixin],
+
   components: { AppLayout },
+
   props: {
     issue: {
       type: Object,
       default: null,
     },
-  },
-  methods: {
-    handleCopyLink() {
-      navigator.clipboard.writeText(location.href);
-      this.$displayNotification({
-        message: 'Issue link copied to the clipboard !',
-      });
-    },
-    isPropertyNullOrEmpty(property) {
-      if (this.issue[property]) {
-        return this.issue[property] !== 'null';
-      }
-      return true;
-    },
-  },
-
-  filters: {
-    humanizeDate(value) {
-      return formatDate(value, 'DD/MMM/YYYY');
-    },
-    removeExtensionIfExist(value) {
-      const values = value.split('.');
-      if (values.length > 1) {
-        return values[0];
-      } else {
-        return value;
-      }
-    },
-  },
-  mounted() {
-    console.log('this.data', this.issue);
   },
 };
 </script>

@@ -45,14 +45,15 @@
 </template>
 
 <script>
-import { formatDate } from '@/helpers/date';
-
 import IssueStatusPill from '@/components/IssueStatusPill';
 import { ROUTES } from '@/constant/routes';
 import axios from 'axios';
+import { FiltersMixin } from '@/mixins/filters';
 
 export default {
   name: 'IssueCard',
+
+  mixins: [FiltersMixin],
 
   components: { IssueStatusPill },
 
@@ -107,11 +108,6 @@ export default {
         .finally(() => {
           this.$displayNotification(notification);
         });
-    },
-  },
-  filters: {
-    humanizeDate(value) {
-      return formatDate(value);
     },
   },
 };

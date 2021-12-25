@@ -1,3 +1,5 @@
+import { OS_OPTIONS } from '@/constant/os';
+
 export const DEX_WALLET_GITHUB_REPO_URL =
   'https://api.github.com/repos/X9Developers/stakenet-light-wallet/releases';
 
@@ -6,12 +8,7 @@ export const STATUS_ID_FIELD_KEY = 'status_id';
 export const FILES_FIELD_KEY = 'files';
 export const VERSION_FIELD_KEY = 'version';
 
-export const FORM_METHODS = {
-  create: 'create',
-  edit: 'edit',
-};
-
-export const DEFAULT_FORM_FIELDS_VALUES = {
+export const ISSUE_BLUEPRINT = {
   description: '',
   os: 'Windows',
   os_distribution: '',
@@ -22,6 +19,7 @@ export const DEFAULT_FORM_FIELDS_VALUES = {
   extra_infos: '',
   [STATUS_ID_FIELD_KEY]: '',
   github_link: '',
+  assignee: '',
   [FILES_FIELD_KEY]: [],
 };
 
@@ -43,17 +41,7 @@ export const REPORT_BUG_FORM_FIELDS = [
     key: 'os',
     label: 'Operating system',
     type: 'select',
-    options: [
-      {
-        name: 'Windows',
-      },
-      {
-        name: 'MacOs',
-      },
-      {
-        name: 'Linux',
-      },
-    ],
+    options: OS_OPTIONS,
     isRequired: true,
   },
   {

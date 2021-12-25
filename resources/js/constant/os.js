@@ -3,7 +3,22 @@ export const MACOS_BASE_PATH =
   '~/Library/Application Support/Stakenet/stakenet-wallet/';
 export const LINUX_BASE_PATH = '~/.local/share/Stakenet/stakenet-wallet/';
 
-export const OS_LIST = [
+export const OS_OPTIONS = [
+  {
+    id: 'Windows',
+    name: 'Windows',
+  },
+  {
+    id: 'MacOs',
+    name: 'MacOs',
+  },
+  {
+    ID: 'Linux',
+    name: 'Linux',
+  },
+];
+
+export const OS_LOGS_PATHS = [
   {
     name: 'Windows',
     paths: [

@@ -3,7 +3,7 @@
     class="flex flex-col xl:flex-row justify-between items-stretch space-y-12 xl:space-y-0 xl:space-x-12"
   >
     <div
-      v-for="os in osList"
+      v-for="os in OS_LOGS_PATHS"
       :key="os.name"
       class="w-full bg-secondary rounded-md pb-6 md:pb-12"
     >
@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import { OS_LIST } from '@/constant/osList';
+import { OS_LOGS_PATHS } from '@/constant/os';
 
 export default {
   name: 'FindLogsInfoList',
   computed: {
-    osList() {
-      return OS_LIST;
+    OS_LOGS_PATHS() {
+      return OS_LOGS_PATHS;
     },
   },
   methods: {

@@ -85,7 +85,7 @@ import BrandSelect from '@/components/BrandSelect';
 
 import {
   CATEGORY_ID_FIELD_KEY,
-  DEFAULT_FORM_FIELDS_VALUES,
+  ISSUE_BLUEPRINT,
   DEX_WALLET_GITHUB_REPO_URL,
   FILES_FIELD_KEY,
   REPORT_BUG_FORM_FIELDS,
@@ -265,7 +265,7 @@ export default {
      * Set the form field values to the default state and fill the options
      */
     resetFormValues() {
-      this.formFieldsValues = _.cloneDeep(DEFAULT_FORM_FIELDS_VALUES);
+      this.formFieldsValues = _.cloneDeep(ISSUE_BLUEPRINT);
       this.setCategoriesOptions();
       this.setDefaultCategory();
       this.hasSubmitted = false;
