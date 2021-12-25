@@ -215,6 +215,9 @@
                         a {
                             @apply cursor-pointer;
                         }
+                        img {
+                            @apply w-8;
+                        }
                     }
                     &-meta {
                         @apply text-center mt-4;

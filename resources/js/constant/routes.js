@@ -48,8 +48,12 @@ export const ROUTES = {
     },
     file: {
       download: {
-        routeName: '',
-        irl: '/api/files/download/{id}',
+        routeName: 'download-file',
+        url: '/api/files/download/{id}',
+      },
+      delete: {
+        routeName: 'delete-file',
+        url: '/api/files/{id}',
       },
     },
   },

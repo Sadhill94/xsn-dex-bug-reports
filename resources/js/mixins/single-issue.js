@@ -1,3 +1,5 @@
+import { ROUTES } from '@/constant/routes';
+
 export const SingleIssueMixin = {
   props: {
     issue: {
@@ -5,6 +7,13 @@ export const SingleIssueMixin = {
       default: null,
     },
   },
+
+  computed: {
+    ROUTES() {
+      return ROUTES;
+    },
+  },
+
   methods: {
     handleCopyLink() {
       navigator.clipboard.writeText(location.href);

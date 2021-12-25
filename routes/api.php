@@ -36,3 +36,6 @@ Route::group(['prefix' => 'issues'], function() {
 
 Route::get('files/download/{id}', [IssueController::class, 'download_file'])
     ->name('download-file');
+
+Route::delete('files/{id}', [IssueController::class, 'delete_file'])
+    ->name('delete-file');

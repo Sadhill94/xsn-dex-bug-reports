@@ -172,4 +172,8 @@ class IssueController extends Controller
     public function download_file($id){
        return $this->issuesService->downloadFile($id);
     }
+
+    public function delete_file($id){
+        return $this->issuesService->deleteFile($id);
+    }
 }

@@ -109,21 +109,15 @@ class IssuesService
             $data['display_name'] = $file->getClientOriginalName();
             $data['extension'] = $file->getClientOriginalExtension();
             $data['size'] = $file->getSize();
-            $data['filePath'] = $file->storeAs('uploads', $data['fileName'], 'public');
+            $data['filePath'] = $file->storeAs('uploads/bug-reports', $data['fileName'], 'public');
             $data['issue_id'] = $issueId;
             $this->issuesRepository->createFile($data);
         }
     }
 
-    public function deleteFile($id){
-        $file = $this->issuesRepository->getFileById($id);
-        Storage::delete($file->name);
-    }
-
-
     /*
     |--------------------------------------------------------------------------
-    |   Create / Edit / Delete
+    |   Create / Edit / Delete Issue
     |--------------------------------------------------------------------------
     */
 
@@ -151,11 +145,25 @@ class IssuesService
         return $this->issuesRepository->delete($id);
     }
 
-    public function downloadFile($id){
+    /*
+      |--------------------------------------------------------------------------
+      |   Download / Delete File
+      |--------------------------------------------------------------------------
+      */
+    public function deleteFile($id): bool
+    {
+        $file = $this->issuesRepository->getFileById($id);
+        $this->issuesRepository->deleteFile($file->id);
+
+        return unlink(public_path().$file->file_path);
+    }
+
+    public function downloadFile($id)
+    {
         $file = $this->issuesRepository->getFileById($id);
 
         if($file){
-            return response()->download(public_path().'/'.$file->file_path, $file->display_name);
+            return response()->download(public_path().''.$file->file_path, $file->display_name);
         }
         return response('File not found', 404);
     }

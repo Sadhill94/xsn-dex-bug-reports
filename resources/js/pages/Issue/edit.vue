@@ -159,58 +159,75 @@
             </dl>
           </div>
 
-          <!--          <div class="attachments">-->
-          <!--            <dl>-->
-          <!--              <div>-->
-          <!--                <dt class="">Attachments</dt>-->
+          <div class="attachments">
+            <dl>
+              <div>
+                <dt class="">Attachments</dt>
 
-          <!--                <dd class="mt-1">-->
-          <!--                  <ul role="list" class="attachments-list">-->
-          <!--                    <li v-for="file in issue.files" :key="file.id">-->
-          <!--                      <div class="attachments-item">-->
-          <!--                        <img-->
-          <!--                          :src="file.file_path"-->
-          <!--                          :alt="`file ${file.display_name}`"-->
-          <!--                          class="w-56 h-32 mx-auto"-->
-          <!--                        />-->
-          <!--                        <div class="attachments-item-actions">-->
-          <!--                          <a-->
-          <!--                            :href="file.file_path"-->
-          <!--                            target="_blank"-->
-          <!--                            aria-label="view"-->
-          <!--                          >-->
-          <!--                            <img-->
-          <!--                              src="/images/external-link-quarternary.png"-->
-          <!--                              class="w-8"-->
-          <!--                            />-->
-          <!--                          </a>-->
-          <!--                          <a-->
-          <!--                            :href="`/files/download/${file.id}`"-->
-          <!--                            target="_blank"-->
-          <!--                            aria-label="download"-->
-          <!--                          >-->
-          <!--                            <img src="/images/download.png" class="w-8" />-->
-          <!--                          </a>-->
-          <!--                        </div>-->
-          <!--                        <div class="attachments-item-meta">-->
-          <!--                          <p class="meta-name">-->
-          <!--                            {{ file.display_name | removeExtensionIfExist }}.{{-->
-          <!--                              file.extension-->
-          <!--                            }}-->
-          <!--                          </p>-->
-          <!--                          <div class="meta-update">-->
-          <!--                            <p>{{ file.created_at | humanizeDate }}</p>-->
-          <!--                            <span>{{ file.size }}KB</span>-->
-          <!--                          </div>-->
-          <!--                        </div>-->
-          <!--                      </div>-->
-          <!--                    </li>-->
-          <!--                  </ul>-->
-          <!--                  <p v-if="issue.files.length < 1">No attachments found</p>-->
-          <!--                </dd>-->
-          <!--              </div>-->
-          <!--            </dl>-->
-          <!--          </div>-->
+                <dd class="mt-1">
+                  <ul role="list" class="attachments-list">
+                    <li v-for="file in localIssue.files" :key="file.id">
+                      <div class="attachments-item">
+                        <img
+                          :src="file.file_path"
+                          :alt="`file ${file.display_name}`"
+                          class="w-56 h-32 mx-auto"
+                        />
+                        <div class="attachments-item-actions">
+                          <!-- VIEW -->
+                          <a
+                            :href="file.file_path"
+                            target="_blank"
+                            aria-label="view"
+                          >
+                            <img
+                              src="/images/external-link-quarternary.png"
+                              alt="view image"
+                            />
+                          </a>
+                          <!-- DOWNLOAD -->
+                          <a
+                            :href="
+                              ROUTES.api.file.download.url.replace(
+                                '{id}',
+                                file.id
+                              )
+                            "
+                            target="_blank"
+                            aria-label="download"
+                          >
+                            <img
+                              src="/images/download.png"
+                              alt="download image"
+                            />
+                          </a>
+                          <!-- DELETE -->
+                          <button
+                            @click="confirmDeleteFile(file.id)"
+                            aria-label="delete file"
+                          >
+                            <img src="/images/trash.png" alt="delete image" />
+                          </button>
+                        </div>
+                        <div class="attachments-item-meta">
+                          <p class="meta-name">
+                            {{ file.display_name | removeExtensionIfExist }}.{{
+                              file.extension
+                            }}
+                          </p>
+                          <div class="meta-update">
+                            <p>{{ file.created_at | humanizeDate }}</p>
+                            <span>{{ file.size }}KB</span>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <p v-if="localIssue.files.length < 1">No attachments found</p>
+                </dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </div>
     </section>
@@ -218,12 +235,14 @@
 </template>
 <script>
 import _ from 'lodash';
+import axios from 'axios';
 
 import AppLayout from '@/layouts/AppLayout';
 import BrandSelect from '@/components/BrandSelect';
 
 import { ISSUE_BLUEPRINT } from '@/constant/form';
 import { OS_OPTIONS } from '@/constant/os';
+import { ROUTES } from '@/constant/routes';
 
 import { SingleIssueMixin } from '@/mixins/single-issue';
 import { FiltersMixin } from '@/mixins/filters';
@@ -259,13 +278,39 @@ export default {
 
   mounted() {
     this.localIssue = _.cloneDeep(this.issue);
-    console.log('this.data', this.issue);
-    console.log('this.local', this.localIssue);
   },
 
   computed: {
     OS_OPTIONS() {
       return OS_OPTIONS;
+    },
+  },
+
+  methods: {
+    confirmDeleteFile(fileId) {
+      if (confirm('Confirm your wish to delete this files')) {
+        this.deleteFile(fileId);
+      }
+    },
+
+    deleteFile(fileId) {
+      const notification = {};
+      axios
+        .delete(ROUTES.api.file.delete.url.replace('{id}', fileId))
+        .then(() => {
+          notification.message = 'Successfully deleted';
+          notification.type = 'success';
+          this.localIssue.files = this.localIssue.files.filter(
+            (file) => file.id !== fileId
+          );
+        })
+        .catch((err) => {
+          notification.message = err.response.statusText;
+          notification.type = 'error';
+        })
+        .finally(() => {
+          this.$displayNotification(notification);
+        });
     },
   },
 };
