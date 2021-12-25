@@ -4,12 +4,9 @@
       <div class="issue" v-if="issue">
         <div class="header">
           <div class="informations">
-            <div class="issue-share">
-              <button class="h3" @click="handleCopyLink">
-                <img src="/images/link.png" class="w-7 md:w-9" />
-              </button>
+            <share-section>
               <h3>Details issue #{{ issue.id }}</h3>
-            </div>
+            </share-section>
             <dl class="status">
               <div>
                 <dt>Status</dt>
@@ -21,172 +18,87 @@
           </div>
         </div>
         <div class="body">
-          <div class="details">
-            <!-- FIRST ROWS -->
-            <div class="details-row">
-              <dl>
-                <div class="details-column">
-                  <dt>Bug category</dt>
-                  <dd>
-                    <span>{{ issue.category.name }}</span>
-                  </dd>
-                </div>
+          <details-section>
+            <template #bug_category>
+              <span>{{ issue.category.name }}</span>
+            </template>
 
-                <div class="details-column">
-                  <dt>Dex version</dt>
-                  <dd>
-                    <span>{{ issue.version }}</span>
-                  </dd>
-                </div>
+            <template #dex_version>
+              <span>{{ issue.version }}</span>
+            </template>
 
-                <div class="details-column">
-                  <dt>Short description</dt>
-                  <dd>
-                    <span>{{ issue.description }}</span>
-                  </dd>
-                </div>
-              </dl>
-            </div>
+            <template #short_description>
+              <span>{{ issue.description }}</span>
+            </template>
 
-            <!-- SECOND ROWS-->
-            <div class="details-row">
-              <dl>
-                <div class="details-column">
-                  <dt>Operating system</dt>
-                  <dd>
-                    <span>{{ issue.os }} {{ issue.os_distribution }}</span>
-                  </dd>
-                </div>
+            <template #operating_system>
+              <span>{{ issue.os }} {{ issue.os_distribution }}</span>
+            </template>
 
-                <div class="details-column">
-                  <dt>Assignee</dt>
-                  <dd>
-                    <span>{{ issue.assignee || 'none' }}</span>
-                  </dd>
-                </div>
+            <template #assignee>
+              <span>{{ issue.assignee || 'none' }}</span>
+            </template>
 
-                <div class="details-column">
-                  <dt>Reported by</dt>
-                  <dd>
-                    <span>{{ issue.user_discord_id }}</span>
-                  </dd>
-                </div>
+            <template #user_discord_id>
+              <span>{{ issue.user_discord_id }}</span>
+            </template>
 
-                <div class="details-column">
-                  <dt>Github link</dt>
-                  <dd>
-                    <span>
-                      <a
-                        v-show="!isPropertyNullOrEmpty('github_link')"
-                        :href="issue.github_link"
-                        target="_blank"
-                      >
-                        View
-                      </a>
-                      {{ isPropertyNullOrEmpty('github_link') ? 'none' : null }}
-                    </span>
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>
+            <template #github_link>
+              <span>
+                <a
+                  v-show="!isPropertyNullOrEmpty('github_link')"
+                  :href="issue.github_link"
+                  target="_blank"
+                >
+                  View
+                </a>
+                {{ isPropertyNullOrEmpty('github_link') ? 'none' : null }}
+              </span>
+            </template>
+          </details-section>
 
-          <div class="rich-contents">
-            <dl class="rich-contents-row">
-              <div class="rich-contents-column">
-                <dt>Steps to reproduce</dt>
-                <dd>
-                  <span>
-                    {{ issue.steps_to_reproduce }}
-                  </span>
-                </dd>
-              </div>
-              <div class="rich-contents-column">
-                <dt>Extra infos</dt>
-                <dd>
-                  <span>
-                    {{
-                      isPropertyNullOrEmpty('extra_infos')
-                        ? 'None provided'
-                        : issue.extra_infos
-                    }}
-                  </span>
-                </dd>
-              </div>
-            </dl>
-          </div>
+          <rich-contents-section>
+            <template #steps_to_reproduce>
+              <span>
+                {{ issue.steps_to_reproduce }}
+              </span>
+            </template>
 
-          <div class="attachments">
-            <dl>
-              <div>
-                <dt class="">Attachments</dt>
+            <template #extra_infos>
+              <span>
+                {{
+                  isPropertyNullOrEmpty('extra_infos')
+                    ? 'None provided'
+                    : issue.extra_infos
+                }}
+              </span>
+            </template>
+          </rich-contents-section>
 
-                <dd class="mt-1">
-                  <ul role="list" class="attachments-list">
-                    <li v-for="file in issue.files" :key="file.id">
-                      <div class="attachments-item">
-                        <img :src="file.file_path" class="w-56 h-32 mx-auto" />
-                        <div class="attachments-item-actions">
-                          <a
-                            :href="file.file_path"
-                            target="_blank"
-                            aria-label="view"
-                          >
-                            <img
-                              src="/images/external-link-quarternary.png"
-                              class="w-8"
-                            />
-                          </a>
-                          <a
-                            :href="`/files/download/${file.id}`"
-                            target="_blank"
-                            aria-label="download"
-                          >
-                            <img src="/images/download.png" class="w-8" />
-                          </a>
-                        </div>
-                        <div class="attachments-item-meta">
-                          <p class="meta-name">
-                            {{ file.display_name | removeExtensionIfExist }}.{{
-                              file.extension
-                            }}
-                          </p>
-                          <div class="meta-update">
-                            <p>{{ file.created_at | humanizeDate }}</p>
-                            <span>{{ file.size }}KB</span>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <p v-if="issue.files.length < 1">No attachments found</p>
-                </dd>
-              </div>
-            </dl>
-          </div>
+          <attachments-section :files="issue.files" />
         </div>
       </div>
     </section>
   </app-layout>
 </template>
 <script>
-import AppLayout from '@/layouts/AppLayout';
-
 import { SingleIssueMixin } from '@/mixins/single-issue';
 import { FiltersMixin } from '@/mixins/filters';
+import DetailsSection from '@/components/Issue/DetailsSection';
+import RichContentsSection from '@/components/Issue/RichContentsSection';
+import AttachmentsSection from '@/components/Issue/AttachmentsSection';
+import AppLayout from '@/layouts/AppLayout';
+import ShareSection from '@/components/Issue/ShareSection';
 
 export default {
-  name: 'index',
-
-  mixins: [SingleIssueMixin, FiltersMixin],
-
-  components: { AppLayout },
-
-  props: {
-    issue: {
-      type: Object,
-      default: null,
-    },
+  name: 'display',
+  components: {
+    ShareSection,
+    DetailsSection,
+    RichContentsSection,
+    AttachmentsSection,
+    AppLayout,
   },
+  mixins: [SingleIssueMixin, FiltersMixin],
 };
 </script>

@@ -7,18 +7,12 @@
       <div class="issue" v-if="issue">
         <div class="header">
           <div class="informations">
-            <div class="issue-share">
-              <button class="h3" @click="handleCopyLink">
-                <img
-                  src="/images/link.png"
-                  alt="copy link"
-                  class="w-7 md:w-9"
-                />
-              </button>
+            <share-section>
               <h3>Edit issue #{{ issue.id }}</h3>
-            </div>
+            </share-section>
           </div>
         </div>
+
         <div class="body">
           <details-section>
             <template #status>
@@ -132,6 +126,7 @@ import { FiltersMixin } from '@/mixins/filters';
 import AttachmentsSection from '@/components/Issue/AttachmentsSection';
 import RichContentsSection from '@/components/Issue/RichContentsSection';
 import DetailsSection from '@/components/Issue/DetailsSection';
+import InformationsSection from '@/components/Issue/ShareSection';
 
 export default {
   name: 'edit',
@@ -139,6 +134,7 @@ export default {
   mixins: [SingleIssueMixin, FiltersMixin],
 
   components: {
+    InformationsSection,
     DetailsSection,
     RichContentsSection,
     AttachmentsSection,

@@ -3,7 +3,7 @@
     <!-- FIRST ROWS -->
     <div class="details-row">
       <dl>
-        <div class="details-column">
+        <div class="details-column" v-if="$slots.status">
           <dt>Status</dt>
           <dd>
             <slot name="status" />
@@ -43,7 +43,7 @@
           </dd>
         </div>
 
-        <div class="details-column">
+        <div class="details-column" v-if="$slots.os_distribution">
           <dt>OS distribution</dt>
           <dd>
             <slot name="os_distribution" />
