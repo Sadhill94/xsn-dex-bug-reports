@@ -84,8 +84,13 @@ class IssueController extends Controller
     public function display($id): Response
     {
         $issue = $this->issuesService->getById($id);
+        return Inertia::render('Issue/display', ['issue' => $issue]);
+    }
 
-        return Inertia::render('Display/index', ['issue' => $issue]);
+    public function display_edit($id): Response
+    {
+        $issue = $this->issuesService->getById($id);
+        return Inertia::render('Issue/display', ['issue' => $issue]);
     }
 
 

@@ -32,7 +32,10 @@
           <button @click="confirmDelete" class="caption-lg uppercase">
             Delete
           </button>
-          <a :href="getIssueUrl" target="_blank" class="caption-lg uppercase"
+          <a
+            :href="getEditIssueUrl"
+            target="_blank"
+            class="caption-lg uppercase"
             >Edit</a
           >
         </div>
@@ -62,10 +65,16 @@ export default {
 
   computed: {
     isManager() {
+      return true;
       return this.$page?.props?.auth?.user;
     },
+
     getIssueUrl() {
       return ROUTES.web.issue.display.url.replace('{id}', this.item.id);
+    },
+
+    getEditIssueUrl() {
+      return ROUTES.web.issue.edit.url.replace('{id}', this.item.id);
     },
     hasGithubLink() {
       if (this.item?.github_link) {

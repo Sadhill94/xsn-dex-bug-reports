@@ -21,6 +21,10 @@ export const ROUTES = {
         routeName: 'display-issue',
         url: '/issues/{id}',
       },
+      edit: {
+        routeName: 'display-edit-issue',
+        url: '/issues/edit/{id}',
+      },
     },
   },
   api: {
