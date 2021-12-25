@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Repository\IssuesRepository;
+use ErrorException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 
@@ -142,6 +144,17 @@ class IssuesService
 
     public function delete($id): int
     {
+        $issue = $this->issuesRepository->getById($id);
+
+        foreach ($issue->files as $file) {
+            try {
+                self::deleteFile($file->id);
+            // case  file already been deleted dunno how, we enforce the delete
+            } catch(ErrorException $e){
+                Log::error('Files already been deleted: '.$e->getMessage());
+            }
+        }
+
         return $this->issuesRepository->delete($id);
     }
 
