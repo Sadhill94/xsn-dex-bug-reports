@@ -9,6 +9,7 @@ export const FILES_FIELD_KEY = 'files';
 export const VERSION_FIELD_KEY = 'version';
 
 export const ISSUE_BLUEPRINT = {
+  id: '',
   description: '',
   os: 'Windows',
   os_distribution: '',

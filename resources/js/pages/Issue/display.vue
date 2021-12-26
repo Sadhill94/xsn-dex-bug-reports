@@ -4,9 +4,9 @@
       <div class="issue" v-if="issue">
         <div class="header">
           <div class="informations">
-            <share-section @onCopyClick="handleCopyLink">
+            <actions-section @onCopyClick="handleCopyLink">
               <h3>Details issue #{{ issue.id }}</h3>
-              <a href="de" aria-label="edit" v-if="isManager">
+              <a :href="getEditIssueUrl" aria-label="edit" v-if="isManager">
                 <img src="/images/edit.png" class="w-7" alt="delete image" />
               </a>
               <button
@@ -16,7 +16,7 @@
               >
                 <img src="/images/bin.png" class="w-7" alt="delete image" />
               </button>
-            </share-section>
+            </actions-section>
             <dl class="status">
               <div>
                 <dt>Status</dt>
@@ -97,13 +97,13 @@ import { FiltersMixin } from '@/mixins/filters';
 import DetailsSection from '@/components/Issue/DetailsSection';
 import RichContentsSection from '@/components/Issue/RichContentsSection';
 import AttachmentsSection from '@/components/Issue/AttachmentsSection';
+import ActionsSection from '@/components/Issue/ActionsSection';
 import AppLayout from '@/layouts/AppLayout';
-import ShareSection from '@/components/Issue/ShareSection';
 
 export default {
   name: 'display',
   components: {
-    ShareSection,
+    ActionsSection,
     DetailsSection,
     RichContentsSection,
     AttachmentsSection,

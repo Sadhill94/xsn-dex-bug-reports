@@ -7,12 +7,18 @@
       <div class="issue" v-if="issue">
         <div class="header">
           <div class="informations">
-            <share-section @onCopyClick="handleCopyLink">
+            <actions-section @onCopyClick="handleCopyLink">
               <h3 class="mb-0">Edit issue #{{ issue.id }}</h3>
               <button @click="confirmDeleteIssue" aria-label="delete">
                 <img src="/images/bin.png" class="w-7" alt="delete image" />
               </button>
-            </share-section>
+              <button
+                @click="handleSave"
+                class="uppercase p-2 bg-quaternary rounded-md w-36 lg:ml-auto"
+              >
+                Save
+              </button>
+            </actions-section>
           </div>
         </div>
 
@@ -118,6 +124,7 @@
 </template>
 <script>
 import _ from 'lodash';
+import axios from 'axios';
 
 import AppLayout from '@/layouts/AppLayout';
 import BrandSelect from '@/components/BrandSelect';
@@ -130,7 +137,8 @@ import { FiltersMixin } from '@/mixins/filters';
 import AttachmentsSection from '@/components/Issue/AttachmentsSection';
 import RichContentsSection from '@/components/Issue/RichContentsSection';
 import DetailsSection from '@/components/Issue/DetailsSection';
-import ShareSection from '@/components/Issue/ShareSection';
+import ActionsSection from '@/components/Issue/ActionsSection';
+import { ROUTES } from '@/constant/routes';
 
 export default {
   name: 'edit',
@@ -138,7 +146,7 @@ export default {
   mixins: [SingleIssueMixin, FiltersMixin],
 
   components: {
-    ShareSection,
+    ActionsSection,
     DetailsSection,
     RichContentsSection,
     AttachmentsSection,
@@ -170,6 +178,7 @@ export default {
 
   mounted() {
     this.localIssue = _.cloneDeep(this.issue);
+    this.addAsteriksToRequiredFields();
   },
 
   computed: {
@@ -178,6 +187,39 @@ export default {
     },
   },
 
-  methods: {},
+  methods: {
+    handleSave() {
+      if (!_.isEqual(this.issue, this.localIssue)) {
+        axios
+          .post(
+            ROUTES.api.issue.edit.url.replace('{id}', this.localIssue.id),
+            this.localIssue
+          )
+          .then((res) => {
+            this.$displayNotification({
+              message: res?.data?.message || 'Successfully edited!',
+              type: 'success',
+            });
+            this.$inertia.get(`/issues/${this.localIssue.id}`);
+          })
+          .catch((err) => {
+            this.$displayNotification({
+              message: err?.response.data?.message || 'Something went wrong.',
+              type: 'error',
+            });
+          });
+      } else {
+        this.$displayNotification({
+          message:
+            "Issues are identical, change it's content to be able to save",
+        });
+      }
+    },
+    addAsteriksToRequiredFields() {
+      document
+        .querySelectorAll('#edit-issue-page .required')
+        .forEach((el) => (el.innerText = `${el.innerText}*`));
+    },
+  },
 };
 </script>

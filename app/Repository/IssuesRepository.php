@@ -80,7 +80,7 @@ class IssuesRepository
         $issue->version = $data['version'];
 
         $issue->steps_to_reproduce = $data['steps_to_reproduce'];
-        $issue->user_discord_id = $data['user_discord_id'];
+        $issue->user_discord_id = $data['user_discord_id'] ?? null;
         $issue->category_id = $data['category_id'];
         $issue->status_id = $data['status_id'];
 

@@ -4,28 +4,28 @@
     <div class="details-row">
       <dl>
         <div class="details-column" v-if="$slots.status">
-          <dt>Status</dt>
+          <dt class="required">Status</dt>
           <dd>
             <slot name="status" />
           </dd>
         </div>
 
         <div class="details-column">
-          <dt>Bug category</dt>
+          <dt class="required">Bug category</dt>
           <dd>
             <slot name="bug_category" />
           </dd>
         </div>
 
         <div class="details-column">
-          <dt>Dex version</dt>
+          <dt class="required">Dex version</dt>
           <dd>
             <slot name="dex_version" />
           </dd>
         </div>
 
         <div class="details-column">
-          <dt>Short description</dt>
+          <dt class="required">Short description</dt>
           <dd>
             <slot name="short_description" />
           </dd>
@@ -37,7 +37,7 @@
     <div class="details-row">
       <dl>
         <div class="details-column">
-          <dt>Operating system</dt>
+          <dt class="required">Operating system</dt>
           <dd>
             <slot name="operating_system" />
           </dd>

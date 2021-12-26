@@ -32,8 +32,8 @@
         @screen lg {
           @apply w-full flex flex-row justify-between items-center;
         }
-        .issue-share {
-          @apply flex flex-col justify-start items-start space-y-4;
+        .actions {
+          @apply w-full flex flex-col justify-start items-start space-y-4;
           h3,
           .h3 {
             @apply mb-0;

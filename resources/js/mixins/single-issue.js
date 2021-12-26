@@ -15,7 +15,11 @@ export const SingleIssueMixin = {
     },
 
     isManager() {
+      return true;
       return this.$page?.props?.auth?.user;
+    },
+    getEditIssueUrl() {
+      return ROUTES.web.issue.edit.url.replace('{id}', this.issue.id);
     },
   },
 

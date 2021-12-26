@@ -32,10 +32,7 @@
           <button @click="confirmDelete" class="caption-lg uppercase">
             Delete
           </button>
-          <a
-            :href="getEditIssueUrl"
-            target="_blank"
-            class="caption-lg uppercase"
+          <a :href="getEditIssueUrl" target="_self" class="caption-lg uppercase"
             >Edit</a
           >
         </div>
@@ -66,7 +63,6 @@ export default {
 
   computed: {
     isManager() {
-      return true;
       return this.$page?.props?.auth?.user;
     },
 

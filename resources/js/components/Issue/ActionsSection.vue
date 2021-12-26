@@ -1,5 +1,5 @@
 <template>
-  <div class="issue-share">
+  <div class="actions">
     <button class="h3" @click="$emit('onCopyClick')">
       <img src="/images/link.png" alt="copy link" class="w-7 md:w-9" />
     </button>
@@ -9,6 +9,6 @@
 
 <script>
 export default {
-  name: 'ShareSection',
+  name: 'ActionSection',
 };
 </script>
