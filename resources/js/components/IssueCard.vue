@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     confirmDelete() {
-      if (confirm('Confirm your wish to delete')) {
+      if (confirm(`Confirm your wish to delete issue #${this.item.id}`)) {
         this.deleteIssue(this.item.id);
       }
     },
@@ -99,7 +99,7 @@ export default {
         .then(() => {
           notification.message = 'Successfully deleted';
           notification.type = 'success';
-          this.$emit('refreshData');
+          this.$emit('onIssueDeleted');
         })
         .catch((err) => {
           notification.message = err.response.statusText;

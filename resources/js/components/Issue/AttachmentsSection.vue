@@ -32,7 +32,8 @@
                   </a>
                   <!-- DELETE -->
                   <button
-                    @click="confirmDeleteFile(file.id)"
+                    v-if="isManager"
+                    @click="confirmDeleteFile(file)"
                     aria-label="delete file"
                   >
                     <img src="/images/trash.png" alt="delete image" />
@@ -76,9 +77,9 @@ export default {
   },
 
   methods: {
-    confirmDeleteFile(fileId) {
-      if (confirm('Confirm your wish to delete this files')) {
-        this.$emit('deleteFile', fileId);
+    confirmDeleteFile(file) {
+      if (confirm(`Confirm your wish to delete file ${file.display_name}`)) {
+        this.$emit('deleteFile', file.id);
       }
     },
   },

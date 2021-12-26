@@ -46,7 +46,7 @@
         <dashboard-issues-list
           :items="currentIssuesList"
           :key="currentSelectedIssue.id"
-          @refreshData="refreshData"
+          @reloadIssues="reloadIssues"
         />
       </div>
     </div>
@@ -54,9 +54,7 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { ALL_FILTER_ID } from '@/constant/filtersId';
-import { ROUTES } from '@/constant/routes';
 
 import DashboardLayout from '@/layouts/DashboardLayout';
 import DashboardIssuesList from '@/components/Dashboard/DashboardIssuesList';
@@ -102,8 +100,16 @@ export default {
   },
 
   mounted() {
-    this.issuesByFilter = this.issues_by_filter;
-    this.allIssues = this.issues;
+    this.setStateIssues();
+  },
+
+  watch: {
+    issues: {
+      deep: true,
+      handler() {
+        this.setStateIssues();
+      },
+    },
   },
 
   computed: {
@@ -130,6 +136,15 @@ export default {
   },
 
   methods: {
+    reloadIssues() {
+      this.$inertia.reload({ preserveState: false });
+    },
+
+    setStateIssues() {
+      this.issuesByFilter = this.issues_by_filter;
+      this.allIssues = this.issues;
+    },
+
     handleSubFilterViewClick(filtersIdObject) {
       this.currentFilteredView = filtersIdObject;
     },
@@ -148,26 +163,6 @@ export default {
         subFilterId: '',
         subFilterName: '',
       };
-    },
-
-    refreshData() {
-      axios
-        .get(ROUTES.api.issue.list.url)
-        .then((res) => {
-          this.allIssues = res?.data?.issues || [];
-          this.issuesByFilter = res?.data?.issues_by_filter || {};
-          // ux detail
-          setTimeout(() => {
-            this.handleCloseModal();
-          }, 1500);
-        })
-        .catch((err) => {
-          this.$displayNotification({
-            message: `Error while trying to refresh the data. Retry and in case contact @Sadhill : ${err.response.statusText}`,
-            type: 'error',
-            duration: 3500,
-          });
-        });
     },
   },
 };

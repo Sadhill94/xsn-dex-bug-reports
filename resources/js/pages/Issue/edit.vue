@@ -7,8 +7,11 @@
       <div class="issue" v-if="issue">
         <div class="header">
           <div class="informations">
-            <share-section>
-              <h3>Edit issue #{{ issue.id }}</h3>
+            <share-section @onCopyClick="handleCopyLink">
+              <h3 class="mb-0">Edit issue #{{ issue.id }}</h3>
+              <button @click="confirmDeleteIssue" aria-label="delete">
+                <img src="/images/bin.png" class="w-7" alt="delete image" />
+              </button>
             </share-section>
           </div>
         </div>
@@ -104,7 +107,10 @@
               ></textarea>
             </template>
           </rich-contents-section>
-          <attachments-section :files="localIssue.files" />
+          <attachments-section
+            :files="localIssue.files"
+            @deleteFile="deleteFile"
+          />
         </div>
       </div>
     </section>
@@ -112,21 +118,19 @@
 </template>
 <script>
 import _ from 'lodash';
-import axios from 'axios';
 
 import AppLayout from '@/layouts/AppLayout';
 import BrandSelect from '@/components/BrandSelect';
 
 import { ISSUE_BLUEPRINT } from '@/constant/form';
 import { OS_OPTIONS } from '@/constant/os';
-import { ROUTES } from '@/constant/routes';
 
 import { SingleIssueMixin } from '@/mixins/single-issue';
 import { FiltersMixin } from '@/mixins/filters';
 import AttachmentsSection from '@/components/Issue/AttachmentsSection';
 import RichContentsSection from '@/components/Issue/RichContentsSection';
 import DetailsSection from '@/components/Issue/DetailsSection';
-import InformationsSection from '@/components/Issue/ShareSection';
+import ShareSection from '@/components/Issue/ShareSection';
 
 export default {
   name: 'edit',
@@ -134,7 +138,7 @@ export default {
   mixins: [SingleIssueMixin, FiltersMixin],
 
   components: {
-    InformationsSection,
+    ShareSection,
     DetailsSection,
     RichContentsSection,
     AttachmentsSection,
@@ -174,26 +178,6 @@ export default {
     },
   },
 
-  methods: {
-    deleteFile(fileId) {
-      const notification = {};
-      axios
-        .delete(ROUTES.api.file.delete.url.replace('{id}', fileId))
-        .then(() => {
-          notification.message = 'Successfully deleted';
-          notification.type = 'success';
-          this.localIssue.files = this.localIssue.files.filter(
-            (file) => file.id !== fileId
-          );
-        })
-        .catch((err) => {
-          notification.message = err.response.statusText;
-          notification.type = 'error';
-        })
-        .finally(() => {
-          this.$displayNotification(notification);
-        });
-    },
-  },
+  methods: {},
 };
 </script>

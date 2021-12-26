@@ -4,8 +4,18 @@
       <div class="issue" v-if="issue">
         <div class="header">
           <div class="informations">
-            <share-section>
+            <share-section @onCopyClick="handleCopyLink">
               <h3>Details issue #{{ issue.id }}</h3>
+              <a href="de" aria-label="edit" v-if="isManager">
+                <img src="/images/edit.png" class="w-7" alt="delete image" />
+              </a>
+              <button
+                @click="confirmDeleteIssue"
+                aria-label="delete"
+                v-if="isManager"
+              >
+                <img src="/images/bin.png" class="w-7" alt="delete image" />
+              </button>
             </share-section>
             <dl class="status">
               <div>

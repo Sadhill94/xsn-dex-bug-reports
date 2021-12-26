@@ -33,9 +33,21 @@
           @apply w-full flex flex-row justify-between items-center;
         }
         .issue-share {
-          @apply flex flex-row justify-start items-center;
-          h3 {
-            @apply ml-3;
+          @apply flex flex-col justify-start items-start space-y-4;
+          h3,
+          .h3 {
+            @apply mb-0;
+          }
+
+          @screen sm {
+            @apply flex-row items-center  space-y-0;
+            h3,
+            .h3 {
+              @apply ml-3;
+            }
+            img {
+              @apply ml-6;
+            }
           }
         }
       }

@@ -10,7 +10,7 @@
       <issue-card
         :item="issue"
         class="h-full"
-        @refreshData="$emit('refreshData')"
+        @onIssueDeleted="$emit('reloadIssues')"
       />
     </div>
     <div
