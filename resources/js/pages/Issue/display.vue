@@ -42,7 +42,9 @@
             </template>
 
             <template #trello_ref v-if="isManager || isManagerNotLogged">
-              <span>#{{ issue.trello_ref }}</span>
+              <span>
+                {{ issue.trello_ref ? `# ${issue.trello_ref}` : '-' }}
+              </span>
             </template>
 
             <template #short_description>
@@ -54,11 +56,13 @@
             </template>
 
             <template #assignee>
-              <span>{{ issue.assignee || 'none' }}</span>
+              <span>{{ issue.assignee || '-' }}</span>
             </template>
 
             <template #user_discord_id>
-              <span>{{ issue.user_discord_id }}</span>
+              <span>
+                {{ issue.user_discord_id ? `# ${issue.user_discord_id}` : '-' }}
+              </span>
             </template>
 
             <template #github_link>
@@ -70,7 +74,7 @@
                 >
                   View
                 </a>
-                {{ issue.github_link ? null : 'none' }}
+                {{ issue.github_link ? null : '-' }}
               </span>
             </template>
           </details-section>
