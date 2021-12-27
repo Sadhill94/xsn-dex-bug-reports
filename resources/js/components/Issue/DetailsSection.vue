@@ -17,6 +17,13 @@
           </dd>
         </div>
 
+        <div class="details-column" v-if="$slots.trello_ref">
+          <dt>Trello ref #</dt>
+          <dd>
+            <slot name="trello_ref" />
+          </dd>
+        </div>
+
         <div class="details-column">
           <dt class="required">Dex version</dt>
           <dd>

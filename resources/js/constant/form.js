@@ -22,6 +22,7 @@ export const ISSUE_BLUEPRINT = {
   github_link: '',
   assignee: '',
   [FILES_FIELD_KEY]: [],
+  trello_ref: '',
 };
 
 export const REPORT_BUG_FORM_FIELDS = [
@@ -84,28 +85,6 @@ export const REPORT_BUG_FORM_FIELDS = [
       '4 files maximum per reports and each file size of 2MB maximum',
     ],
     type: 'files',
-    isRequired: false,
-  },
-];
-
-export const PRIVATE_BUG_FORM_FIELDS = [
-  {
-    key: STATUS_ID_FIELD_KEY,
-    label: 'Status',
-    type: 'select',
-    options: [],
-    isRequired: true,
-  },
-  {
-    key: 'assignee',
-    label: 'Assignee',
-    type: 'text',
-    isRequired: false,
-  },
-  {
-    key: 'github_link',
-    label: 'Github link',
-    type: 'text',
     isRequired: false,
   },
 ];

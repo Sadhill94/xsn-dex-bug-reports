@@ -41,6 +41,10 @@
               <span>{{ issue.version }}</span>
             </template>
 
+            <template #trello_ref v-if="isManager || isManagerNotLogged">
+              <span>#{{ issue.trello_ref }}</span>
+            </template>
+
             <template #short_description>
               <span>{{ issue.description }}</span>
             </template>

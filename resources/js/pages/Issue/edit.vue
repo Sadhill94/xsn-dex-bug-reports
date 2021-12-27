@@ -43,6 +43,14 @@
               />
             </template>
 
+            <template #trello_ref>
+              <input
+                type="text"
+                class="input"
+                v-model.trim="localIssue.trello_ref"
+              />
+            </template>
+
             <template #dex_version>
               <input
                 type="text"
