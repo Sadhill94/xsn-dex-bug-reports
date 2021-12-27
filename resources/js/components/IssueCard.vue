@@ -22,7 +22,7 @@
         <div class="relative">
           <a
             :href="getIssueUrl"
-            target="_blank"
+            target="_self"
             class="btn btn--secondary text-body-sm"
           >
             view details

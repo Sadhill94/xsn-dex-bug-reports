@@ -34,8 +34,16 @@ Route::group(['prefix' => 'issues'], function() {
         ->name('delete-issue');
 });
 
-Route::get('files/download/{id}', [IssueController::class, 'download_file'])
+Route::group(['prefix' => 'files'], function() {
+
+Route::get('/download/{id}', [IssueController::class, 'download_file'])
     ->name('download-file');
 
-Route::delete('files/{id}', [IssueController::class, 'delete_file'])
+Route::delete('/{id}', [IssueController::class, 'delete_file'])
+    ->middleware('auth')
     ->name('delete-file');
+
+Route::post('', [IssueController::class, 'add_single_file'])
+    ->middleware('auth')
+    ->name('add-single-file');
+});

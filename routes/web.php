@@ -47,7 +47,7 @@ Route::group(['prefix' => 'issues'], function(){
         ->name('display-issue');
 
     Route::get('/edit/{id}', [IssueController::class, 'display_edit'])
-//        ->middleware('auth')
+        ->middleware('auth')
         ->name('display-edit-issue');
 });
 
