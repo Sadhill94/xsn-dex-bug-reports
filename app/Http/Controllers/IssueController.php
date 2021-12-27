@@ -23,7 +23,7 @@ class IssueController extends Controller
     public function dashboard(): Response
     {
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
-        $issues = $this->issuesService->getAllIssues();
+        $issues = $this->issuesService->getAllIssuesWithoutValidateStatus();
         $categories = $this->issuesService->getCategories();
         $statuses = $this->issuesService->getStatuses();
 
@@ -52,7 +52,7 @@ class IssueController extends Controller
     * Get the categories needed for the report page and render the view
     * @return Response
     */
-    public function showReportBug(): Response
+    public function report_a_bug(): Response
     {
         return Inertia::render('ReportABug/index', [
             'categories' => $this->issuesService->getCategories()

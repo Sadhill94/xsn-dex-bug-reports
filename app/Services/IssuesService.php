@@ -45,6 +45,12 @@ class IssuesService
         return $this->issuesRepository->getAll();
     }
 
+    public function getAllIssuesWithoutValidateStatus(){
+        $to_validate_status = self::getToValidateStatus();
+
+        return $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
+    }
+
     public function getToValidateStatus(){
         return $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
     }

@@ -32,7 +32,7 @@ Route::group(['prefix' => '/'], function() {
     Route::get('', [IssueController::class, 'home'])
         ->name('home');
 
-    Route::get('report-a-bug', [IssueController::class, 'showReportBug'])
+    Route::get('report-a-bug', [IssueController::class, 'report_a_bug'])
         ->name('bug-report');
 
     Route::get('dashboard', [IssueController::class, 'dashboard'])
