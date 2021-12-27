@@ -29,7 +29,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::group(['prefix' => '/'], function() {
 
-    Route::get('', [IssueController::class, 'home'])
+    Route::get('/', [IssueController::class, 'home'])
         ->name('home');
 
     Route::get('report-a-bug', [IssueController::class, 'report_a_bug'])
