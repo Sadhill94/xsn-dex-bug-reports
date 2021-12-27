@@ -3,14 +3,42 @@
     <div class="brand-container brand-container--lg">
       <h1>Stakenet DEX bug reports</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum
+        Welcome to the Stakenet DEX bug reports community website. Here you will
+        be able to see the current issues and their statuses and submit a bug.
       </p>
+      <p>
+        On the home page you will see a simple general view of the issues and
+        the information about where to related files when reporting a bug
+        (logs). If you wish to filters the issues, head to the Dashboard page,
+        you will be able to filters by status, category or see just the whole
+        block of issues.
+      </p>
+      <p>
+        When clicking on the <i>View details</i> button, you will be redirect to
+        the particular issue page, where all details are provided.
+      </p>
+      <p>
+        On that page, you will be able to see and download the attachments
+        provided during the report, if that can be of any help.
+      </p>
+      <div class="mt-6">
+        <h6 class="mb-0">DISCLAIMER</h6>
+        <p class="mb-0">
+          <strong
+            >This is not an official website of the project! It is made by
+            community members.
+          </strong>
+        </p>
+        <p>
+          Go to the official site here:
+          <a
+            href="https://stakenet.io/"
+            target="_blank"
+            class="text-tertiary hover:text-white transition-colors duration-200"
+            >Stakenet.io</a
+          >
+        </p>
+      </div>
       <br />
       <br />
       <br class="hidden lg:block" />

@@ -68,7 +68,7 @@ h6, .h6 {
     }
 }
 p, .p, blockquote, cite, button  {
-    @apply text-body-md font-normal;
+    @apply text-body-md font-normal mb-4;
     letter-spacing: .5px;
 
     @screen lg {

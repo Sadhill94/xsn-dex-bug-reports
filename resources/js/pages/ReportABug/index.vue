@@ -3,14 +3,39 @@
     <div class="brand-container brand-container--lg">
       <h1>Report a bug</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum
+        You will find here the form to submit your bug(s). Please before
+        submitting one, head to the dashboard and check if your problem is
+        already reported*.
       </p>
+      <p>
+        When reporting a bug, please try to be as clear as possible and
+        <strong>please use English</strong>.
+      </p>
+      <p>
+        When you wish to submit your logs, please submit
+        <strong>CLEAN log files</strong>, that will help a lot the devs or the
+        contributors to locate the problem. Thanks
+      </p>
+      <p>
+        NB: Try to submit logs file related to your bug, do not submit lnd logs
+        files if you're having an UI issue.
+      </p>
+      <div>
+        <h5>How to clean my logs ?</h5>
+        <p>
+          Head to your logs files (see on the home page where to find them), and
+          delete them or open them and empty their content.
+        </p>
+        <h6>
+          Last but not least, Thank you for taking the time to report your
+          bug(s), we really appreciate it !
+        </h6>
+        <p class="caption-lg italic">
+          *The search issue feature is on it's way, but for now there is nothing
+          to help you find your issue in the reported list, i apologize for the
+          inconvenience.
+        </p>
+      </div>
       <br />
       <br />
       <br class="hidden lg:block" />

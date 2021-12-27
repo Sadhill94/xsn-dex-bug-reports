@@ -70,7 +70,7 @@
                 >
                   View
                 </a>
-                {{ issue.github_link ? 'none' : null }}
+                {{ issue.github_link ? null : 'none' }}
               </span>
             </template>
           </details-section>
@@ -84,7 +84,7 @@
 
             <template #extra_infos>
               <span>
-                {{ issue.extra_infos ? 'None provided' : issue.extra_infos }}
+                {{ issue.extra_infos ? issue.extra_infos : 'None provided' }}
               </span>
             </template>
           </rich-contents-section>

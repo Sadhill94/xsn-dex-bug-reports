@@ -5,14 +5,7 @@
         <div>
           <div>
             <h2>Report</h2>
-            <slot name="form-header">
-              <p class="mt-1 max-w-2xl text-white">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut
-              </p>
-            </slot>
           </div>
-
           <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
             <form-row
               v-for="field in formFields"
