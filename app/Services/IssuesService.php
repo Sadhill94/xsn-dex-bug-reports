@@ -150,6 +150,7 @@ class IssuesService
      */
     public function storeFiles($files, $issueId)
     {
+        $filesCreated = [];
         foreach ($files as $file) {
             $data['file_name'] = time().'_'.$file->getClientOriginalName();
             $data['display_name'] = $file->getClientOriginalName();
@@ -158,8 +159,9 @@ class IssuesService
             $data['file_path'] = $file->storeAs('uploads/bug-reports', $data['file_name'], 'public');
             $data['issue_id'] = $issueId;
 
-            return $this->issuesRepository->createFile($data);
+            array_push($filesCreated,$this->issuesRepository->createFile($data));
         }
+        return $filesCreated;
     }
 
     public function deleteFile($id): bool

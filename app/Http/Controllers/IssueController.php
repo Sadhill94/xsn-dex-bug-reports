@@ -176,6 +176,8 @@ class IssueController extends Controller
         if(!$request->file('file')){
             return response('No files submitted', 400);
         }
-        return $this->issuesService->storeFiles([$request->file('file')], $request->issue_id);
+        $fileArray = $this->issuesService->storeFiles([$request->file('file')], $request->issue_id);
+
+        return response($fileArray[0]);
     }
 }
