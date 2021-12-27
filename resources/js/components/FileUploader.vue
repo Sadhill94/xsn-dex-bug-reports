@@ -111,5 +111,13 @@ export default {
     .file-preview-overlay {
     @apply bg-transparent;
   }
+
+  .file-error-wrapper .file-error-message {
+    @apply bg-danger;
+  }
+
+  .file-preview-wrapper .file-preview .image-dimension {
+    @apply hidden;
+  }
 }
 </style>

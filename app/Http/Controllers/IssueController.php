@@ -101,7 +101,7 @@ class IssueController extends Controller
             'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
-            'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000|size:2000'],
+            'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
             'files' => ['max:4'],
         ], $messages);
 
@@ -169,7 +169,7 @@ class IssueController extends Controller
         ];
 
         request()->validate([
-            'file.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000|size:4000'],
+            'file.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
             'files' => ['max:1'],
         ], $messages);
 

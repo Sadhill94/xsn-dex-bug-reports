@@ -42,6 +42,7 @@ module.exports = {
         secondary: '#1b2037', // lighter
         tertiary: '#989dcc',
         quaternary: '#818CF8',
+        danger: '#ef4444'
       },
     },
   },
