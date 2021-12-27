@@ -14,7 +14,8 @@
     "prettier": "prettier '**/*.{js,vue}' --list-different",
     "prettier:fix": "npm run prettier -- --write",
     "lint": "npm run eslint && npm run prettier",
-    "lint:fix": "npm run eslint:fix && npm run prettier:fix"
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "release": "release-it"
   },
   "engines": {
     "npm": "7.x",
@@ -42,15 +43,16 @@
     "postcss": "^8.2.13",
     "postcss-import": "^14.0.1",
     "prettier": "2.2.1",
+    "release-it": "^14.11.8",
     "resolve-url-loader": "^3.1.2",
     "sass": "^1.32.11",
     "sass-loader": "^11.0.1",
     "tailwindcss": "^2.1.2",
     "vue": "^2.6.12",
+    "vue-file-agent": "^1.7.3",
     "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.12",
-    "vue-toastification": "^1.7.14",
-    "vue-file-agent": "^1.7.3"
+    "vue-toastification": "^1.7.14"
   },
   "dependencies": {
     "@inertiajs/inertia": "^0.10.1",
