@@ -11,11 +11,11 @@
       <div
         class="flex flex-col lg:flex-row lg:items-center justify-between px-8 flex-wrap"
       >
-        <h1 class="text-2xl font-semibold text-tertiary mb-0">Dashboard</h1>
+        <h1 class="text-2xl font-semibold text-white mb-0">Dashboard</h1>
         <a
           href="https://github.com/X9Developers/stakenet-light-wallet"
           target="_blank"
-          class="h4 mb-8 md:mb-0 mt-4 lg:mt-0 inline-flex items-center hover:opacity-70 transition-opacity duration-200"
+          class="h4 mb-8 md:mb-0 mt-4 lg:mt-0 inline-flex items-center hover:opacity-80 transition-opacity duration-200"
           >Github repository
           <img
             src="/images/external-link.png"

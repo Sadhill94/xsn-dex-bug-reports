@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Issue;
 use App\Services\IssuesService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -31,24 +28,6 @@ class IssueController extends Controller
         $statuses = $this->issuesService->getStatuses();
 
         return Inertia::render('Dashboard/index', [
-            'issues' => $issues,
-            'issues_by_filter' => $issues_by_filter,
-            'categories' => $categories,
-            'statuses' => $statuses
-        ]);
-    }
-
-    /**
-     * Get the issues filtered without rendering a view
-     */
-    public function list()
-    {
-        $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
-        $issues = $this->issuesService->getAllIssues();
-        $categories = $this->issuesService->getCategories();
-        $statuses = $this->issuesService->getStatuses();
-
-        return response([
             'issues' => $issues,
             'issues_by_filter' => $issues_by_filter,
             'categories' => $categories,
@@ -196,7 +175,6 @@ class IssueController extends Controller
 
         if(!$request->file('file')){
             return response('No files submitted', 400);
-//            $data['files'] = $request->file('files');
         }
         return $this->issuesService->storeFiles([$request->file('file')], $request->issue_id);
     }

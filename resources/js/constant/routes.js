@@ -29,10 +29,6 @@ export const ROUTES = {
   },
   api: {
     issue: {
-      list: {
-        routeName: 'list-issues',
-        url: '/api/issues/list',
-      },
       create: {
         routeName: 'create-issue',
         url: '/api/issues/create',

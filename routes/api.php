@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\IssueController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,10 +22,6 @@ Route::group(['prefix' => 'issues'], function() {
     Route::post('/edit', [IssueController::class, 'edit'])
         ->middleware('auth')
         ->name('edit-issue');
-
-    Route::get('/list', [IssueController::class, 'list'])
-        ->middleware('auth')
-        ->name('list-issues');
 
     Route::delete('/{id}', [IssueController::class, 'delete'])
         ->middleware('auth')

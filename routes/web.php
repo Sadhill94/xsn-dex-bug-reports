@@ -28,6 +28,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 
 Route::group(['prefix' => '/'], function() {
+
     Route::get('/', [IssueController::class, 'home'])
         ->name('home');
 
@@ -43,6 +44,7 @@ Route::group(['prefix' => '/'], function() {
 });
 
 Route::group(['prefix' => 'issues'], function(){
+
     Route::get('/{id}', [IssueController::class, 'display'])
         ->name('display-issue');
 
