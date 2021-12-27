@@ -7,8 +7,7 @@ use ErrorException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Inertia\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IssuesService
 {
@@ -27,7 +26,11 @@ class IssuesService
 
 
     public function getById($id){
-        return $this->issuesRepository->getById($id);
+        $issue = $this->issuesRepository->getById($id);
+        if(!$issue){
+            throw new NotFoundHttpException();
+        }
+            return $issue;
     }
 
     public function getStatuses(){
@@ -120,7 +123,7 @@ class IssuesService
 
     public function delete($id): int
     {
-        $issue = $this->issuesRepository->getById($id);
+        $issue = self::getById($id);
 
         foreach ($issue->files as $file) {
             try {
