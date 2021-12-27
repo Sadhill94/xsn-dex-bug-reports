@@ -18,3 +18,8 @@ export const NAV_LINKS = [
     ...ROUTES.web.contribute,
   },
 ];
+
+export const LOGIN_LINK = {
+  name: 'Login',
+  ...ROUTES.web.login,
+};

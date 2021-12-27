@@ -13,11 +13,11 @@
         {{ item.status.name }}
       </p>
     </div>
-    <h4 class="leading-9 pt-6 font-normal">{{ item.description }}</h4>
-    <div :class="isManager ? 'pt-36' : 'pt-24'">
+    <h4 class="leading-9 pt-6 pb-6 font-normal">{{ item.description }}</h4>
+    <div :class="isManager || isManagerNotLogged ? 'mt-32' : 'mt-24'">
       <div
         class="text-center w-full mx-auto absolute inset-x-0"
-        :class="isManager ? 'bottom-0' : 'bottom-10'"
+        :class="isManager || isManagerNotLogged ? 'bottom-0 ' : 'bottom-10'"
       >
         <div class="relative">
           <a
@@ -28,7 +28,10 @@
             view details
           </a>
         </div>
-        <div class="mt-10 pb-6 flex justify-around" v-show="isManager">
+        <div
+          class="mt-10 mb-6 flex justify-around"
+          v-show="isManager || isManagerNotLogged"
+        >
           <button @click="confirmDelete" class="caption-lg uppercase">
             Delete
           </button>
@@ -46,11 +49,12 @@ import IssueStatusPill from '@/components/IssueStatusPill';
 import { ROUTES } from '@/constant/routes';
 import axios from 'axios';
 import { FiltersMixin } from '@/mixins/filters';
+import { ManagerMixin } from '@/mixins/manager';
 
 export default {
   name: 'IssueCard',
 
-  mixins: [FiltersMixin],
+  mixins: [FiltersMixin, ManagerMixin],
 
   components: { IssueStatusPill },
 
@@ -62,10 +66,6 @@ export default {
   },
 
   computed: {
-    isManager() {
-      return this.$page?.props?.auth?.user;
-    },
-
     getIssueUrl() {
       return ROUTES.web.issue.display.url.replace('{id}', this.item.id);
     },

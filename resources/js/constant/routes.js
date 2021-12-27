@@ -16,6 +16,10 @@ export const ROUTES = {
       routeName: 'contribute',
       url: '/contribute',
     },
+    login: {
+      routeName: 'login',
+      url: '/login',
+    },
     issue: {
       display: {
         routeName: 'display-issue',

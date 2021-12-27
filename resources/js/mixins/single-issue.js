@@ -14,16 +14,16 @@ export const SingleIssueMixin = {
       return ROUTES;
     },
 
-    isManager() {
-      return this.$page?.props?.auth?.user;
-    },
-
     getEditIssueUrl() {
       return ROUTES.web.issue.edit.url.replace('{id}', this.issue.id);
     },
   },
 
   methods: {
+    isTxtOrLogFile(fileExtension) {
+      return ['log', 'txt'].includes(fileExtension);
+    },
+
     handleCopyLink() {
       const readIssuePath = location.href.replace('/edit', '');
 

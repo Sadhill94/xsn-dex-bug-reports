@@ -8,6 +8,13 @@
             <li v-for="file in files" :key="file.id">
               <div class="attachments-item">
                 <img
+                  v-if="isTxtOrLogFile(file.extension)"
+                  src="/images/logFile.png"
+                  :alt="`file ${file.display_name}`"
+                  class="w-28 h-auto mx-auto"
+                />
+                <img
+                  v-else
                   :src="file.file_path"
                   :alt="`file ${file.display_name}`"
                   class="w-56 h-32 mx-auto"
@@ -63,11 +70,12 @@
 <script>
 import { FiltersMixin } from '@/mixins/filters';
 import { SingleIssueMixin } from '@/mixins/single-issue';
+import { ManagerMixin } from '@/mixins/manager';
 
 export default {
   name: 'DisplayAttachmentsSection',
 
-  mixins: [FiltersMixin, SingleIssueMixin],
+  mixins: [FiltersMixin, SingleIssueMixin, ManagerMixin],
 
   props: {
     files: {

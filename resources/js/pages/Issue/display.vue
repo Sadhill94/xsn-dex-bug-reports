@@ -6,7 +6,11 @@
           <div class="informations">
             <actions-section @onCopyClick="handleCopyLink">
               <h3>Details issue #{{ issue.id }}</h3>
-              <a :href="getEditIssueUrl" aria-label="edit" v-if="isManager">
+              <a
+                :href="getEditIssueUrl"
+                aria-label="edit"
+                v-if="isManager || isManagerNotLogged"
+              >
                 <img src="/images/edit.png" class="w-7" alt="delete image" />
               </a>
               <button
@@ -93,7 +97,9 @@
 </template>
 <script>
 import { SingleIssueMixin } from '@/mixins/single-issue';
+import { ManagerMixin } from '@/mixins/manager';
 import { FiltersMixin } from '@/mixins/filters';
+
 import DetailsSection from '@/components/Issue/DetailsSection';
 import RichContentsSection from '@/components/Issue/RichContentsSection';
 import DisplayAttachmentsSection from '@/components/Issue/DisplayAttachmentsSection';
@@ -109,6 +115,6 @@ export default {
     DisplayAttachmentsSection,
     AppLayout,
   },
-  mixins: [SingleIssueMixin, FiltersMixin],
+  mixins: [SingleIssueMixin, FiltersMixin, ManagerMixin],
 };
 </script>

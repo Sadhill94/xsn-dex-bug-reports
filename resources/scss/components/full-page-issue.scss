@@ -53,6 +53,9 @@
               @apply ml-6;
             }
           }
+             @screen lg {
+                 @apply w-auto;
+             }
         }
       }
 

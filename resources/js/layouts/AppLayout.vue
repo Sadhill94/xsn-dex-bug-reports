@@ -11,8 +11,16 @@
 <script>
 import Navbar from '@/components/Navbar';
 import BrandFooter from '@/components/BrandFooter';
+import { ManagerMixin } from '@/mixins/manager';
 export default {
   name: 'AppLayout',
+
+  mixins: [ManagerMixin],
+
   components: { BrandFooter, Navbar },
+
+  mounted() {
+    this.setManagerLocalStorageIfNotExist();
+  },
 };
 </script>

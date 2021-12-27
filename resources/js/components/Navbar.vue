@@ -96,10 +96,14 @@
 </template>
 
 <script>
-import { NAV_LINKS } from '@/constant/navbar';
+import { LOGIN_LINK, NAV_LINKS } from '@/constant/navbar';
+import { ManagerMixin } from '@/mixins/manager';
 
 export default {
   name: 'Navbar',
+
+  mixins: [ManagerMixin],
+
   props: {
     onDashboard: {
       type: Boolean,
@@ -115,6 +119,9 @@ export default {
 
   computed: {
     links() {
+      if (this.isManagerNotLogged && !this.isManager) {
+        return [...NAV_LINKS, LOGIN_LINK];
+      }
       return NAV_LINKS;
     },
   },

@@ -12,12 +12,14 @@
               <button @click="confirmDeleteIssue" aria-label="delete">
                 <img src="/images/bin.png" class="w-7" alt="delete image" />
               </button>
-              <button
-                @click="handleSave"
-                class="uppercase p-2 bg-quaternary rounded-md w-36 ml-auto"
-              >
-                Save
-              </button>
+              <div class="w-auto md:w-64 md:justify-end md:flex">
+                <button
+                  @click="handleSave"
+                  class="uppercase p-2 bg-quaternary rounded-md w-36 ml-auto"
+                >
+                  Save
+                </button>
+              </div>
             </actions-section>
           </div>
         </div>

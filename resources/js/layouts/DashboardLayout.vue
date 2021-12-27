@@ -70,9 +70,13 @@ import MobileSidebar from '@/components/Dashboard/MobileSidebar';
 import MobileDashboardNavbar from '@/components/Dashboard/MobileDashboardNavbar';
 import NavFiltersList from '@/components/Dashboard/NavFiltersList';
 import BrandFooter from '@/components/BrandFooter';
+import { ManagerMixin } from '@/mixins/manager';
 
 export default {
   name: 'DashboardLayout',
+
+  mixins: [ManagerMixin],
+
   components: {
     BrandFooter,
     NavFiltersList,
@@ -81,6 +85,7 @@ export default {
     DesktopSidebar,
     Navbar,
   },
+
   props: {
     currentFilteredView: {
       type: Object,
@@ -95,20 +100,25 @@ export default {
       default: 0,
     },
   },
+
   data() {
     return {
       isMobileNavbarOpen: false,
     };
+  },
+
+  mounted() {
+    this.setManagerLocalStorageIfNotExist();
   },
 };
 </script>
 <style lang="scss">
 @screen lg {
   .static-sidebar-container {
-    width: 24rem;
+    width: 26rem;
   }
   .main-content-container {
-    padding-left: 24rem;
+    padding-left: 26rem;
   }
 }
 @screen xl {
