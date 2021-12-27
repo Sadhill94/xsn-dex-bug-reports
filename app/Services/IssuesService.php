@@ -95,30 +95,6 @@ class IssuesService
 
     /*
     |--------------------------------------------------------------------------
-    |   File upload
-    |--------------------------------------------------------------------------
-    */
-
-    /**
-     * Upload file on the app's storage and then create the reference in the database
-     * @param $files
-     * @param $issueId
-     */
-    public function storeFiles($files, $issueId)
-    {
-        foreach ($files as $file) {
-            $data['fileName'] = time().'_'.$file->getClientOriginalName();
-            $data['display_name'] = $file->getClientOriginalName();
-            $data['extension'] = $file->getClientOriginalExtension();
-            $data['size'] = $file->getSize();
-            $data['filePath'] = $file->storeAs('uploads/bug-reports', $data['fileName'], 'public');
-            $data['issue_id'] = $issueId;
-            $this->issuesRepository->createFile($data);
-        }
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     |   Create / Edit / Delete Issue
     |--------------------------------------------------------------------------
     */
@@ -160,9 +136,29 @@ class IssuesService
 
     /*
       |--------------------------------------------------------------------------
-      |   Download / Delete File
+      |   Upload / Download / Delete File
       |--------------------------------------------------------------------------
       */
+
+    /**
+     * Upload file on the app's storage and then create the reference in the database
+     * @param $files
+     * @param $issueId
+     */
+    public function storeFiles($files, $issueId)
+    {
+        foreach ($files as $file) {
+            $data['file_name'] = time().'_'.$file->getClientOriginalName();
+            $data['display_name'] = $file->getClientOriginalName();
+            $data['extension'] = $file->getClientOriginalExtension();
+            $data['size'] = $file->getSize();
+            $data['file_path'] = $file->storeAs('uploads/bug-reports', $data['file_name'], 'public');
+            $data['issue_id'] = $issueId;
+
+            return $this->issuesRepository->createFile($data);
+        }
+    }
+
     public function deleteFile($id): bool
     {
         $file = $this->issuesRepository->getFileById($id);

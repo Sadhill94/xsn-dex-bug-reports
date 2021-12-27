@@ -108,8 +108,8 @@ class IssuesRepository
     public function createFile($data)
     {
         $fileModel = new File();
-        $fileModel->name = $data['fileName'];
-        $fileModel->file_path = '/storage/'.$data['filePath'];
+        $fileModel->name = $data['file_name'];
+        $fileModel->file_path = '/storage/'.$data['file_path'];
         $fileModel->display_name = $data['display_name'];
         $fileModel->extension = $data['extension'];
         $fileModel->size = $data['size'];

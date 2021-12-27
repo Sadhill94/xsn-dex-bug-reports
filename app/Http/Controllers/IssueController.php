@@ -165,15 +165,39 @@ class IssueController extends Controller
         ]);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $this->issuesService->delete($id);
     }
 
-    public function download_file($id){
+    public function download_file($id)
+    {
        return $this->issuesService->downloadFile($id);
     }
 
-    public function delete_file($id){
+    public function delete_file($id)
+    {
         return $this->issuesService->deleteFile($id);
+    }
+
+    public function add_single_file(Request $request)
+    {
+        $messages = [
+            "files.max" => "Maximum amount of files authorized is: 4",
+            "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",
+            "files.*.max" => "File too big, maximum allowed is 2MB/file",
+            "files.*.size" => "File too big, maximum allowed is 2MB/file",
+        ];
+
+        request()->validate([
+            'file.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000|size:4000'],
+            'files' => ['max:1'],
+        ], $messages);
+
+        if(!$request->file('file')){
+            return response('No files submitted', 400);
+//            $data['files'] = $request->file('files');
+        }
+        return $this->issuesService->storeFiles([$request->file('file')], $request->issue_id);
     }
 }
