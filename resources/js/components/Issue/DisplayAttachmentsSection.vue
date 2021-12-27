@@ -65,7 +65,7 @@ import { FiltersMixin } from '@/mixins/filters';
 import { SingleIssueMixin } from '@/mixins/single-issue';
 
 export default {
-  name: 'AttachmentsSection',
+  name: 'DisplayAttachmentsSection',
 
   mixins: [FiltersMixin, SingleIssueMixin],
 

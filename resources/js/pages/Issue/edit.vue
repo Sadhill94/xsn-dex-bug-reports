@@ -14,7 +14,7 @@
               </button>
               <button
                 @click="handleSave"
-                class="uppercase p-2 bg-quaternary rounded-md w-36 lg:ml-auto"
+                class="uppercase p-2 bg-quaternary rounded-md w-36 ml-auto"
               >
                 Save
               </button>
@@ -113,9 +113,13 @@
               ></textarea>
             </template>
           </rich-contents-section>
-          <attachments-section
+          <display-attachments-section
             :files="localIssue.files"
             @deleteFile="deleteFile"
+          />
+          <add-attachments-section
+            :issue-id="issue.id"
+            @onFileAdded="addFileToFront"
           />
         </div>
       </div>
@@ -134,11 +138,12 @@ import { OS_OPTIONS } from '@/constant/os';
 
 import { SingleIssueMixin } from '@/mixins/single-issue';
 import { FiltersMixin } from '@/mixins/filters';
-import AttachmentsSection from '@/components/Issue/AttachmentsSection';
+import DisplayAttachmentsSection from '@/components/Issue/DisplayAttachmentsSection';
 import RichContentsSection from '@/components/Issue/RichContentsSection';
 import DetailsSection from '@/components/Issue/DetailsSection';
 import ActionsSection from '@/components/Issue/ActionsSection';
 import { ROUTES } from '@/constant/routes';
+import AddAttachmentsSection from '@/components/Issue/AddAttachmentsSection';
 
 export default {
   name: 'edit',
@@ -146,10 +151,11 @@ export default {
   mixins: [SingleIssueMixin, FiltersMixin],
 
   components: {
+    AddAttachmentsSection,
     ActionsSection,
     DetailsSection,
     RichContentsSection,
-    AttachmentsSection,
+    DisplayAttachmentsSection,
     AppLayout,
     BrandSelect,
   },
@@ -219,6 +225,10 @@ export default {
       document
         .querySelectorAll('#edit-issue-page .required')
         .forEach((el) => (el.innerText = `${el.innerText}*`));
+    },
+
+    addFileToFront(file) {
+      this.localIssue.files.push(file);
     },
   },
 };

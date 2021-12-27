@@ -3,6 +3,7 @@ export const FILE_UPLOADER_CONFIG = {
   accept: '.jpeg, .jpg, .png, .gif, .log, .txt',
   maxSize: '2MB',
   maxFiles: 4,
+  multiple: true,
   helpText: 'Load your logs or screenshots',
   errorText: {
     type:

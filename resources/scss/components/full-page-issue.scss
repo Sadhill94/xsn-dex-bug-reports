@@ -39,10 +39,14 @@
             @apply mb-0;
           }
 
-          @screen sm {
-            @apply flex-row items-center  space-y-0;
+          @screen md {
+            @apply flex-row items-center space-y-0;
+            h3,.h3:first-child img {
+              @apply ml-0;
+            }
+
             h3,
-            .h3 {
+            .h3:not(:first-child) {
               @apply ml-3;
             }
             img {
@@ -235,6 +239,12 @@
           }
         }
       }
+        .add-attachments {
+            @apply mt-16 mb-12 px-12 max-w-3xl mx-auto;
+            @screen lg {
+                @apply mt-24 px-0;
+            }
+        }
     }
   }
 }

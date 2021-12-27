@@ -85,7 +85,7 @@
             </template>
           </rich-contents-section>
 
-          <attachments-section :files="issue.files" />
+          <display-attachments-section :files="issue.files" />
         </div>
       </div>
     </section>
@@ -96,7 +96,7 @@ import { SingleIssueMixin } from '@/mixins/single-issue';
 import { FiltersMixin } from '@/mixins/filters';
 import DetailsSection from '@/components/Issue/DetailsSection';
 import RichContentsSection from '@/components/Issue/RichContentsSection';
-import AttachmentsSection from '@/components/Issue/AttachmentsSection';
+import DisplayAttachmentsSection from '@/components/Issue/DisplayAttachmentsSection';
 import ActionsSection from '@/components/Issue/ActionsSection';
 import AppLayout from '@/layouts/AppLayout';
 
@@ -106,7 +106,7 @@ export default {
     ActionsSection,
     DetailsSection,
     RichContentsSection,
-    AttachmentsSection,
+    DisplayAttachmentsSection,
     AppLayout,
   },
   mixins: [SingleIssueMixin, FiltersMixin],

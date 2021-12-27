@@ -55,6 +55,10 @@ export const ROUTES = {
         routeName: 'delete-file',
         url: '/api/files/{id}',
       },
+      addSingle: {
+        routeName: 'add-single-file',
+        url: '/api/files',
+      },
     },
   },
 };

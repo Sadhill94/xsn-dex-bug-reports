@@ -4,7 +4,7 @@
       id="file-uploader"
       ref="vueFileAgent"
       :theme="fileConfig.theme"
-      :multiple="true"
+      :multiple="fileConfig.multiple"
       :deletable="true"
       :meta="true"
       :accept="fileConfig.accept"
@@ -12,26 +12,16 @@
       :maxFiles="fileConfig.maxFiles"
       :helpText="fileConfig.helpText"
       :errorText="fileConfig.errorText"
+      :uploadUrl="fileConfig.uploadUrl"
       @beforedelete="onBeforeDelete($event)"
-      @delete="fileDeleted($event)"
       v-model="fileRecords"
     ></VueFileAgent>
   </div>
 </template>
 
 <script>
-const FILE_UPLOADER_CONFIG = {
-  theme: 'list',
-  accept: '.jpeg, .jpg, .png, .gif, .log, .txt',
-  maxSize: '2MB',
-  maxFiles: 4,
-  helpText: 'Load your logs or screenshots',
-  errorText: {
-    type:
-      'Invalid file type. Only .jpeg, .jpg, .png, .gif, .log or .txt allowed',
-    size: 'File too heavy. 2MB/file max',
-  },
-};
+import { FILE_UPLOADER_CONFIG } from '@/constant/fileConfig';
+
 export default {
   name: 'FileUploader',
 
@@ -40,18 +30,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    fileConfig: {
+      type: Object,
+      default: FILE_UPLOADER_CONFIG,
+    },
   },
 
   data() {
     return {
       fileRecords: [],
     };
-  },
-
-  computed: {
-    fileConfig() {
-      return FILE_UPLOADER_CONFIG;
-    },
   },
 
   watch: {
@@ -75,17 +63,13 @@ export default {
     onBeforeDelete(fileRecord) {
       if (confirm('Are you sure you want to delete the file ?')) {
         this.$refs.vueFileAgent.deleteFileRecord(fileRecord);
+        setTimeout(() => {}, 5000);
       }
     },
     /**
      * Remove from the data property the file - it has already been removed from the input
      * @param fileRecord
      */
-    fileDeleted(fileRecord) {
-      this.fileRecords = this.fileRecords.filter(
-        (file) => file.size !== fileRecord.size
-      );
-    },
   },
 };
 </script>

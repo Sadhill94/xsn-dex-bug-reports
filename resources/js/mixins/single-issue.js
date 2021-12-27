@@ -15,9 +15,9 @@ export const SingleIssueMixin = {
     },
 
     isManager() {
-      return true;
       return this.$page?.props?.auth?.user;
     },
+
     getEditIssueUrl() {
       return ROUTES.web.issue.edit.url.replace('{id}', this.issue.id);
     },
@@ -25,7 +25,9 @@ export const SingleIssueMixin = {
 
   methods: {
     handleCopyLink() {
-      navigator.clipboard.writeText(location.href);
+      const readIssuePath = location.href.replace('/edit', '');
+
+      navigator.clipboard.writeText(readIssuePath);
       this.$displayNotification({
         message: 'Issue link copied to the clipboard !',
       });
