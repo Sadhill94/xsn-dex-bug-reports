@@ -64,13 +64,13 @@
             <template #github_link>
               <span>
                 <a
-                  v-show="!isPropertyNullOrEmpty('github_link')"
+                  v-show="issue.github_link"
                   :href="issue.github_link"
                   target="_blank"
                 >
                   View
                 </a>
-                {{ isPropertyNullOrEmpty('github_link') ? 'none' : null }}
+                {{ issue.github_link ? 'none' : null }}
               </span>
             </template>
           </details-section>
@@ -84,11 +84,7 @@
 
             <template #extra_infos>
               <span>
-                {{
-                  isPropertyNullOrEmpty('extra_infos')
-                    ? 'None provided'
-                    : issue.extra_infos
-                }}
+                {{ issue.extra_infos ? 'None provided' : issue.extra_infos }}
               </span>
             </template>
           </rich-contents-section>

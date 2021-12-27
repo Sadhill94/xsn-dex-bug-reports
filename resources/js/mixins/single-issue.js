@@ -34,10 +34,7 @@ export const SingleIssueMixin = {
     },
 
     isPropertyNullOrEmpty(property) {
-      if (this.issue[property]) {
-        return this.issue[property] !== 'null';
-      }
-      return true;
+      return this.issue[property];
     },
 
     confirmDeleteIssue() {

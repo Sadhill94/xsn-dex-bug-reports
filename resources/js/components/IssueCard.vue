@@ -73,13 +73,6 @@ export default {
     getEditIssueUrl() {
       return ROUTES.web.issue.edit.url.replace('{id}', this.item.id);
     },
-    hasGithubLink() {
-      if (this.item?.github_link) {
-        // backend production env has this value
-        return this.item.github_link !== 'null';
-      }
-      return false;
-    },
   },
   methods: {
     confirmDelete() {
