@@ -80,10 +80,11 @@ class IssuesRepository
         $issue->version = $data['version'];
 
         $issue->steps_to_reproduce = $data['steps_to_reproduce'];
-        $issue->user_discord_id = $data['user_discord_id'] ?? null;
         $issue->category_id = $data['category_id'];
         $issue->status_id = $data['status_id'];
 
+        $issue->user_discord_id = $data['user_discord_id'] ?? null;
+        $issue->trello_ref = $data['trello_ref'] ?? null;
         $issue->github_link = $data['github_link'] ?? null;
         $issue->assignee = $data['assignee'] ?? null;
         $issue->extra_infos = $data['extra_infos'] ?? null;

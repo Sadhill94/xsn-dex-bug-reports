@@ -23,6 +23,7 @@ class CreateIssuesTable extends Migration
             $table->text('extra_infos')->nullable();
             $table->text('user_discord_id')->nullable();
             $table->text('github_link')->nullable();
+            $table->text('trello_ref')->nullable();
             $table->uuid('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->uuid('category_id');

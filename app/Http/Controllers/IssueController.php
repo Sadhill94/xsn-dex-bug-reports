@@ -130,7 +130,6 @@ class IssueController extends Controller
             'os' => ['required'],
             'version' => ['required'],
             'steps_to_reproduce' => ['required'],
-            'user_discord_id' => ['required'],
             'category_id' => ['required'],
             'status_id' => ['required'],
         ]);

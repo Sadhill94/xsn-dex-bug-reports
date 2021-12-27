@@ -15,6 +15,7 @@ class Issue extends Model
         'os',
         'assignee',
         'github_link',
+        'trello_ref',
         'version',
         'steps_to_reproduce',
         'extra_infos',

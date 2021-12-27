@@ -30,6 +30,7 @@ class IssueFactory extends Factory
             'steps_to_reproduce' => $this->faker->text(rand(120,240)),
             'user_discord_id' => $this->faker->userName,
             'github_link' => rand(1, 4) == 3 ? $this->faker->url : null,
+            'trello_ref' => rand(1, 4) == 3 ? rand(12,985) : null,
             'extra_infos' => $this->faker->text(rand(50, 90)),
             'status_id' => Status::inRandomOrder()->first(),
             'category_id' => Category::inRandomOrder()->first(),

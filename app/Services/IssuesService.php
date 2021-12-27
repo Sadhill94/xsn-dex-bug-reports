@@ -142,7 +142,6 @@ class IssuesService
       |   Upload / Download / Delete File
       |--------------------------------------------------------------------------
       */
-
     /**
      * Upload file on the app's storage and then create the reference in the database
      * @param $files
