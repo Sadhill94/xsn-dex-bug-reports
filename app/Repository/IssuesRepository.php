@@ -128,10 +128,10 @@ class IssuesRepository
 
     public function deleteFile($id)
     {
-        $issue = File::findOrFail($id);
+        $file = File::findOrFail($id);
 
         try {
-            $issue->deleteOrFail();
+            $file->delete();
             return 0;
         } catch(Exception $ex) {
             return 1;

@@ -172,9 +172,9 @@ class IssuesService
     public function deleteFile($id): bool
     {
         $file = $this->issuesRepository->getFileById($id);
-        $this->issuesRepository->deleteFile($file->id);
+        unlink(public_path().$file->file_path);
 
-        return unlink(public_path().$file->file_path);
+        return $this->issuesRepository->deleteFile($file->id);
     }
 
     public function downloadFile($id)

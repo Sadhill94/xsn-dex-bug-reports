@@ -98,7 +98,8 @@ export default {
           this.$emit('onIssueDeleted');
         })
         .catch((err) => {
-          notification.message = err.response.statusText;
+          notification.message =
+            err?.response?.statusText || 'Something went wrong';
           notification.type = 'error';
         })
         .finally(() => {

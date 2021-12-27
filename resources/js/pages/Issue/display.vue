@@ -93,7 +93,10 @@
             </template>
           </rich-contents-section>
 
-          <display-attachments-section :files="issue.files" />
+          <display-attachments-section
+            :files="issue.files"
+            @deleteFile="deleteFile($event, true)"
+          />
         </div>
       </div>
     </section>
@@ -112,6 +115,7 @@ import AppLayout from '@/layouts/AppLayout';
 
 export default {
   name: 'display',
+
   components: {
     ActionsSection,
     DetailsSection,
@@ -119,6 +123,16 @@ export default {
     DisplayAttachmentsSection,
     AppLayout,
   },
+
   mixins: [SingleIssueMixin, FiltersMixin, ManagerMixin],
+
+  mounted() {
+    window.addEventListener('onReloadNeeded', this.handleReload);
+  },
+  methods: {
+    handleReload() {
+      this.$inertia.reload();
+    },
+  },
 };
 </script>

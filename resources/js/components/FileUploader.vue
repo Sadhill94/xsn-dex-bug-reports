@@ -32,7 +32,7 @@ export default {
     },
     fileConfig: {
       type: Object,
-      default: FILE_UPLOADER_CONFIG,
+      default: () => FILE_UPLOADER_CONFIG,
     },
   },
 

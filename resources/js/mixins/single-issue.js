@@ -56,7 +56,8 @@ export const SingleIssueMixin = {
           this.$inertia.get(ROUTES.web.dashboard.url);
         })
         .catch((err) => {
-          notification.message = err.response.statusText;
+          notification.message =
+            err?.response?.statusText || 'Something went wrong';
           notification.type = 'error';
         })
         .finally(() => {
@@ -64,19 +65,25 @@ export const SingleIssueMixin = {
         });
     },
 
-    deleteFile(fileId) {
+    deleteFile(fileId, isDisplay = false) {
       const notification = {};
       axios
         .delete(ROUTES.api.file.delete.url.replace('{id}', fileId))
         .then(() => {
           notification.message = 'Successfully deleted';
           notification.type = 'success';
-          this.localIssue.files = this.localIssue.files.filter(
-            (file) => file.id !== fileId
-          );
+
+          if (isDisplay) {
+            dispatchEvent(new CustomEvent('onReloadNeeded'));
+          } else {
+            this.localIssue.files = this.localIssue.files.filter(
+              (file) => file.id !== fileId
+            );
+          }
         })
         .catch((err) => {
-          notification.message = err.response.statusText;
+          notification.message =
+            err?.response?.statusText || 'Something went wrong';
           notification.type = 'error';
         })
         .finally(() => {
