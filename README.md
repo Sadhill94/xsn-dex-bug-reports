@@ -57,9 +57,22 @@ Run Database migrations
 php artisan migrate
 ```
 
-## Contributing
+Run the base seeders for Categories and statuses
 
-Coming soon
+```bash
+php artisan db:seed --class=CategorySeeder
+php artisan db:seed --class=StatusSeeder
+```
+
+Run the base seeder for the manager role (don't forget to set the value for the password in the .env)
+```bash
+php artisan db:seed --class=UserSeeder
+```
+
+To test the render with issues and files
+```bash
+php artisan migrate:fresh --seed
+```
 
 ## License
 
