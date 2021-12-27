@@ -1,11 +1,11 @@
 export const LEGALS = [
   {
-    name: 'Privacy',
-    url: 'privacy',
+    name: 'Privacy Policy',
+    url: '/legal/privacy-policy',
   },
   {
-    name: 'Terms',
-    url: '/terms',
+    name: 'Terms Of Use',
+    url: '/legal/terms-of-use',
   },
 ];
 

@@ -57,7 +57,7 @@
                 <h3 class="font-semibold tracking-wider uppercase">Legal</h3>
                 <ul role="list" class="mt-4 space-y-4">
                   <li v-for="legal in legals" :key="legal.url">
-                    <footer-link :href="legal.url">
+                    <footer-link :href="legal.url" target="_self">
                       {{ legal.name }}
                     </footer-link>
                   </li>
@@ -86,10 +86,24 @@
         </div>
 
         <div class="mt-12 border-t border-gray-400 pt-8">
-          <p class="text-gray-400 xl:text-center">
-            &copy; {{ new Date().getFullYear() }} Stakenet community. All rights
-            reserved.
-          </p>
+          <div class="xl:text-center">
+            <p class="text-gray-400">
+              &copy; {{ new Date().getFullYear() }} Sadhill. All rights
+              reserved.
+            </p>
+            <a
+              href="https://github.com/Sadhill94/xsn-dex-bug-reports"
+              target="_blank"
+              class="inline-flex items-center mt-4"
+            >
+              <img
+                src="/images/github.png"
+                alt="download image"
+                class="w-7 mr-3"
+              />
+              Website repository
+            </a>
+          </div>
         </div>
       </div>
     </div>

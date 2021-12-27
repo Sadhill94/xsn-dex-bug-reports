@@ -41,6 +41,16 @@ Route::group(['prefix' => '/'], function() {
     Route::get('contribute', function(){
         return Inertia::render('Contribute/index');
     })->name('contribute');
+
+
+    // legal
+    Route::get('legal/privacy-policy', function(){
+        return Inertia::render('Legal/privacy-policy');
+    })->name('privacy-policy');
+
+    Route::get('legal/terms-of-use', function(){
+        return Inertia::render('Legal/terms-of-use');
+    })->name('terms-of-use');
 });
 
 Route::group(['prefix' => 'issues'], function(){

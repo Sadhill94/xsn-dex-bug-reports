@@ -1,6 +1,6 @@
 <template>
   <a
-    target="_blank"
+    :target="target"
     class="text-tertiary hover:text-white transition-colors duration-100"
   >
     <slot />
@@ -10,7 +10,11 @@
 <script>
 export default {
   name: 'FooterLink',
+  props: {
+    target: {
+      type: String,
+      default: '_blank',
+    },
+  },
 };
 </script>
-
-<style scoped></style>

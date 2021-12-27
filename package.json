@@ -50,7 +50,7 @@
     "vue-loader": "^15.9.7",
     "vue-template-compiler": "^2.6.12",
     "vue-toastification": "^1.7.14",
-      "vue-file-agent": "^1.7.3"
+    "vue-file-agent": "^1.7.3"
   },
   "dependencies": {
     "@inertiajs/inertia": "^0.10.1",
