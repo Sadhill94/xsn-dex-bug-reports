@@ -58,5 +58,6 @@
     "@inertiajs/inertia": "^0.10.1",
     "@inertiajs/inertia-vue": "^0.7.2",
     "@inertiajs/progress": "^0.2.6"
-  }
+  },
+  "version": "1.0.0"
 }
