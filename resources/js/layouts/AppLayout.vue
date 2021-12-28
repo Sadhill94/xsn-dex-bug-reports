@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <navbar class="mb-12 bg-secondary" />
-    <div class="pt-6 md:pt-12 lg:pt-20 pb-12 lg:pb-48 flex-grow relative">
+    <div
+      class="pt-6 md:pt-12 lg:pt-20 pb-12 lg:pb-48 flex-grow relative min-height-applied"
+    >
       <slot />
     </div>
     <brand-footer />
@@ -24,3 +26,11 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.min-height-applied {
+  min-height: 45rem;
+  @screen sm {
+    min-height: 20rem;
+  }
+}
+</style>
