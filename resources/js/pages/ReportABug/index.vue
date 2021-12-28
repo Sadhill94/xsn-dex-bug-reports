@@ -3,19 +3,21 @@
     <div class="brand-container brand-container--lg">
       <h1>Report a bug</h1>
       <p>
-        You will find here the form to submit your bug(s). Please before
-        submitting one, head to the dashboard and check if your problem is
+        You will find here the form to submit your bug(s). IMPORTANT: Before
+        submitting a new bug head to the dashboard and check if your problem is
         already reported*.
       </p>
+
       <p>
-        When reporting a bug, please try to be as clear as possible and
-        <strong>please use English</strong>.
+        When reporting a bug, please try to be as clear as possible and please
+        use simple <strong>English</strong>.
       </p>
       <p>
-        When you wish to submit your logs, please submit
-        <strong>CLEAN log files</strong>, that will help a lot the devs or the
-        contributors to locate the problem. Thanks
+        When submitting your logs with the report, please submit
+        <strong>CLEAN log files</strong>. Clean logs significantly help the
+        teams locate the problem. Thanks
       </p>
+
       <p>
         NB: Try to submit logs file related to your bug, do not submit lnd logs
         files if you're having an UI issue.

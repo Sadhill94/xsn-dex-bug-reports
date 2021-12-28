@@ -2,31 +2,30 @@
   <app-layout>
     <div class="brand-container brand-container--lg">
       <h1>Stakenet DEX bug reports</h1>
+
       <p>
         Welcome to the Stakenet DEX bug reports community website. Here you will
-        be able to see the current issues and their statuses and submit a bug.
+        be able to see the status of currently known issues and submit any new
+        bugs.
       </p>
       <p>
-        On the home page you will see a simple general view of the issues and
-        the information about where to related files when reporting a bug
-        (logs). If you wish to filters the issues, head to the Dashboard page,
-        you will be able to filters by status, category or see just the whole
-        block of issues.
+        On the home page you will see a general view of all known issues and how
+        to correctly report, and find the related files (logs) when reporting a
+        bug. On the Dashboard page, you will be able to apply filters to sort by
+        status, category or view all issues.
       </p>
       <p>
-        When clicking on the <i>View details</i> button, you will be redirect to
-        the particular issue page, where all details are provided.
-      </p>
-      <p>
-        On that page, you will be able to see and download the attachments
-        provided during the report, if that can be of any help.
+        You can see more about a particular issue by clicking on the
+        <i>View details</i> button for the bug report where all details are
+        provided. If required, you will be able to see and download all relevant
+        attachments provided during the report.
       </p>
       <div class="mt-6">
         <h6 class="mb-0">DISCLAIMER</h6>
         <p class="mb-0">
-          <strong
-            >This is not an official website of the project! It is made by
-            community members.
+          <strong>
+            This is not an official website of the project! It is made and
+            maintained by community members.
           </strong>
         </p>
         <p>
