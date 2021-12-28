@@ -13,10 +13,10 @@ export const NAV_LINKS = [
     name: 'Dashboard',
     ...ROUTES.web.dashboard,
   },
-  {
-    name: 'Contribute',
-    ...ROUTES.web.contribute,
-  },
+  // {
+  //   name: 'Contribute',
+  //   ...ROUTES.web.contribute,
+  // },
 ];
 
 export const LOGIN_LINK = {

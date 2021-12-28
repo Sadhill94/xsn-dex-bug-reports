@@ -1,13 +1,13 @@
 <template>
   <nav>
-    <button
-      class="h5 uppercase text-left tracking-wider cursor-not-allowed hover:bg-transparent focus:"
-      @click="$emit('onKanbanViewClick', FILTERS_ID.kanban)"
-      :class="isActive(FILTERS_ID.kanban) ? 'active' : 'inactive'"
-      disabled
-    >
-      Kanban <span class="pr-6 text-body-xs">- coming soon</span>
-    </button>
+    <!--    <button-->
+    <!--      class="h5 uppercase text-left tracking-wider cursor-not-allowed hover:bg-transparent focus:"-->
+    <!--      @click="$emit('onKanbanViewClick', FILTERS_ID.kanban)"-->
+    <!--      :class="isActive(FILTERS_ID.kanban) ? 'active' : 'inactive'"-->
+    <!--      disabled-->
+    <!--    >-->
+    <!--      Kanban <span class="pr-6 text-body-xs">- coming soon</span>-->
+    <!--    </button>-->
     <button
       class="sidebar-link h5 tracking-wider"
       @click="$emit('onAllViewClick', FILTERS_ID.all)"
