@@ -10,6 +10,10 @@ export const NAV_LINKS = [
     ...ROUTES.web.bugReport,
   },
   {
+    name: 'Feature request',
+    ...ROUTES.web.featureRequest,
+  },
+  {
     name: 'Dashboard',
     ...ROUTES.web.dashboard,
   },

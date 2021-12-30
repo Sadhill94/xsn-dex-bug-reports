@@ -8,6 +8,10 @@ export const ROUTES = {
       routeName: 'bug-report',
       url: '/report-a-bug',
     },
+    featureRequest: {
+      routeName: 'feature-request',
+      url: '/feature-request',
+    },
     dashboard: {
       routeName: 'dashboard',
       url: '/dashboard',

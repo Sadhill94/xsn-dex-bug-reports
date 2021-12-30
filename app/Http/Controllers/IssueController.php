@@ -59,6 +59,17 @@ class IssueController extends Controller
         ]);
     }
 
+    /**
+     * Get the categories needed for the report page and render the view
+     * @return Response
+     */
+    public function feature_request(): Response
+    {
+        return Inertia::render('FeatureRequest/index', [
+            'categories' => $this->issuesService->getCategories()
+        ]);
+    }
+
 
     public function display($id): Response
     {

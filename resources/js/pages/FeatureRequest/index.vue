@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <div class="brand-container brand-container--lg">
-      <h1>Report a bug</h1>
+      <h1>Submit a feature request</h1>
       <p>
         You will find here the form to submit your bug(s). IMPORTANT: Before
         submitting a new bug head to the dashboard and check if your problem is
@@ -58,13 +58,14 @@
       </div>
     </div>
     <div class="brand-container brand-container--lg lg:pt-24">
-      <form-issue :categories="categories" />
+      <form-issue :categories="categories" :form-name="FEATURE_FORM_NAME" />
     </div>
   </app-layout>
 </template>
 <script>
 import AppLayout from '@/layouts/AppLayout';
 import FormIssue from '@/components/FormIssue';
+import { FEATURE_FORM_NAME } from '@/constant/form';
 
 export default {
   components: { AppLayout, FormIssue },
@@ -75,36 +76,39 @@ export default {
     },
   },
   computed: {
+    FEATURE_FORM_NAME() {
+      return FEATURE_FORM_NAME;
+    },
+
     logsCategories() {
       return [
         {
           name: 'LND',
-          description:
-            'Issues with opening and closing a channel for BTC, LTC and XSN.',
+          description: 'Opening and closing a channel for BTC, LTC and XSN.',
         },
         {
           name: 'SWAPS',
           description:
-            'Issues related to the process of manual swaps in the dex tab (not the SSUI).',
+            'Related to the process of manual swaps in the dex tab (not the SSUI).',
         },
         {
           name: 'CONNEXT',
           description:
-            'Issues with opening, funding and withdrawing from a channel for ETH and ERC token.',
+            'Opening, funding and withdrawing from a channel for ETH and ERC token.',
         },
         {
           name: 'MCLW',
           description:
-            'Issues related to the client as a whole (client crash, L1 transactions issues).',
+            'Related to the client as a whole (client, L1 transactions).',
         },
         {
           name: 'UI',
-          description: 'Issues relating to visual indicators or text typos.',
+          description: 'Related to visual indicators or text typos.',
         },
         {
           name: 'SSUI',
           description:
-            'Issues specifically relating to when the simple swap UI is active.',
+            'Specifically relating to when the simple swap UI is active.',
         },
       ];
     },

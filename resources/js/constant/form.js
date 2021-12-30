@@ -25,6 +25,9 @@ export const ISSUE_BLUEPRINT = {
   trello_ref: '',
 };
 
+export const BUG_FORM_NAME = 'BUG_REPORT';
+export const FEATURE_FORM_NAME = 'FEATURE_REQUEST';
+
 export const REPORT_BUG_FORM_FIELDS = [
   {
     key: 'description',
@@ -63,6 +66,44 @@ export const REPORT_BUG_FORM_FIELDS = [
     key: 'steps_to_reproduce',
     label: 'Steps to reproduce',
     type: 'textarea',
+    isRequired: true,
+  },
+  {
+    key: 'user_discord_id',
+    label: 'Discord username',
+    type: 'text',
+    isRequired: true,
+  },
+  {
+    key: 'extra_infos',
+    label: 'Extra infos',
+    type: 'textarea',
+    isRequired: false,
+  },
+  {
+    key: FILES_FIELD_KEY,
+    label: 'Files',
+    additionalInfos: [
+      'Authorized formats: log, txt, jpg, jpeg, png, gifs',
+      '4 files maximum per reports and each file size of 2MB maximum',
+    ],
+    type: 'files',
+    isRequired: false,
+  },
+];
+
+export const FEATURE_REQUEST_FORM_FIELDS = [
+  {
+    key: 'description',
+    label: 'Short description',
+    type: 'text',
+    isRequired: true,
+  },
+  {
+    key: CATEGORY_ID_FIELD_KEY,
+    label: 'Category',
+    type: 'select',
+    options: [],
     isRequired: true,
   },
   {

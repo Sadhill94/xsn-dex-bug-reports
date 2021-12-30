@@ -35,6 +35,9 @@ Route::group(['prefix' => '/'], function() {
     Route::get('report-a-bug', [IssueController::class, 'report_a_bug'])
         ->name('bug-report');
 
+    Route::get('feature-request', [IssueController::class, 'feature_request'])
+        ->name('feature-request');
+
     Route::get('dashboard', [IssueController::class, 'dashboard'])
         ->name('dashboard');
 
