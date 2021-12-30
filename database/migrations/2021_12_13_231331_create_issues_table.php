@@ -28,6 +28,8 @@ class CreateIssuesTable extends Migration
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->uuid('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->uuid('type_id');
+            $table->foreign('type_id')->references('id')->on('types');
 
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ class IssuesRepository
 
     public function getById($id)
     {
-        return Issue::with(['category', 'status', 'files'])
+        return Issue::with(['category', 'status', 'files', 'type'])
             ->get()
             ->find($id);
     }
@@ -39,14 +39,14 @@ class IssuesRepository
     public function getAll()
     {
          return Issue::orderBy('created_at', 'DESC')
-             ->with(['category', 'status', 'files'])
+             ->with(['category', 'status', 'files', 'type'])
              ->get();
     }
 
     public function getIssuesWithCategoryAndStatusWhereNotIn($property, $arr)
     {
         return Issue::whereNotIn($property, $arr)
-            ->with(['category', 'status', 'files'])
+            ->with(['category', 'status', 'files', 'type'])
             ->orderBy('created_at', 'DESC')
             ->get();
     }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 use App\Models\Category;
 use App\Models\Issue;
 use App\Models\Status;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class IssueFactory extends Factory
@@ -34,6 +35,7 @@ class IssueFactory extends Factory
             'extra_infos' => $this->faker->text(rand(50, 90)),
             'status_id' => Status::inRandomOrder()->first(),
             'category_id' => Category::inRandomOrder()->first(),
+            'type_id' => Type::inRandomOrder()->first(),
             'created_at' => $this->faker->dateTimeThisMonth()
         ];
     }
