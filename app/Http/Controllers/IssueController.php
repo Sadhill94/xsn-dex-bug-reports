@@ -97,7 +97,7 @@ class IssueController extends Controller
     * Sto
     * @param Request $request
     */
-    public function create(Request $request)
+    public function create_bug(Request $request)
     {
         $messages = [
             "files.max" => "Maximum amount of files authorized is: 4",
@@ -110,6 +110,35 @@ class IssueController extends Controller
             'os' => ['required'],
             'version' => ['required'],
             'steps_to_reproduce' => ['required'],
+            'user_discord_id' => ['required'],
+            'category_id' => ['required'],
+            'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
+            'files' => ['max:4'],
+        ], $messages);
+
+        $data = $request->post();
+        if($request->file('files')){
+            $data['files'] = $request->file('files');
+        }
+
+        $issue = $this->issuesService->create($data);
+
+        return response([
+            'message' => 'Issue successfully reported. Thanks',
+            'data' => $issue
+        ]);
+    }
+
+    public function create_feature(Request $request)
+    {
+        $messages = [
+            "files.max" => "Maximum amount of files authorized is: 4",
+            "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",
+            "files.*.max" => "File too big, maximum allowed is 2MB/file",
+            "files.*.size" => "File too big, maximum allowed is 2MB/file",
+        ];
+        request()->validate([
+            'description' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
             'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],

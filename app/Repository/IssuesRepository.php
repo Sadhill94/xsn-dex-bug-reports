@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\File;
 use App\Models\Issue;
 use App\Models\Status;
+use App\Models\Type;
 use Exception;
 
 class IssuesRepository
@@ -16,6 +17,10 @@ class IssuesRepository
         return Issue::with(['category', 'status', 'files', 'type'])
             ->get()
             ->find($id);
+    }
+
+    public function getTypeById($id){
+        return Type::findOrFail($id);
     }
 
     public function getCategories()
@@ -55,14 +60,15 @@ class IssuesRepository
     {
         $issue = new Issue();
         $issue->description = $data['description'];
-        $issue->os = $data['os'];
-        $issue->version = $data['version'];
+        $issue->os = $data['os'] ?? null;
+        $issue->version = $data['version'] ?? null;
         $issue->os_distribution = $data['os_distribution'] ?? null;
-        $issue->steps_to_reproduce = $data['steps_to_reproduce'];
-        $issue->user_discord_id = $data['user_discord_id'];
+        $issue->steps_to_reproduce = $data['steps_to_reproduce'] ?? null;
+        $issue->user_discord_id = $data['user_discord_id'] ?? null;
         $issue->category_id = $data['category_id'];
         $issue->extra_infos = $data['extra_infos'] ?? null;
         $issue->status_id = $data['status_id'];
+        $issue->type_id = $data['type_id'];
 
         $issue->save();
 
