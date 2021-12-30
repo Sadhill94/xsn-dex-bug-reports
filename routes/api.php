@@ -16,8 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'issues'], function() {
 
-    Route::post('/create', [IssueController::class, 'create'])
-        ->name('create-issue');
+    Route::post('/bug/create', [IssueController::class, 'create_bug'])
+        ->name('create-bug');
+
+    Route::post('/feature/create', [IssueController::class, 'create_feature'])
+        ->name('create-feature');
 
     Route::post('/edit', [IssueController::class, 'edit'])
         ->middleware('auth')

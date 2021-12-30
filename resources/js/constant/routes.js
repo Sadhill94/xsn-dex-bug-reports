@@ -37,9 +37,13 @@ export const ROUTES = {
   },
   api: {
     issue: {
-      create: {
-        routeName: 'create-issue',
-        url: '/api/issues/create',
+      create_bug: {
+        routeName: 'create-bug',
+        url: '/api/issues/bug/create',
+      },
+      create_feature: {
+        routeName: 'create-feature',
+        url: '/api/issues/feature/create',
       },
       edit: {
         routeName: 'edit-issue',

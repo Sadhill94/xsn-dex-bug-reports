@@ -179,7 +179,7 @@ export default {
       this.validateFieldsAndSetErrors();
 
       if (this.fieldsWithErrors.length === 0) {
-        const url = `${ROUTES.api.issue.create.url}`;
+        const url = `${ROUTES.api.issue.create_bug.url}`;
         const formData = this.setToFormData();
         const headers = {
           'Content-Type': 'multipart/form-data',
