@@ -33,11 +33,17 @@
         </div>
         <div class="body">
           <details-section>
-            <template #bug_category>
+            <template #type>
+              <span class="uppercase tracking-wider">{{
+                issue.type.name
+              }}</span>
+            </template>
+
+            <template #category>
               <span>{{ issue.category.name }}</span>
             </template>
 
-            <template #dex_version>
+            <template #dex_version v-if="issue.version">
               <span>{{ issue.version }}</span>
             </template>
 
@@ -51,7 +57,7 @@
               <span>{{ issue.description }}</span>
             </template>
 
-            <template #operating_system>
+            <template #operating_system v-if="issue.os">
               <span>{{ issue.os }} {{ issue.os_distribution }}</span>
             </template>
 
@@ -80,7 +86,7 @@
           </details-section>
 
           <rich-contents-section>
-            <template #steps_to_reproduce>
+            <template #steps_to_reproduce v-if="issue.steps_to_reproduce">
               <span>
                 {{ issue.steps_to_reproduce }}
               </span>

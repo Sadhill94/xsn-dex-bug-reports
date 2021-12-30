@@ -34,7 +34,17 @@
                 @onChange="localIssue.status_id = $event.toString()"
               />
             </template>
-            <template #bug_category>
+
+            <template #type>
+              <brand-select
+                :options="types"
+                :value="localIssue.type_id"
+                class="input"
+                @onChange="localIssue.type_id = $event.toString()"
+              />
+            </template>
+
+            <template #category>
               <brand-select
                 :options="categories"
                 :value="localIssue.category_id"
@@ -176,6 +186,10 @@ export default {
       default: () => [],
     },
     statuses: {
+      type: Array,
+      default: () => [],
+    },
+    types: {
       type: Array,
       default: () => [],
     },
