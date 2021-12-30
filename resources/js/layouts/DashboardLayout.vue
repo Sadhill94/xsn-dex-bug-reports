@@ -115,13 +115,13 @@ export default {
 <style lang="scss">
 @screen lg {
   .static-sidebar-container {
-    width: 26rem;
+    width: 30rem;
   }
   .main-content-container {
-    padding-left: 26rem;
+    padding-left: 30rem;
   }
 }
-@screen xl {
+@screen xxl {
   .static-sidebar-container {
     width: 30rem;
   }

@@ -32,7 +32,7 @@
       </h2>
 
       <div class="sticky pt-6 pb-3 px-10 top-0 bg-primary z-10 md:hidden">
-        <h4 class="uppercase tracking-wider">
+        <h4 class="uppercase tracking-wider text-quaternary">
           {{ currentFilteredView.filterId }}
         </h4>
         <h5
@@ -45,7 +45,7 @@
       <div class="border-t md:border-0">
         <dashboard-issues-list
           :items="currentIssuesList"
-          :key="currentSelectedIssue.id"
+          :missing-name-props="currentFilteredView.subFilterName"
           @reloadIssues="reloadIssues"
         />
       </div>
@@ -90,7 +90,6 @@ export default {
       issuesByFilter: {},
       allIssues: [],
 
-      currentSelectedIssue: {},
       currentFilteredView: {
         filterId: ALL_FILTER_ID,
         subFilterId: '',

@@ -1,44 +1,66 @@
 <template>
-  <article class="bg-quaternary rounded-md p-8 relative" v-if="item">
-    <div class="text-center border-b border-primary" v-if="item.category">
-      <h6 class="tracking-widest text-primary">
-        {{ item.category.name }}
-      </h6>
-    </div>
-    <div class="flex justify-between items-center pt-5">
-      <p class="capitalize text-body-md font-medium">
-        {{ item.created_at | humanizeDate }}
-      </p>
-      <p v-if="item.status" class="uppercase font-bold">
-        {{ item.status.name }}
-      </p>
-    </div>
-    <h4 class="leading-9 pt-6 pb-6 font-normal">{{ item.description }}</h4>
-    <div :class="isManager || isManagerNotLogged ? 'mt-32' : 'mt-24'">
+  <article
+    class="flex flex-col bg-secondary rounded-md relative shadow-lg"
+    v-if="item"
+  >
+    <div class="p-10 flex-none">
       <div
-        class="text-center w-full mx-auto absolute inset-x-0"
-        :class="isManager || isManagerNotLogged ? 'bottom-0 ' : 'bottom-10'"
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 space-y-2 sm:space-y-0"
       >
-        <div class="relative">
+        <div class="flex justify-start items-start md:items-center space-x-2">
+          <h6 class="card-header-title">
+            {{ item.type.name }}
+          </h6>
+          <h6 class="card-header-title">#{{ item.id }}</h6>
+          <h6 class="card-header-title">
+            <span class="hidden sm:inline-block mr-2">-</span
+            >{{ item.category.name }}
+          </h6>
+        </div>
+
+        <div class="flex-none w-44 lg:w-48 sm:text-right">
+          <p
+            class="inline-block mb-0 uppercase font-semibold font-heading text-quaternary border-b-2 border-quaternary tracking-wider"
+          >
+            {{ item.status.name }}
+          </p>
+        </div>
+      </div>
+      <h4 class="leading-10 font-medium pr-12 md:pr-24 font-body mb-0">
+        {{ item.description }}
+      </h4>
+    </div>
+    <div class="flex flex-grow items-end">
+      <div class="flex flex-grow border-t py-7">
+        <div class="px-10 flex justify-between items-center w-full h-full">
+          <p class="mb-0">{{ item.created_at | humanizeDate }}</p>
           <a
             :href="getIssueUrl"
             target="_self"
-            class="btn btn--secondary text-body-sm"
+            class="btn btn--quaternary text-body-sm w-32 text-center rounded-full p-2 sm:p-4"
           >
-            view details
+            Details
           </a>
         </div>
-        <div
-          class="mt-10 mb-6 flex justify-around"
-          v-show="isManager || isManagerNotLogged"
+      </div>
+    </div>
+    <div
+      class="w-full flex items-stretch"
+      v-if="isManager || isManagerNotLogged"
+    >
+      <button
+        @click="confirmDelete"
+        class="caption-lg uppercase w-1/2 bg-danger h-full rounded-bl-md"
+      >
+        Delete
+      </button>
+      <div class="flex items-center w-1/2 h-full bg-quaternary rounded-br-md">
+        <a
+          :href="getEditIssueUrl"
+          target="_self"
+          class="caption-lg uppercase block w-full text-center"
+          >Edit</a
         >
-          <button @click="confirmDelete" class="caption-lg uppercase">
-            Delete
-          </button>
-          <a :href="getEditIssueUrl" target="_self" class="caption-lg uppercase"
-            >Edit</a
-          >
-        </div>
       </div>
     </div>
   </article>
@@ -102,3 +124,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.card-header-title {
+  @apply mb-0 uppercase font-bold tracking-widest font-body;
+}
+</style>

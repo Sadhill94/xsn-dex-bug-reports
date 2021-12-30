@@ -5,10 +5,10 @@
     <div
       v-for="issue in items"
       :key="issue.description"
-      class="w-full sm:w-9/12 md:w-1/2 xl:w-1/3 p-6 lg:p-8 relative"
+      class="w-full sm:w-9/12 md:w-1/2 lg:w-full xl:w-1/2 xxl:w-1/3 p-6 sm:px-0 md:px-6 lg:p-8 relative"
     >
       <issue-card
-        :item="issue"
+        :item="issueWithCategoryAndStatus(issue)"
         class="h-full"
         @onIssueDeleted="$emit('reloadIssues')"
       />
@@ -24,8 +24,9 @@
 </template>
 
 <script>
-import IssueCard from '@/components/IssueCard';
+import _ from 'lodash';
 
+import IssueCard from '@/components/IssueCard';
 export default {
   name: 'DashboardIssuesList',
 
@@ -35,6 +36,27 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    missingNameProps: {
+      type: String,
+      default: '',
+    },
+  },
+  methods: {
+    issueWithCategoryAndStatus(issue) {
+      const item = _.cloneDeep(issue);
+      if (!item.category) {
+        const category = {
+          name: this.missingNameProps,
+        };
+        return { ...item, category };
+      } else if (!item.status) {
+        const status = {
+          name: this.missingNameProps,
+        };
+        return { ...item, status };
+      }
+      return item;
     },
   },
 };
