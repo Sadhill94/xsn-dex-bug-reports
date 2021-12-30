@@ -58,7 +58,11 @@
       </div>
     </div>
     <div class="brand-container brand-container--lg lg:pt-24">
-      <form-issue :categories="categories" :form-name="FEATURE_FORM_NAME" />
+      <form-issue
+        :categories="categories"
+        :form-name="formName"
+        :endpoint="formEndpoint"
+      />
     </div>
   </app-layout>
 </template>
@@ -66,6 +70,8 @@
 import AppLayout from '@/layouts/AppLayout';
 import FormIssue from '@/components/FormIssue';
 import { FEATURE_FORM_NAME } from '@/constant/form';
+import { CATEGORIES_BREAKDOWN } from '@/constant/categoriesBreakdown';
+import { ROUTES } from '@/constant/routes';
 
 export default {
   components: { AppLayout, FormIssue },
@@ -76,41 +82,15 @@ export default {
     },
   },
   computed: {
-    FEATURE_FORM_NAME() {
+    formName() {
       return FEATURE_FORM_NAME;
+    },
+    formEndpoint() {
+      return ROUTES.api.issue.create_feature.url;
     },
 
     logsCategories() {
-      return [
-        {
-          name: 'LND',
-          description: 'Opening and closing a channel for BTC, LTC and XSN.',
-        },
-        {
-          name: 'SWAPS',
-          description:
-            'Related to the process of manual swaps in the dex tab (not the SSUI).',
-        },
-        {
-          name: 'CONNEXT',
-          description:
-            'Opening, funding and withdrawing from a channel for ETH and ERC token.',
-        },
-        {
-          name: 'MCLW',
-          description:
-            'Related to the client as a whole (client, L1 transactions).',
-        },
-        {
-          name: 'UI',
-          description: 'Related to visual indicators or text typos.',
-        },
-        {
-          name: 'SSUI',
-          description:
-            'Specifically relating to when the simple swap UI is active.',
-        },
-      ];
+      return CATEGORIES_BREAKDOWN;
     },
   },
 };

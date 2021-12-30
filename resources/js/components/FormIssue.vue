@@ -107,6 +107,11 @@ export default {
       type: String,
       default: BUG_FORM_NAME,
     },
+
+    endpoint: {
+      type: String,
+      default: ROUTES.api.issue.create_bug.url,
+    },
   },
 
   data() {
@@ -179,13 +184,12 @@ export default {
       this.validateFieldsAndSetErrors();
 
       if (this.fieldsWithErrors.length === 0) {
-        const url = `${ROUTES.api.issue.create_bug.url}`;
         const formData = this.setToFormData();
         const headers = {
           'Content-Type': 'multipart/form-data',
         };
 
-        this.submitForm(url, formData, headers);
+        this.submitForm(this.endpoint, formData, headers);
       } else {
         this.$displayNotification({
           message: 'All fields marked by an * are mandatory',

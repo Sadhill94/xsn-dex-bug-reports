@@ -65,6 +65,7 @@
 <script>
 import AppLayout from '@/layouts/AppLayout';
 import FormIssue from '@/components/FormIssue';
+import { CATEGORIES_BREAKDOWN } from '@/constant/categoriesBreakdown';
 
 export default {
   components: { AppLayout, FormIssue },
@@ -76,37 +77,7 @@ export default {
   },
   computed: {
     logsCategories() {
-      return [
-        {
-          name: 'LND',
-          description:
-            'Issues with opening and closing a channel for BTC, LTC and XSN.',
-        },
-        {
-          name: 'SWAPS',
-          description:
-            'Issues related to the process of manual swaps in the dex tab (not the SSUI).',
-        },
-        {
-          name: 'CONNEXT',
-          description:
-            'Issues with opening, funding and withdrawing from a channel for ETH and ERC token.',
-        },
-        {
-          name: 'MCLW',
-          description:
-            'Issues related to the client as a whole (client crash, L1 transactions issues).',
-        },
-        {
-          name: 'UI',
-          description: 'Issues relating to visual indicators or text typos.',
-        },
-        {
-          name: 'SSUI',
-          description:
-            'Issues specifically relating to when the simple swap UI is active.',
-        },
-      ];
+      return CATEGORIES_BREAKDOWN;
     },
   },
 };
