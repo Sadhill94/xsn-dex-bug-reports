@@ -7,6 +7,24 @@ export const SingleIssueMixin = {
       type: Object,
       default: null,
     },
+    feature: {
+      type: Object,
+      default: null,
+    },
+  },
+
+  data() {
+    return {
+      item: null,
+    };
+  },
+
+  mounted() {
+    if (this.issue) {
+      this.item = this.issue;
+    } else {
+      this.item = this.feature;
+    }
   },
 
   computed: {
@@ -14,8 +32,12 @@ export const SingleIssueMixin = {
       return ROUTES;
     },
 
-    getEditIssueUrl() {
-      return ROUTES.web.issue.edit.url.replace('{id}', this.issue.id);
+    getEditUrl() {
+      if (this.issue) {
+        return ROUTES.web.issue.edit.url.replace('{id}', this.issue.id);
+      } else {
+        return ROUTES.web.feature.edit.url.replace('{id}', this.feature.id);
+      }
     },
   },
 
@@ -29,7 +51,7 @@ export const SingleIssueMixin = {
 
       navigator.clipboard.writeText(readIssuePath);
       this.$displayNotification({
-        message: 'Issue link copied to the clipboard !',
+        message: 'Link copied to the clipboard !',
       });
     },
 
@@ -38,8 +60,14 @@ export const SingleIssueMixin = {
     },
 
     confirmDeleteIssue() {
-      if (confirm(`Confirm your wish to delete issue #${this.issue.id}`)) {
-        this.deleteIssue(this.issue.id);
+      if (
+        confirm(
+          `Confirm your wish to delete ${this.issue ? 'issue' : 'feature'} #${
+            this.item.id
+          }`
+        )
+      ) {
+        this.deleteIssue(this.item.id);
       }
     },
 

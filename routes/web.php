@@ -58,11 +58,22 @@ Route::group(['prefix' => '/'], function() {
 
 Route::group(['prefix' => 'issues'], function(){
 
-    Route::get('/{id}', [IssueController::class, 'display'])
+    Route::get('/{id}', [IssueController::class, 'display_issue'])
         ->name('display-issue');
 
-    Route::get('/edit/{id}', [IssueController::class, 'display_edit'])
+    Route::get('/edit/{id}', [IssueController::class, 'display_edit_issue'])
         ->middleware('auth')
         ->name('display-edit-issue');
 });
+
+Route::group(['prefix' => 'features'], function(){
+
+    Route::get('/{id}', [IssueController::class, 'display_feature'])
+        ->name('display-feature');
+
+    Route::get('/edit/{id}', [IssueController::class, 'display_edit_feature'])
+        ->middleware('auth')
+        ->name('display-edit-feature');
+});
+
 

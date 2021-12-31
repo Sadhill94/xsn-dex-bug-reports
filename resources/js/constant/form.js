@@ -5,6 +5,7 @@ export const DEX_WALLET_GITHUB_REPO_URL =
 
 export const CATEGORY_ID_FIELD_KEY = 'category_id';
 export const STATUS_ID_FIELD_KEY = 'status_id';
+export const TYPE_ID_FIELD_KEY = 'type_id';
 export const FILES_FIELD_KEY = 'files';
 export const VERSION_FIELD_KEY = 'version';
 
@@ -19,6 +20,7 @@ export const ISSUE_BLUEPRINT = {
   user_discord_id: '',
   extra_infos: '',
   [STATUS_ID_FIELD_KEY]: '',
+  [TYPE_ID_FIELD_KEY]: '',
   github_link: '',
   assignee: '',
   [FILES_FIELD_KEY]: [],

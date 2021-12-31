@@ -78,7 +78,7 @@
           </dd>
         </div>
 
-        <div class="details-column">
+        <div class="details-column" v-if="$slots.github_link">
           <dt>Github link</dt>
           <dd>
             <slot name="github_link" />

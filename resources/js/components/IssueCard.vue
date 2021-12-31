@@ -56,7 +56,7 @@
       </button>
       <div class="flex items-center w-1/2 h-full bg-quaternary rounded-br-md">
         <a
-          :href="getEditIssueUrl"
+          :href="getEditUrl"
           target="_self"
           class="caption-lg uppercase block w-full text-center"
           >Edit</a
@@ -72,6 +72,7 @@ import { ROUTES } from '@/constant/routes';
 import axios from 'axios';
 import { FiltersMixin } from '@/mixins/filters';
 import { ManagerMixin } from '@/mixins/manager';
+import { FEATURE_TYPE_NAME } from '@/constant/common';
 
 export default {
   name: 'IssueCard',
@@ -88,17 +89,34 @@ export default {
   },
 
   computed: {
+    isFeature() {
+      return this.item?.type?.name === FEATURE_TYPE_NAME;
+    },
     getIssueUrl() {
-      return ROUTES.web.issue.display.url.replace('{id}', this.item.id);
+      if (this.isFeature) {
+        return ROUTES.web.feature.display.url.replace('{id}', this.item.id);
+      } else {
+        return ROUTES.web.issue.display.url.replace('{id}', this.item.id);
+      }
     },
 
-    getEditIssueUrl() {
-      return ROUTES.web.issue.edit.url.replace('{id}', this.item.id);
+    getEditUrl() {
+      if (this.isFeature) {
+        return ROUTES.web.feature.edit.url.replace('{id}', this.item.id);
+      } else {
+        return ROUTES.web.issue.edit.url.replace('{id}', this.item.id);
+      }
     },
   },
   methods: {
     confirmDelete() {
-      if (confirm(`Confirm your wish to delete issue #${this.item.id}`)) {
+      if (
+        confirm(
+          `Confirm your wish to delete ${
+            this.isFeature ? 'feature' : 'issue'
+          } #${this.item.id}`
+        )
+      ) {
         this.deleteIssue(this.item.id);
       }
     },

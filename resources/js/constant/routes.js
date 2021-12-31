@@ -24,6 +24,16 @@ export const ROUTES = {
       routeName: 'login',
       url: '/login',
     },
+    feature: {
+      display: {
+        routeName: 'display-feature',
+        url: '/features/{id}',
+      },
+      edit: {
+        routeName: 'display-edit-feature',
+        url: '/features/edit/{id}',
+      },
+    },
     issue: {
       display: {
         routeName: 'display-issue',

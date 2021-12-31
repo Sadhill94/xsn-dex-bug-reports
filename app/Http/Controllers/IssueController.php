@@ -72,15 +72,36 @@ class IssueController extends Controller
     }
 
 
-    public function display($id): Response
+    public function display_issue($id): Response
     {
         $issue = $this->issuesService->getById($id);
+
+        if($issue->type->name ==Config::get('constants.types.feature')){
+            return Inertia::render('404/index');
+        }
         return Inertia::render('Issue/display', ['issue' => $issue]);
     }
 
-    public function display_edit($id): Response
+    public function display_feature($id): Response
     {
         $issue = $this->issuesService->getById($id);
+
+        if($issue->type->name == Config::get('constants.types.bug')){
+                return Inertia::render('404/index');
+        }
+
+        return Inertia::render('Feature/display', ['feature' => $issue]);
+    }
+
+
+    public function display_edit_issue($id): Response
+    {
+        $issue = $this->issuesService->getById($id);
+
+        if($issue->type->name ==Config::get('constants.types.feature')){
+            return Inertia::render('404/index');
+        }
+
         $categories = $this->issuesService->getCategories();
         $statuses = $this->issuesService->getStatuses();
         $types = $this->issuesService->getTypes();
@@ -92,6 +113,29 @@ class IssueController extends Controller
             'types' => $types,
             ]);
     }
+
+    public function display_edit_feature($id): Response
+    {
+        $issue = $this->issuesService->getById($id);
+
+
+        if($issue->type->name == Config::get('constants.types.bug')){
+            return Inertia::render('404/index');
+        }
+
+        $categories = $this->issuesService->getCategories();
+        $statuses = $this->issuesService->getStatuses();
+        $types = $this->issuesService->getTypes();
+
+        return Inertia::render('Feature/edit', [
+            'feature' => $issue,
+            'categories' => $categories,
+            'statuses' => $statuses,
+            'types' => $types,
+        ]);
+    }
+
+
 
 
     /**
@@ -184,7 +228,7 @@ class IssueController extends Controller
         $issue = $this->issuesService->edit($data);
 
         return response([
-            'message' => 'Issue successfully edited.',
+            'message' => 'Successfully edited.',
             'data' => $issue
         ]);
     }
