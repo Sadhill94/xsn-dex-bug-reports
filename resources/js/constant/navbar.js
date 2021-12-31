@@ -6,6 +6,10 @@ export const NAV_LINKS = [
     ...ROUTES.web.home,
   },
   {
+    name: 'Dashboard',
+    ...ROUTES.web.dashboard,
+  },
+  {
     name: 'Report a bug',
     ...ROUTES.web.bugReport,
   },
@@ -13,10 +17,7 @@ export const NAV_LINKS = [
     name: 'Feature request',
     ...ROUTES.web.featureRequest,
   },
-  {
-    name: 'Dashboard',
-    ...ROUTES.web.dashboard,
-  },
+
   // {
   //   name: 'Contribute',
   //   ...ROUTES.web.contribute,

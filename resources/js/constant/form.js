@@ -112,7 +112,7 @@ export const FEATURE_REQUEST_FORM_FIELDS = [
     key: 'user_discord_id',
     label: 'Discord username',
     type: 'text',
-    isRequired: true,
+    isRequired: false,
   },
   {
     key: 'extra_infos',

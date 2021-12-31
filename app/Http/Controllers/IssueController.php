@@ -188,7 +188,6 @@ class IssueController extends Controller
         ];
         request()->validate([
             'description' => ['required'],
-            'user_discord_id' => ['required'],
             'category_id' => ['required'],
             'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
             'files' => ['max:4'],
