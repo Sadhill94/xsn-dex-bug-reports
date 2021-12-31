@@ -3,41 +3,20 @@
     <div class="brand-container brand-container--lg">
       <h1>Submit a feature request</h1>
       <p>
-        You will find here the form to submit your bug(s). IMPORTANT: Before
-        submitting a new bug head to the dashboard and check if your problem is
-        already reported*.
+        You will find here the form to submit your feature request(s).
+        IMPORTANT: Before submitting a new feature request head to the dashboard
+        and check if by any chance someone has already asked for it*
       </p>
 
       <p>
-        When reporting a bug, please try to be as clear as possible and please
-        use simple <strong>English</strong>.
-      </p>
-      <p>
-        When submitting your logs with the report, please submit
-        <strong>CLEAN log files</strong>. Clean logs significantly help the
-        teams locate the problem. Thanks
+        When asking for a feature, please try to be as clear/short as possible
+        and please use simple <strong>English</strong>.
       </p>
 
       <p>
-        NB: Try to submit logs file related to your bug, do not submit lnd logs
-        files if you're having an UI issue.
+        NB: If you think screenshots can be helpful in a matter of UI/UX, please
+        provide them.
       </p>
-      <div>
-        <h5>How to clean my logs ?</h5>
-        <p>
-          Head to your logs files (see on the home page where to find them), and
-          delete them or open them and empty their content.
-        </p>
-        <h6>
-          Last but not least, Thank you for taking the time to report your
-          bug(s), we really appreciate it !
-        </h6>
-        <p class="caption-lg italic">
-          *The search issue feature is on it's way, but for now there is nothing
-          to help you find your issue in the reported list, i apologize for the
-          inconvenience.
-        </p>
-      </div>
       <br />
       <br />
       <br class="hidden lg:block" />
