@@ -3,7 +3,7 @@ import { formatDate } from '@/helpers/date';
 export const FiltersMixin = {
   filters: {
     humanizeDate(value) {
-      return formatDate(value, 'DD/MMM/YYYY');
+      return formatDate(value, 'DD MMM YYYY');
     },
     removeExtensionIfExist(value) {
       const values = value.split('.');

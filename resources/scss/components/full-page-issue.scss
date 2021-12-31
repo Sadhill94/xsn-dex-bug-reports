@@ -171,7 +171,9 @@
           @apply w-full;
 
           @screen lg {
-            @apply w-1/2;
+              &:not(.is-single){
+                @apply w-1/2;
+              }
           }
 
           &:first-child {
@@ -183,7 +185,7 @@
               @apply pr-24;
             }
           }
-          &:last-child {
+          &:last-child:not(.is-single) {
             @screen lg {
               @apply pl-12;
             }

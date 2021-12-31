@@ -4,7 +4,7 @@
       <div class="space-y-8 divide-y divide-gray-400 sm:space-y-5">
         <div>
           <div>
-            <h2>Report</h2>
+            <h2>{{ isBugForm ? 'Report' : 'Request' }}</h2>
           </div>
           <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
             <form-row
@@ -38,6 +38,7 @@
                 <div v-else-if="field.type === 'files'" class="w-full">
                   <file-uploader
                     :has-submitted="hasSubmitted"
+                    :file-config="fileUploaderConfig"
                     @onFilesChange="formFieldsValues[field.key] = $event"
                   />
                 </div>
@@ -82,12 +83,14 @@ import {
   DEX_WALLET_GITHUB_REPO_URL,
   FILES_FIELD_KEY,
   REPORT_BUG_FORM_FIELDS,
-  STATUS_ID_FIELD_KEY,
   VERSION_FIELD_KEY,
+  BUG_FORM_NAME,
+  FEATURE_REQUEST_FORM_FIELDS,
 } from '@/constant/form';
 
 import { ROUTES } from '@/constant/routes';
 import FileUploader from '@/components/FileUploader';
+import { FILE_UPLOADER_CONFIG } from '@/constant/fileConfig';
 
 export default {
   name: 'FormIssue',
@@ -100,9 +103,14 @@ export default {
       default: () => [],
     },
 
-    statuses: {
-      type: Array,
-      default: () => [],
+    formName: {
+      type: String,
+      default: BUG_FORM_NAME,
+    },
+
+    endpoint: {
+      type: String,
+      default: ROUTES.api.issue.create_bug.url,
     },
   },
 
@@ -118,7 +126,13 @@ export default {
 
   mounted() {
     this.getLatestDexVersion();
-    this.formFields = REPORT_BUG_FORM_FIELDS;
+
+    if (this.isBugForm) {
+      this.formFields = REPORT_BUG_FORM_FIELDS;
+    } else {
+      this.formFields = FEATURE_REQUEST_FORM_FIELDS;
+    }
+
     this.resetFormValues();
   },
 
@@ -146,6 +160,21 @@ export default {
       },
     },
   },
+
+  computed: {
+    isBugForm() {
+      return this.formName === BUG_FORM_NAME;
+    },
+    fileUploaderConfig() {
+      if (!this.isBugForm) {
+        return {
+          ...FILE_UPLOADER_CONFIG,
+          helpText: 'Load screenshots / mockups',
+        };
+      }
+      return FILE_UPLOADER_CONFIG;
+    },
+  },
   methods: {
     /**
      * Handler for the submit process.
@@ -155,13 +184,12 @@ export default {
       this.validateFieldsAndSetErrors();
 
       if (this.fieldsWithErrors.length === 0) {
-        const url = `${ROUTES.api.issue.create.url}`;
         const formData = this.setToFormData();
         const headers = {
           'Content-Type': 'multipart/form-data',
         };
 
-        this.submitForm(url, formData, headers);
+        this.submitForm(this.endpoint, formData, headers);
       } else {
         this.$displayNotification({
           message: 'All fields marked by an * are mandatory',
@@ -267,14 +295,14 @@ export default {
     /**
      * Fill the options property of the status field in the formFields
      */
-    setStatusesOptions() {
-      this.formFields = this.formFields.map((x) => {
-        if (x.key === STATUS_ID_FIELD_KEY) {
-          return { ...x, options: this.statuses };
-        }
-        return x;
-      });
-    },
+    // setStatusesOptions() {
+    //   this.formFields = this.formFields.map((x) => {
+    //     if (x.key === STATUS_ID_FIELD_KEY) {
+    //       return { ...x, options: this.statuses };
+    //     }
+    //     return x;
+    //   });
+    // },
 
     /**
      * Fill the options property of the category field in the formFields

@@ -8,6 +8,10 @@ export const ROUTES = {
       routeName: 'bug-report',
       url: '/report-a-bug',
     },
+    featureRequest: {
+      routeName: 'feature-request',
+      url: '/feature-request',
+    },
     dashboard: {
       routeName: 'dashboard',
       url: '/dashboard',
@@ -19,6 +23,16 @@ export const ROUTES = {
     login: {
       routeName: 'login',
       url: '/login',
+    },
+    feature: {
+      display: {
+        routeName: 'display-feature',
+        url: '/features/{id}',
+      },
+      edit: {
+        routeName: 'display-edit-feature',
+        url: '/features/edit/{id}',
+      },
     },
     issue: {
       display: {
@@ -33,9 +47,13 @@ export const ROUTES = {
   },
   api: {
     issue: {
-      create: {
-        routeName: 'create-issue',
-        url: '/api/issues/create',
+      create_bug: {
+        routeName: 'create-bug',
+        url: '/api/issues/bug/create',
+      },
+      create_feature: {
+        routeName: 'create-feature',
+        url: '/api/issues/feature/create',
       },
       edit: {
         routeName: 'edit-issue',

@@ -16,10 +16,10 @@ class CreateIssuesTable extends Migration
         Schema::create('issues', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->text('os');
+            $table->text('os')->nullable();
             $table->text('os_distribution')->nullable();
-            $table->text('version');
-            $table->text('steps_to_reproduce');
+            $table->text('version')->nullable();
+            $table->text('steps_to_reproduce')->nullable();
             $table->text('extra_infos')->nullable();
             $table->text('user_discord_id')->nullable();
             $table->text('github_link')->nullable();
@@ -28,6 +28,8 @@ class CreateIssuesTable extends Migration
             $table->foreign('status_id')->references('id')->on('statuses');
             $table->uuid('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->uuid('type_id');
+            $table->foreign('type_id')->references('id')->on('types');
 
             $table->timestamps();
         });

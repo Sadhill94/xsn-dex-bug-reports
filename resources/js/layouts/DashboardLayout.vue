@@ -11,6 +11,7 @@
         :filters="filters"
         :current-filtered-view="currentFilteredView"
         :total-issues-number="totalIssuesNumber"
+        @onChangeCheckedTypes="$emit('onChangeCheckedTypes', $event)"
         @onSubFilterViewClick="
           $emit('onSubFilterViewClick', $event);
           isMobileNavbarOpen = false;
@@ -44,6 +45,7 @@
         @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
         @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
         @onAllViewClick="$emit('onAllViewClick', $event)"
+        @onChangeCheckedTypes="$emit('onChangeCheckedTypes', $event)"
       />
     </desktop-sidebar>
     <div class="main-content-container flex flex-col flex-1">
@@ -115,13 +117,13 @@ export default {
 <style lang="scss">
 @screen lg {
   .static-sidebar-container {
-    width: 26rem;
+    width: 30rem;
   }
   .main-content-container {
-    padding-left: 26rem;
+    padding-left: 30rem;
   }
 }
-@screen xl {
+@screen xxl {
   .static-sidebar-container {
     width: 30rem;
   }

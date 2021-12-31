@@ -10,22 +10,22 @@
           </dd>
         </div>
 
-        <div class="details-column">
-          <dt class="required">Bug category</dt>
+        <div class="details-column" v-if="$slots.type">
+          <dt class="required">Type</dt>
           <dd>
-            <slot name="bug_category" />
-          </dd>
-        </div>
-
-        <div class="details-column" v-if="$slots.trello_ref">
-          <dt>Trello ref #</dt>
-          <dd>
-            <slot name="trello_ref" />
+            <slot name="type" />
           </dd>
         </div>
 
         <div class="details-column">
-          <dt class="required">Dex version</dt>
+          <dt class="required">Category</dt>
+          <dd>
+            <slot name="category" />
+          </dd>
+        </div>
+
+        <div class="details-column" v-if="$slots.dex_version">
+          <dt>Dex version</dt>
           <dd>
             <slot name="dex_version" />
           </dd>
@@ -43,8 +43,15 @@
     <!-- SECOND ROWS-->
     <div class="details-row">
       <dl>
-        <div class="details-column">
-          <dt class="required">Operating system</dt>
+        <div class="details-column" v-if="$slots.trello_ref">
+          <dt>Trello ref #</dt>
+          <dd>
+            <slot name="trello_ref" />
+          </dd>
+        </div>
+
+        <div class="details-column" v-if="$slots.operating_system">
+          <dt>Operating system</dt>
           <dd>
             <slot name="operating_system" />
           </dd>
@@ -71,7 +78,7 @@
           </dd>
         </div>
 
-        <div class="details-column">
+        <div class="details-column" v-if="$slots.github_link">
           <dt>Github link</dt>
           <dd>
             <slot name="github_link" />

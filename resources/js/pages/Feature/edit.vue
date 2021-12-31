@@ -4,11 +4,11 @@
       id="edit-issue-page"
       class="issue-page brand-container brand-container--xxl"
     >
-      <div class="issue" v-if="issue">
+      <div class="issue" v-if="item">
         <div class="header">
           <div class="informations">
             <actions-section @onCopyClick="handleCopyLink">
-              <h3 class="mb-0">Edit issue #{{ issue.id }}</h3>
+              <h3 class="mb-0">Edit feature #{{ item.id }}</h3>
               <button @click="confirmDeleteIssue" aria-label="delete">
                 <img src="/images/bin.png" class="w-7" alt="delete image" />
               </button>
@@ -61,35 +61,11 @@
               />
             </template>
 
-            <template #dex_version>
-              <input
-                type="text"
-                class="input"
-                v-model.trim="localIssue.version"
-              />
-            </template>
             <template #short_description>
               <input
                 type="text"
                 class="input"
                 v-model.trim="localIssue.description"
-              />
-            </template>
-
-            <template #operating_system>
-              <brand-select
-                :options="OS_OPTIONS"
-                :value="localIssue.os"
-                class="input"
-                @onChange="localIssue.os = $event.toString()"
-              />
-            </template>
-
-            <template #os_distribution>
-              <input
-                type="text"
-                class="input"
-                v-model.trim="localIssue.os_distribution"
               />
             </template>
 
@@ -107,24 +83,9 @@
                 v-model.trim="localIssue.user_discord_id"
               />
             </template>
-            <template #github_link>
-              <input
-                type="text"
-                class="input"
-                v-model.trim="localIssue.github_link"
-              />
-            </template>
           </details-section>
 
           <rich-contents-section>
-            <template #steps_to_reproduce>
-              <textarea
-                rows="8"
-                class="input"
-                v-model.trim="localIssue.steps_to_reproduce"
-              ></textarea>
-            </template>
-
             <template #extra_infos>
               <textarea
                 rows="8"
@@ -138,7 +99,7 @@
             @deleteFile="deleteFile"
           />
           <add-attachments-section
-            :issue-id="issue.id"
+            :issue-id="item.id"
             @onFileAdded="addFileToFront"
           />
         </div>
@@ -154,7 +115,6 @@ import AppLayout from '@/layouts/AppLayout';
 import BrandSelect from '@/components/BrandSelect';
 
 import { ISSUE_BLUEPRINT } from '@/constant/form';
-import { OS_OPTIONS } from '@/constant/os';
 
 import { SingleIssueMixin } from '@/mixins/single-issue';
 import { FiltersMixin } from '@/mixins/filters';
@@ -198,28 +158,17 @@ export default {
   data() {
     return {
       localIssue: ISSUE_BLUEPRINT,
-      options: {
-        os: [],
-        categories: [],
-        statuses: [],
-      },
     };
   },
 
   mounted() {
-    this.localIssue = _.cloneDeep(this.issue);
+    this.localIssue = _.cloneDeep(this.item);
     this.addAsteriksToRequiredFields();
-  },
-
-  computed: {
-    OS_OPTIONS() {
-      return OS_OPTIONS;
-    },
   },
 
   methods: {
     handleSave() {
-      if (!_.isEqual(this.issue, this.localIssue)) {
+      if (!_.isEqual(this.item, this.localIssue)) {
         axios
           .post(
             ROUTES.api.issue.edit.url.replace('{id}', this.localIssue.id),
@@ -230,7 +179,7 @@ export default {
               message: res?.data?.message || 'Successfully edited!',
               type: 'success',
             });
-            this.$inertia.get(`/issues/${this.localIssue.id}`);
+            this.$inertia.get(`/features/${this.localIssue.id}`);
           })
           .catch((err) => {
             this.$displayNotification({

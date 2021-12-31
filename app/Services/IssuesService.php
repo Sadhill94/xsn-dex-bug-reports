@@ -24,8 +24,8 @@ class IssuesService
     |--------------------------------------------------------------------------
     */
 
-
-    public function getById($id){
+    public function getById($id)
+    {
         $issue = $this->issuesRepository->getById($id);
         if(!$issue){
             throw new NotFoundHttpException();
@@ -33,25 +33,40 @@ class IssuesService
             return $issue;
     }
 
-    public function getStatuses(){
+    public function getStatuses()
+    {
         return $this->issuesRepository->getStatuses();
     }
 
-    public function getCategories(){
+    public function getCategories()
+    {
         return $this->issuesRepository->getCategories();
     }
 
-    public function getAllIssues(){
+    public function getTypes()
+    {
+        return $this->issuesRepository->getTypes();
+    }
+
+    public function getTypeByName($name)
+    {
+        return $this->issuesRepository->getTypeByName($name);
+    }
+
+    public function getAllIssues()
+    {
         return $this->issuesRepository->getAll();
     }
 
-    public function getAllIssuesWithoutValidateStatus(){
+    public function getAllIssuesWithoutValidateStatus()
+    {
         $to_validate_status = self::getToValidateStatus();
 
         return $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
     }
 
-    public function getToValidateStatus(){
+    public function getToValidateStatus()
+    {
         return $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
     }
 
@@ -111,12 +126,14 @@ class IssuesService
     public function create($data)
     {
         $to_validate_status = self::getToValidateStatus();
+        $type = $this->issuesRepository->getTypeById($data['type_id']);
+
         $data['status_id'] = $to_validate_status->id;
 
         $issue = $this->issuesRepository->create($data);
 
         if(Arr::exists($data, 'files')){
-            self::storeFiles($data['files'], $issue->id);
+            self::storeFiles($data['files'], $issue->id, $type->name);
         }
 
         return $issue;
@@ -153,16 +170,25 @@ class IssuesService
      * @param $files
      * @param $issueId
      */
-    public function storeFiles($files, $issueId)
+    public function storeFiles($files, $issueId, $type = 'bug')
     {
+        $storage_path = 'uploads/bug-reports';
+        if($type != 'bug'){
+            $storage_path = 'uploads/feature-requests';
+        }
+
         $filesCreated = [];
         foreach ($files as $file) {
             $data['file_name'] = time().'_'.$file->getClientOriginalName();
             $data['display_name'] = $file->getClientOriginalName();
             $data['extension'] = $file->getClientOriginalExtension();
             $data['size'] = $file->getSize();
-            $data['file_path'] = $file->storeAs('uploads/bug-reports', $data['file_name'], 'public');
             $data['issue_id'] = $issueId;
+
+            if($type == 'bug'){
+
+            }
+            $data['file_path'] = $file->storeAs($storage_path, $data['file_name'], 'public');
 
             array_push($filesCreated,$this->issuesRepository->createFile($data));
         }

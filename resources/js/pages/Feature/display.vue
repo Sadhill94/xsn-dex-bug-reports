@@ -1,11 +1,11 @@
 <template>
   <app-layout>
     <section class="issue-page brand-container brand-container--xxl">
-      <div class="issue" v-if="issue">
+      <div class="issue" v-if="item">
         <div class="header">
           <div class="informations">
             <actions-section @onCopyClick="handleCopyLink">
-              <h3>Details issue #{{ issue.id }}</h3>
+              <h3>Details feature #{{ item.id }}</h3>
               <a
                 :href="getEditUrl"
                 aria-label="edit"
@@ -25,7 +25,7 @@
               <div>
                 <dt>Status</dt>
                 <dd>
-                  <span>{{ issue.status.name }}</span>
+                  <span>{{ item.status.name }}</span>
                 </dd>
               </div>
             </dl>
@@ -34,73 +34,44 @@
         <div class="body">
           <details-section>
             <template #type>
-              <span class="uppercase tracking-wider">{{
-                issue.type.name
-              }}</span>
+              <span class="uppercase tracking-wider">{{ item.type.name }}</span>
             </template>
 
             <template #category>
-              <span>{{ issue.category.name }}</span>
-            </template>
-
-            <template #dex_version v-if="issue.version">
-              <span>{{ issue.version }}</span>
+              <span>{{ item.category.name }}</span>
             </template>
 
             <template #trello_ref v-if="isManager || isManagerNotLogged">
               <span>
-                {{ issue.trello_ref ? `# ${issue.trello_ref}` : '-' }}
+                {{ item.trello_ref ? `# ${item.trello_ref}` : '-' }}
               </span>
             </template>
 
             <template #short_description>
-              <span>{{ issue.description }}</span>
-            </template>
-
-            <template #operating_system v-if="issue.os">
-              <span>{{ issue.os }} {{ issue.os_distribution }}</span>
+              <span>{{ item.description }}</span>
             </template>
 
             <template #assignee>
-              <span>{{ issue.assignee || '-' }}</span>
+              <span>{{ item.assignee || '-' }}</span>
             </template>
 
             <template #user_discord_id>
               <span>
-                {{ issue.user_discord_id ? `# ${issue.user_discord_id}` : '-' }}
-              </span>
-            </template>
-
-            <template #github_link>
-              <span>
-                <a
-                  v-show="issue.github_link"
-                  :href="issue.github_link"
-                  target="_blank"
-                >
-                  View
-                </a>
-                {{ issue.github_link ? null : '-' }}
+                {{ item.user_discord_id ? `# ${item.user_discord_id}` : '-' }}
               </span>
             </template>
           </details-section>
 
           <rich-contents-section>
-            <template #steps_to_reproduce v-if="issue.steps_to_reproduce">
-              <span>
-                {{ issue.steps_to_reproduce }}
-              </span>
-            </template>
-
             <template #extra_infos>
               <span>
-                {{ issue.extra_infos ? issue.extra_infos : 'None provided' }}
+                {{ item.extra_infos ? item.extra_infos : 'None provided' }}
               </span>
             </template>
           </rich-contents-section>
 
           <display-attachments-section
-            :files="issue.files"
+            :files="item.files"
             @deleteFile="deleteFile($event, true)"
           />
         </div>

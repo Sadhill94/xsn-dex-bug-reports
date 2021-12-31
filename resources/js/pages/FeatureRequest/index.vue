@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <div class="brand-container brand-container--lg">
-      <h1>Report a bug</h1>
+      <h1>Submit a feature request</h1>
       <p>
         You will find here the form to submit your bug(s). IMPORTANT: Before
         submitting a new bug head to the dashboard and check if your problem is
@@ -58,14 +58,20 @@
       </div>
     </div>
     <div class="brand-container brand-container--lg lg:pt-24">
-      <form-issue :categories="categories" />
+      <form-issue
+        :categories="categories"
+        :form-name="formName"
+        :endpoint="formEndpoint"
+      />
     </div>
   </app-layout>
 </template>
 <script>
 import AppLayout from '@/layouts/AppLayout';
 import FormIssue from '@/components/FormIssue';
+import { FEATURE_FORM_NAME } from '@/constant/form';
 import { CATEGORIES_BREAKDOWN } from '@/constant/categoriesBreakdown';
+import { ROUTES } from '@/constant/routes';
 
 export default {
   components: { AppLayout, FormIssue },
@@ -76,6 +82,13 @@ export default {
     },
   },
   computed: {
+    formName() {
+      return FEATURE_FORM_NAME;
+    },
+    formEndpoint() {
+      return ROUTES.api.issue.create_feature.url;
+    },
+
     logsCategories() {
       return CATEGORIES_BREAKDOWN;
     },

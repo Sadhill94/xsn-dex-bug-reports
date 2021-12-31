@@ -19,18 +19,8 @@ class Category extends Model
     public function issues($orderBy = 'DESC'): Collection
     {
         return $this->hasMany(Issue::class)
-            ->with(['status', 'files'])
+            ->with(['status', 'files', 'type'])
             ->orderBy('created_at', $orderBy)
-            ->get();
-    }
-
-    public function issuesForContributors(): Collection
-    {
-        $invalid_status = Status::where('name', '=',Config::get('constants.statuses.to_validate'))->first();
-        return $this->hasMany(Issue::class)
-            ->with(['status', 'files'])
-            ->where('status_id', '!=', $invalid_status->id)
-            ->orderBy('created_at', 'DESC')
             ->get();
     }
 }
