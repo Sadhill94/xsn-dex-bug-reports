@@ -11,6 +11,7 @@
         :filters="filters"
         :current-filtered-view="currentFilteredView"
         :total-issues-number="totalIssuesNumber"
+        @onChangeCheckedTypes="$emit('onChangeCheckedTypes', $event)"
         @onSubFilterViewClick="
           $emit('onSubFilterViewClick', $event);
           isMobileNavbarOpen = false;
@@ -44,6 +45,7 @@
         @onSubFilterViewClick="$emit('onSubFilterViewClick', $event)"
         @onKanbanViewClick="$emit('onKanbanViewClick', $event)"
         @onAllViewClick="$emit('onAllViewClick', $event)"
+        @onChangeCheckedTypes="$emit('onChangeCheckedTypes', $event)"
       />
     </desktop-sidebar>
     <div class="main-content-container flex flex-col flex-1">

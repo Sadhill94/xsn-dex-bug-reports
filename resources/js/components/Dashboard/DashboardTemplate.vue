@@ -6,6 +6,7 @@
     @onSubFilterViewClick="handleSubFilterViewClick"
     @onKanbanViewClick="handleKanbanViewClick"
     @onAllViewClick="handleAllViewClick"
+    @onChangeCheckedTypes="handleChangeCheckedTypes"
   >
     <div class="pt-16 lg:pt-0 px-6 md:px-12 xl:px-20">
       <div
@@ -44,8 +45,10 @@
       </div>
       <div class="border-t md:border-0">
         <dashboard-issues-list
+          :key="currentCheckedTypes.length"
           :items="currentIssuesList"
           :missing-name-props="currentFilteredView.subFilterName"
+          :checked-types="currentCheckedTypes"
           @reloadIssues="reloadIssues"
         />
       </div>
@@ -58,6 +61,7 @@ import { ALL_FILTER_ID } from '@/constant/filtersId';
 
 import DashboardLayout from '@/layouts/DashboardLayout';
 import DashboardIssuesList from '@/components/Dashboard/DashboardIssuesList';
+import { BUG_TYPE_NAME, FEATURE_TYPE_NAME } from '@/constant/common';
 
 export default {
   name: 'DashboardTemplate',
@@ -95,6 +99,8 @@ export default {
         subFilterId: '',
         subFilterName: '',
       },
+
+      currentCheckedTypes: [BUG_TYPE_NAME, FEATURE_TYPE_NAME],
     };
   },
 
@@ -162,6 +168,9 @@ export default {
         subFilterId: '',
         subFilterName: '',
       };
+    },
+    handleChangeCheckedTypes(values) {
+      this.currentCheckedTypes = values;
     },
   },
 };

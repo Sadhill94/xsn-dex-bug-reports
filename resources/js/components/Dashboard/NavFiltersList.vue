@@ -18,6 +18,48 @@
         {{ totalIssuesNumber }}
       </span>
     </button>
+    <div>
+      <h6 class="uppercase font-medium border-b pb-1">Types</h6>
+      <div class="relative flex items-center py-4">
+        <div class="min-w-0 flex-1">
+          <label
+            for="person-2"
+            class="uppercase font-medium select-none text-body-md"
+            >Bugs</label
+          >
+        </div>
+        <div class="flex items-center h-6">
+          <input
+            id="type-1"
+            name="type-1"
+            type="checkbox"
+            value="bug"
+            v-model="checkedTypes"
+            class="focus:ring-primary h-6 w-6 bg-quaternary text-quaternary border-primary rounded"
+          />
+        </div>
+      </div>
+      <div class="relative flex items-center py-4">
+        <div class="min-w-0 flex-1">
+          <label
+            for="type-2"
+            class="uppercase font-medium select-none text-body-md"
+            >Features</label
+          >
+        </div>
+        <div class="flex items-center h-6">
+          <input
+            id="type-2"
+            name="type-2"
+            type="checkbox"
+            value="feature"
+            v-model="checkedTypes"
+            class="focus:ring-primary h-6 w-6 bg-quaternary text-quaternary border-primary rounded"
+          />
+        </div>
+      </div>
+    </div>
+
     <div v-for="(value, key) in filters" :key="key">
       <h6 class="uppercase font-medium border-b pb-1">
         {{ key }}
@@ -48,6 +90,7 @@
 
 <script>
 import { ALL_FILTER_ID, KANBAN_FILTER_ID } from '@/constant/filtersId';
+import { BUG_TYPE_NAME, FEATURE_TYPE_NAME } from '@/constant/common';
 
 export default {
   name: 'NavFiltersList',
@@ -68,6 +111,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      checkedTypes: [BUG_TYPE_NAME, FEATURE_TYPE_NAME],
+    };
+  },
+
   computed: {
     FILTERS_ID() {
       return {
@@ -76,6 +125,16 @@ export default {
       };
     },
   },
+
+  watch: {
+    checkedTypes: {
+      deep: true,
+      handler(val) {
+        this.$emit('onChangeCheckedTypes', val);
+      },
+    },
+  },
+
   methods: {
     isActive(id) {
       return (
