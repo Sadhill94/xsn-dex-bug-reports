@@ -34,6 +34,7 @@ Route::group(['prefix' => 'issues'], function() {
 Route::group(['prefix' => 'files'], function() {
 
 Route::get('/download/{id}', [IssueController::class, 'download_file'])
+    ->middleware('auth')
     ->name('download-file');
 
 Route::delete('/{id}', [IssueController::class, 'delete_file'])

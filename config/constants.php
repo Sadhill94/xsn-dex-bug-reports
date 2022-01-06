@@ -11,5 +11,9 @@ return [
     'types' => [
         'bug' => 'bug',
         'feature' => 'feature',
-    ]
+    ],
+    'roles' => [
+        'manager' => 'manager',
+        'contributor' => 'contributor',
+]
 ];

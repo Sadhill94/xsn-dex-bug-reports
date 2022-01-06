@@ -21,13 +21,13 @@ class UserSeeder extends Seeder
                 'id' => Uuid::uuid4()->toString(),
                 'username' => 'admin',
                 'password' => Hash::make(Config::get('variables.env.managers_password')),
-                'role' => 'admin',
+                'role' => Config::get('constants.roles.manager'),
             ],
             [
                 'id' => Uuid::uuid4()->toString(),
                 'username' => 'contributor',
                 'password' => Hash::make(Config::get('variables.env.contributors_password')),
-                'role' => 'contributor'
+                'role' => Config::get('constants.roles.contributor'),
             ],
         ]);
     }

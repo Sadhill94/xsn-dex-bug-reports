@@ -96,6 +96,10 @@ class IssueController extends Controller
 
     public function display_edit_issue($id): Response
     {
+        if(!$this->issuesService->isManager()) {
+            return Inertia::render('404/index');
+        }
+
         $issue = $this->issuesService->getById($id);
 
         if($issue->type->name ==Config::get('constants.types.feature')){
@@ -116,6 +120,10 @@ class IssueController extends Controller
 
     public function display_edit_feature($id): Response
     {
+        if(!$this->issuesService->isManager()) {
+            return Inertia::render('404/index');
+        }
+
         $issue = $this->issuesService->getById($id);
 
 
@@ -216,6 +224,10 @@ class IssueController extends Controller
     */
     public function edit(Request $request)
     {
+        if(!$this->issuesService->isManager()) {
+            return response('Unauthorized',401);
+        }
+
         request()->validate([
             'description' => ['required'],
             'category_id' => ['required'],
@@ -234,25 +246,32 @@ class IssueController extends Controller
 
     public function delete($id)
     {
+        if(!$this->issuesService->isManager()) {
+            return response('Unauthorized',401);
+        }
+
         $this->issuesService->delete($id);
     }
 
     public function download_file($id)
     {
-        $user = auth()->user();
-        return response()->json($user);
        return $this->issuesService->downloadFile($id);
     }
 
     public function delete_file($id)
     {
-        $user = auth()->user();
-        return response()->json($user);
+        if(!$this->issuesService->isManager()) {
+            return response('Unauthorized',401);
+        }
+
         return $this->issuesService->deleteFile($id);
     }
 
     public function add_single_file(Request $request)
     {
+        if(!$this->issuesService->isManager()) {
+            return response('Unauthorized',401);
+        }
 
         $messages = [
             "files.max" => "Maximum amount of files authorized is: 4",

@@ -18,6 +18,15 @@ class IssuesService
         $this->issuesRepository = $issuesRepository;
     }
 
+    public function isManager()
+    {
+        $user = auth()->user();
+        if($user) {
+            return $user->role == Config::get('constants.roles.manager');
+        }
+        return false;
+    }
+
     /*
     |--------------------------------------------------------------------------
     |   Getters
