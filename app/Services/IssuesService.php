@@ -7,6 +7,7 @@ use ErrorException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IssuesService
@@ -215,9 +216,12 @@ class IssuesService
     public function downloadFile($id)
     {
         $file = $this->issuesRepository->getFileById($id);
-
+        $file_name = $file->display_name;
+        if(!Str::contains($file->display_name, ['.jpg', '.jpeg', '.png', '.txt', '.log', '.gif'])){
+            $file_name = $file->display_name.'.'.$file->extension;
+        }
         if($file){
-            return response()->download(public_path().''.$file->file_path, $file->display_name);
+            return response()->download(public_path().''.$file->file_path, $file_name);
         }
         return response('File not found', 404);
     }

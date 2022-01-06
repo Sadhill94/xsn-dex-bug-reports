@@ -4,8 +4,8 @@
       class="brand-container brand-container--xxl"
       :class="onDashboard && 'navbar--dashboard'"
     >
-      <div class="relative flex items-center justify-between h-24 md:h-32">
-        <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
+      <div class="relative flex items-center justify-between h-24 lg:h-32">
+        <div class="absolute inset-y-0 left-0 flex items-center lg:hidden">
           <!-- Mobile menu button-->
           <button
             type="button"
@@ -61,7 +61,7 @@
               />
             </Link>
           </div>
-          <div class="hidden md:flex items-center lg:ml-12">
+          <div class="hidden lg:flex items-center lg:ml-12">
             <ul class="flex space-x-8 xl:space-x-14">
               <li v-for="link in links" :key="link.name">
                 <Link
@@ -71,6 +71,13 @@
                   >{{ link.name }}</Link
                 >
               </li>
+              <li
+                v-if="hasBasicAccessLogged"
+                class="w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold"
+              >
+                <span v-show="isManager || isManagerNotLogged">M</span>
+                <span v-show="isContributor || isContributorNotLogged">C</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -78,8 +85,8 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="md:hidden" id="mobile-menu" v-show="isMenuOpen">
-      <div class="px-14 pt-2 pb-10">
+    <div class="lg:hidden" id="mobile-menu" v-show="isMenuOpen">
+      <div class="brand-container brand-container--xxl pt-2 pb-10">
         <ul class="space-y-5">
           <li v-for="link in links" :key="link.name">
             <Link
@@ -88,6 +95,13 @@
               :class="{ 'active-mobile': $page.url === link.url }"
               >{{ link.name }}</Link
             >
+          </li>
+          <li
+            v-if="hasBasicAccessLogged"
+            class="w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold"
+          >
+            <span v-show="isManager || isManagerNotLogged">M</span>
+            <span v-show="isContributor || isContributorNotLogged">C</span>
           </li>
         </ul>
       </div>

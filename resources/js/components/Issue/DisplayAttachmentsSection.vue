@@ -42,7 +42,6 @@
                     v-if="isManager"
                     @click="confirmDeleteFile(file)"
                     aria-label="delete file"
-                    class="mb-0"
                   >
                     <img src="/images/trash.png" alt="delete image" />
                   </button>

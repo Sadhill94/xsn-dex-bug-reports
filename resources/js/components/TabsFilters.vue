@@ -15,7 +15,7 @@
           <button
             v-for="tab in tabs"
             :key="tab.name"
-            class="tab__title uppercase mb-0"
+            class="tab__title uppercase"
             :class="activeTab === tab.name && 'active'"
             @click="$emit('onFilterSelect', tab.name)"
           >

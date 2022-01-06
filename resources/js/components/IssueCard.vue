@@ -7,7 +7,9 @@
       <div
         class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 space-y-2 sm:space-y-0"
       >
-        <div class="flex justify-start items-start md:items-center space-x-2">
+        <div
+          class="flex justify-start items-start md:items-center space-x-2 flex-grow"
+        >
           <h6 class="card-header-title">
             {{ item.type.name }}
           </h6>

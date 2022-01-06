@@ -76,6 +76,10 @@ p, .p, blockquote, cite, button  {
     }
 }
 
+button {
+    @apply mb-0 #{!important};
+}
+
 a, .a {
     @apply font-body text-body-md font-semibold;
     &:hover {

@@ -24,7 +24,7 @@
       leave-to-class="-translate-x-full"
     >
       <div
-        class="relative flex-1 flex flex-col max-w-md md:max-w-lg w-full bg-primary"
+        class="relative flex-1 flex flex-col max-w-md md:max-w-xl lg:max-w-lg w-full bg-primary"
         style="z-index: 99"
         v-show="isOpen"
       >
@@ -39,7 +39,9 @@
         </transition>
 
         <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-          <div class="flex-shrink-0 flex items-center px-4 pb-6">
+          <div
+            class="flex-shrink-0 flex items-center px-10 md:px-12 lg:px-6 pb-6"
+          >
             <Link :href="route('home')">
               <img
                 class="h-auto w-20"

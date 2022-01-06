@@ -1,12 +1,11 @@
 <template>
   <div
-    class="flex justify-center md:justify-between items-stretch flex-wrap pt-6 pb-16 md:pb-20 z-0"
+    class="flex justify-center md:justify-between items-stretch flex-wrap pt-6 pb-16 md:pb-20 z-0 md:-mx-8 lg:-mx-0"
   >
     <div
-      v-for="issue in items"
+      v-for="issue in itemsToDisplay"
       :key="issue.description"
       class="w-full sm:w-9/12 md:w-1/2 lg:w-full xl:w-1/2 xxl:w-1/3 p-6 sm:px-0 md:px-6 lg:p-8 relative"
-      :class="!checkedTypes.includes(issue.type.name) && 'hidden'"
     >
       <issue-card
         :item="issueWithCategoryAndStatus(issue)"
@@ -15,7 +14,7 @@
       />
     </div>
     <div
-      v-show="items.length < 1"
+      v-show="itemsToDisplay.length < 1"
       class="flex justify-center items-center w-full"
       style="min-height: 20rem"
     >
@@ -48,6 +47,17 @@ export default {
       default: '',
     },
   },
+  computed: {
+    itemsToDisplay() {
+      if (this.checkedTypes.length < 2) {
+        return this.items.filter((item) =>
+          this.checkedTypes.includes(item?.type?.name)
+        );
+      }
+      return this.items;
+    },
+  },
+
   methods: {
     issueWithCategoryAndStatus(issue) {
       const item = _.cloneDeep(issue);
