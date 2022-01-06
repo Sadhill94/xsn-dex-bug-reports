@@ -71,13 +71,13 @@ import IssueStatusPill from '@/components/IssueStatusPill';
 import { ROUTES } from '@/constant/routes';
 import axios from 'axios';
 import { FiltersMixin } from '@/mixins/filters';
-import { ManagerMixin } from '@/mixins/manager';
+import { RolesMixin } from '@/mixins/roles';
 import { FEATURE_TYPE_NAME } from '@/constant/common';
 
 export default {
   name: 'IssueCard',
 
-  mixins: [FiltersMixin, ManagerMixin],
+  mixins: [FiltersMixin, RolesMixin],
 
   components: { IssueStatusPill },
 

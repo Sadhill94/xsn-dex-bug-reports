@@ -96,13 +96,13 @@
 </template>
 
 <script>
-import { LOGIN_LINK, NAV_LINKS } from '@/constant/navbar';
-import { ManagerMixin } from '@/mixins/manager';
+import { LOGIN_LINK, LOGOUT_LINK, NAV_LINKS } from '@/constant/navbar';
+import { RolesMixin } from '@/mixins/roles';
 
 export default {
   name: 'Navbar',
 
-  mixins: [ManagerMixin],
+  mixins: [RolesMixin],
 
   props: {
     onDashboard: {
@@ -121,6 +121,8 @@ export default {
     links() {
       if (this.isManagerNotLogged && !this.isManager) {
         return [...NAV_LINKS, LOGIN_LINK];
+      } else if (this.isManager) {
+        return [...NAV_LINKS, LOGOUT_LINK];
       }
       return NAV_LINKS;
     },

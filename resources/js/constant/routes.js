@@ -24,6 +24,10 @@ export const ROUTES = {
       routeName: 'login',
       url: '/login',
     },
+    logout: {
+      routeName: 'logout',
+      url: '/logout',
+    },
     feature: {
       display: {
         routeName: 'display-feature',

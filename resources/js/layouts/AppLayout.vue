@@ -13,11 +13,11 @@
 <script>
 import Navbar from '@/components/Navbar';
 import BrandFooter from '@/components/BrandFooter';
-import { ManagerMixin } from '@/mixins/manager';
+import { RolesMixin } from '@/mixins/roles';
 export default {
   name: 'AppLayout',
 
-  mixins: [ManagerMixin],
+  mixins: [RolesMixin],
 
   components: { BrandFooter, Navbar },
 

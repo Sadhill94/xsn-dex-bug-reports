@@ -28,3 +28,8 @@ export const LOGIN_LINK = {
   name: 'Login',
   ...ROUTES.web.login,
 };
+
+export const LOGOUT_LINK = {
+  name: 'Logout',
+  ...ROUTES.web.logout,
+};

@@ -72,12 +72,12 @@ import MobileSidebar from '@/components/Dashboard/MobileSidebar';
 import MobileDashboardNavbar from '@/components/Dashboard/MobileDashboardNavbar';
 import NavFiltersList from '@/components/Dashboard/NavFiltersList';
 import BrandFooter from '@/components/BrandFooter';
-import { ManagerMixin } from '@/mixins/manager';
+import { RolesMixin } from '@/mixins/roles';
 
 export default {
   name: 'DashboardLayout',
 
-  mixins: [ManagerMixin],
+  mixins: [RolesMixin],
 
   components: {
     BrandFooter,
