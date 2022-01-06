@@ -23,6 +23,7 @@ export default {
 
   mounted() {
     this.setManagerLocalStorageIfNotExist();
+    this.setContributorLocalStorageIfNotExist();
   },
 };
 </script>

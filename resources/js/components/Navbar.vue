@@ -119,9 +119,9 @@ export default {
 
   computed: {
     links() {
-      if (this.isManagerNotLogged && !this.isManager) {
+      if (this.hasBasicAccessNotLogged) {
         return [...NAV_LINKS, LOGIN_LINK];
-      } else if (this.isManager) {
+      } else if (this.hasBasicAccessLogged) {
         return [...NAV_LINKS, LOGOUT_LINK];
       }
       return NAV_LINKS;

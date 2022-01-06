@@ -239,16 +239,21 @@ class IssueController extends Controller
 
     public function download_file($id)
     {
+        $user = auth()->user();
+        return response()->json($user);
        return $this->issuesService->downloadFile($id);
     }
 
     public function delete_file($id)
     {
+        $user = auth()->user();
+        return response()->json($user);
         return $this->issuesService->deleteFile($id);
     }
 
     public function add_single_file(Request $request)
     {
+
         $messages = [
             "files.max" => "Maximum amount of files authorized is: 4",
             "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",

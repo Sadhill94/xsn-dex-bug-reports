@@ -10,8 +10,19 @@ export const RolesMixin = {
         this.isContributorNotLogged,
       ].some((x) => x);
     },
+
+    hasBasicAccessNotLogged() {
+      return [this.isManagerNotLogged, this.isContributorNotLogged].some(
+        (x) => x
+      );
+    },
+
+    hasBasicAccessLogged() {
+      return [this.isManager, this.isContributor].some((x) => x);
+    },
+
     isManagerNotLogged() {
-      return !!localStorage.getItem('has-manager-access');
+      return !!localStorage.getItem('has-manager-access') && !this.isManager;
     },
 
     isManager() {
@@ -19,7 +30,9 @@ export const RolesMixin = {
     },
 
     isContributorNotLogged() {
-      return !!localStorage.getItem('has-contributor-access');
+      return (
+        !!localStorage.getItem('has-contributor-access') && !this.isContributor
+      );
     },
 
     isContributor() {

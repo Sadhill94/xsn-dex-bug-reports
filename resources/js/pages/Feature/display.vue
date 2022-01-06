@@ -71,6 +71,7 @@
           </rich-contents-section>
 
           <display-attachments-section
+            v-if="hasBasicAccess"
             :files="item.files"
             @deleteFile="deleteFile($event, true)"
           />

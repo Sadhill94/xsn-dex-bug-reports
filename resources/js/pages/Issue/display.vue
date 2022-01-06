@@ -100,6 +100,7 @@
           </rich-contents-section>
 
           <display-attachments-section
+            v-if="hasBasicAccess"
             :files="issue.files"
             @deleteFile="deleteFile($event, true)"
           />

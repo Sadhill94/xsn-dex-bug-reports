@@ -26,6 +26,7 @@ class UserFactory extends Factory
     {
         return [
             'username' => 'admin',
+            'role' => 'admin',
             'password' => Hash::make(Config::get('variables.env.managers_password')),
         ];
     }
