@@ -10,7 +10,7 @@
   >
     <div class="pt-16 lg:pt-0 px-6 md:px-12 xl:px-20">
       <div
-        class="flex flex-col lg:flex-row lg:items-start justify-between px-8 flex-wrap"
+        class="flex flex-col lg:flex-row lg:items-start justify-between px-10 sm:px-32 md:px-0 lg:px-8 flex-wrap"
       >
         <h1 class="text-2xl font-semibold text-white mb-0">Dashboard</h1>
         <div class="max-w-full sm:max-w-md w-full text-left lg:text-right">
@@ -25,26 +25,36 @@
               class="w-8 ml-3"
             />
           </a>
-
-          <search-field
-            class="text-left mt-6 lg:mt-8"
-            @onSearch="handleSearch"
-          />
         </div>
       </div>
-
-      <h2
-        class="hidden md:inline-block text-white mb-0 uppercase ml-8 mt-8 lg:mt-12 tracking-wider border-b border-quaternary pb-2 text-quaternary"
+      <div
+        class="flex justify-between items-center mt-4 px-10 sm:px-32 md:px-0 lg:mt-12 lg:px-8"
       >
-        {{ currentFilteredView.subFilterName || currentFilteredView.filterId }}
-      </h2>
+        <h2
+          class="hidden md:inline-block text-white mb-0 uppercase tracking-wider border-b border-quaternary pb-2 text-quaternary"
+        >
+          {{
+            currentFilteredView.subFilterName || currentFilteredView.filterId
+          }}
+        </h2>
 
-      <div class="sticky pt-6 pb-3 px-10 top-0 bg-primary z-10 md:hidden">
-        <h4 class="uppercase tracking-wider text-quaternary">
+        <search-field
+          ref="searchField"
+          class="text-left mt-6 lg:mt-8 max-w-lg"
+          @onSearch="handleSearch"
+        />
+      </div>
+      <div
+        class="sticky pt-6 pb-3 px-10 sm:px-32 -top-2 bg-primary z-10 md:hidden"
+      >
+        <h4
+          class="uppercase tracking-wider text-quaternary"
+          v-show="currentFilteredView.filterId"
+        >
           {{ currentFilteredView.filterId }}
         </h4>
         <h5
-          v-if="currentFilteredView.subFilterName"
+          v-show="currentFilteredView.subFilterName"
           class="uppercase text-body-md tracking-wider text-tertiary"
         >
           -> {{ currentFilteredView.subFilterName }}
@@ -200,6 +210,7 @@ export default {
     },
 
     handleSubFilterViewClick(filtersIdObject) {
+      this.$refs.searchField.resetSearchText();
       this.currentFilteredView = filtersIdObject;
     },
 
@@ -212,6 +223,7 @@ export default {
     },
 
     handleAllViewClick(allFilterId) {
+      this.$refs.searchField.resetSearchText();
       this.currentFilteredView = {
         filterId: allFilterId,
         subFilterId: '',

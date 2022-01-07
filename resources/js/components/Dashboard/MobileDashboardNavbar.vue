@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed right-0 top-0 pr-12 pt-4 pb-2 bg-transparent text-right z-50 w-64"
+    class="fixed right-0 top-0 pr-12 md:pr-12 pt-4 pb-2 bg-transparent text-right z-50 w-64"
   >
     <div class="text-right inline-block">
       <button

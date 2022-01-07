@@ -2,25 +2,22 @@
   <section>
     <div class="pt-4">
       <tabs-filters
-        @onFilterSelect="currentSelectedStatus = $event"
-        :tabs="getTabs"
+        @onFilterSelect="$emit('onTabChange', $event)"
+        :tabs="tabs"
         :active-tab="currentSelectedStatus"
       />
     </div>
-    <div
-      class="grouped-issues-container"
-      :class="getCurrentSelectedIssuesStatus.length < 1 && 'h-px'"
-    >
+    <div class="grouped-issues-container" :class="items.length < 1 && 'h-px'">
       <div
-        v-if="getCurrentSelectedIssuesStatus.length > 0"
+        v-if="items.length > 0"
         class="flex justify-center md:justify-between items-stretch flex-wrap pt-6"
       >
         <div
-          v-for="(issue, index) in getCurrentSelectedIssuesStatus"
-          :key="issue.id"
+          v-for="item in items"
+          :key="item.id"
           class="w-full md:w-1/2 xl:w-1/3 p-6 lg:p-8"
         >
-          <issue-card :item="issue" class="h-full" />
+          <issue-card :item="item" class="h-full" />
         </div>
       </div>
       <div
@@ -49,34 +46,18 @@ export default {
 
   props: {
     items: {
-      type: Object,
-      default: () => ({
-        all: [],
-        open: [],
-        in_progress: [],
-      }),
+      type: Array,
+      default: () => [],
     },
-  },
 
-  data() {
-    return {
-      currentSelectedStatus: 'all',
-    };
-  },
-
-  computed: {
-    getCurrentSelectedIssuesStatus() {
-      const filteredIssues = this.items[this.currentSelectedStatus];
-
-      if (!filteredIssues) {
-        return this.items.all;
-      }
-      return filteredIssues;
+    tabs: {
+      type: Array,
+      default: () => [],
     },
-    getTabs() {
-      return Object.keys(this.items).map((x) => {
-        return { name: x, length: this.items[x].length };
-      });
+
+    currentSelectedStatus: {
+      type: String,
+      default: 'all',
     },
   },
 };

@@ -8,7 +8,7 @@
       placeholder="Write something to find a ticket"
       v-model.trim="searchText"
     />
-    <div class="text-center mt-5 lg:mt-3">
+    <div class="text-center mt-3">
       <button
         class="caption-sm inline-flex w-auto justify-center text-quaternary underline"
         :class="searchText ? 'visible' : 'invisible'"
@@ -35,6 +35,11 @@ export default {
       } else if (!newValue) {
         this.$emit('onSearch', '');
       }
+    },
+  },
+  methods: {
+    resetSearchText() {
+      this.searchText = '';
     },
   },
 };
