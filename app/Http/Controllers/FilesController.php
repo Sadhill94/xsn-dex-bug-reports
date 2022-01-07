@@ -25,7 +25,7 @@ class FilesController extends Controller
 
     public function delete($id)
     {
-        if(!$this->commonsService->isManager()) {
+        if(!$this->commonsService->isManager()){
             return response('Unauthorized',401);
         }
 
@@ -40,19 +40,16 @@ class FilesController extends Controller
 
         $messages = [
             "files.max" => "Maximum amount of files authorized is: 4",
-            "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",
-            "files.*.max" => "File too big, maximum allowed is 2MB/file",
-            "files.*.size" => "File too big, maximum allowed is 2MB/file",
         ];
-
         request()->validate([
-            'file.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
             'files' => ['max:1'],
         ], $messages);
 
         if(!$request->file('file')){
             return response('No files submitted', 400);
         }
+        $this->filesService->validate_many([$request->file('file'), false]);
+
         $fileArray = $this->filesService->store_many([$request->file('file')], $request->issue_id);
 
         return response($fileArray[0]);

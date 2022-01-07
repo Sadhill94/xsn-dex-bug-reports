@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\CommonsService;
+use App\Services\FilesService;
 use App\Services\IssuesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -12,11 +13,13 @@ use Inertia\Response;
 class IssuesController extends Controller
 {
     protected $issuesService;
+    protected $filesService;
     protected $commonsService;
 
-    public function __construct(IssuesService $issuesService, CommonsService $commonsService)
+    public function __construct(IssuesService $issuesService, FilesService $filesService,CommonsService $commonsService)
     {
         $this->issuesService = $issuesService;
+        $this->filesService = $filesService;
         $this->commonsService = $commonsService;
     }
 
@@ -157,9 +160,6 @@ class IssuesController extends Controller
     {
         $messages = [
             "files.max" => "Maximum amount of files authorized is: 4",
-            "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",
-            "files.*.max" => "File too big, maximum allowed is 2MB/file",
-            "files.*.size" => "File too big, maximum allowed is 2MB/file",
         ];
         request()->validate([
             'description' => ['required'],
@@ -168,14 +168,17 @@ class IssuesController extends Controller
             'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
-            'files.*' => ['mimes:jpg,gif,jpeg,png,log,txt|max:2000'],
             'files' => ['max:4'],
         ], $messages);
 
         $data = $request->post();
+
         if($request->file('files')){
+            $this->filesService->validate_many($request->file('files'));
+
             $data['files'] = $request->file('files');
         }
+
         $bug_type = $this->commonsService->getTypeByName(Config::get('constants.types.bug'));
         $data['type_id'] = $bug_type->id;
 
@@ -191,21 +194,21 @@ class IssuesController extends Controller
     {
         $messages = [
             "files.max" => "Maximum amount of files authorized is: 4",
-            "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",
-            "files.*.max" => "File too big, maximum allowed is 2MB/file",
-            "files.*.size" => "File too big, maximum allowed is 2MB/file",
         ];
+
         request()->validate([
             'description' => ['required'],
             'category_id' => ['required'],
-            'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
             'files' => ['max:4'],
         ], $messages);
 
         $data = $request->post();
         if($request->file('files')){
+            $this->filesService->validate_many($request->file('files'));
+
             $data['files'] = $request->file('files');
         }
+
 
         $feature_type = $this->commonsService->getTypeByName(Config::get('constants.types.feature'));
         $data['type_id'] = $feature_type->id;

@@ -4,14 +4,46 @@ namespace App\Services;
 
 use App\Repository\FilesRepository;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class FilesService
 {
     protected $filesRepository;
+    public $allowed_extensions;
 
     public function __construct(FilesRepository $filesRepository)
     {
+        $this->allowed_extensions = array("jpg", "jpeg", "png", "gif", "txt", "log");
         $this->filesRepository = $filesRepository;
+    }
+
+
+    public function validate_many($filesArray, $hasCommonSizeRestriction = true)
+    {
+        $sizeAllowedInByte = $hasCommonSizeRestriction ? 2000000 : 6000000; // 2mb - 6mb
+
+        foreach ($filesArray as $file) {
+            $extension = $file->getClientOriginalExtension();
+            $fileSize = $file->getSize();
+            $fileName = $file->getClientOriginalName();
+
+            $isFileTooHeavy = $fileSize > $sizeAllowedInByte;
+
+            if(!in_array($extension, $this->allowed_extensions)){
+                throw new BadRequestException('File type not allowed : .'.$extension);
+            }
+
+            if ($isFileTooHeavy) {
+                throw new BadRequestException(
+                     'File too heavy, maximum allowed is 2MB, '.$fileName.
+                ' is '.number_format($fileSize/ 1000000, 1).'MB'
+                );
+            }
+
+            if ($fileSize == 0) {
+                throw new BadRequestException('File '.$fileName.' is empty.');
+            }
+        }
     }
 
     /**
