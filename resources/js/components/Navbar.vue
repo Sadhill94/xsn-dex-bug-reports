@@ -4,8 +4,8 @@
       class="brand-container brand-container--xxl"
       :class="onDashboard && 'navbar--dashboard'"
     >
-      <div class="relative flex items-center justify-between h-24 md:h-32">
-        <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
+      <div class="relative flex items-center justify-between h-24 lg:h-32">
+        <div class="absolute inset-y-0 left-0 flex items-center lg:hidden">
           <!-- Mobile menu button-->
           <button
             type="button"
@@ -61,7 +61,7 @@
               />
             </Link>
           </div>
-          <div class="hidden md:flex items-center lg:ml-12">
+          <div class="hidden lg:flex items-center lg:ml-12">
             <ul class="flex space-x-8 xl:space-x-14">
               <li v-for="link in links" :key="link.name">
                 <Link
@@ -71,6 +71,13 @@
                   >{{ link.name }}</Link
                 >
               </li>
+              <li
+                v-if="hasBasicAccessLogged"
+                class="w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold"
+              >
+                <span v-show="isManager">M</span>
+                <span v-show="isContributor">C</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -78,8 +85,8 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="md:hidden" id="mobile-menu" v-show="isMenuOpen">
-      <div class="px-14 pt-2 pb-10">
+    <div class="lg:hidden" id="mobile-menu" v-show="isMenuOpen">
+      <div class="brand-container brand-container--xxl pt-2 pb-10">
         <ul class="space-y-5">
           <li v-for="link in links" :key="link.name">
             <Link
@@ -89,6 +96,13 @@
               >{{ link.name }}</Link
             >
           </li>
+          <li
+            v-if="hasBasicAccessLogged"
+            class="ml-3 w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold text-center"
+          >
+            <span v-show="isManager">M</span>
+            <span v-show="isContributor">C</span>
+          </li>
         </ul>
       </div>
     </div>
@@ -96,13 +110,13 @@
 </template>
 
 <script>
-import { LOGIN_LINK, NAV_LINKS } from '@/constant/navbar';
-import { ManagerMixin } from '@/mixins/manager';
+import { LOGIN_LINK, LOGOUT_LINK, NAV_LINKS } from '@/constant/navbar';
+import { RolesMixin } from '@/mixins/roles';
 
 export default {
   name: 'Navbar',
 
-  mixins: [ManagerMixin],
+  mixins: [RolesMixin],
 
   props: {
     onDashboard: {
@@ -119,8 +133,10 @@ export default {
 
   computed: {
     links() {
-      if (this.isManagerNotLogged && !this.isManager) {
+      if (this.hasBasicAccessNotLogged) {
         return [...NAV_LINKS, LOGIN_LINK];
+      } else if (this.hasBasicAccessLogged) {
+        return [...NAV_LINKS, LOGOUT_LINK];
       }
       return NAV_LINKS;
     },

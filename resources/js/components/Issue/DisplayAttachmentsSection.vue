@@ -70,12 +70,12 @@
 <script>
 import { FiltersMixin } from '@/mixins/filters';
 import { SingleIssueMixin } from '@/mixins/single-issue';
-import { ManagerMixin } from '@/mixins/manager';
+import { RolesMixin } from '@/mixins/roles';
 
 export default {
   name: 'DisplayAttachmentsSection',
 
-  mixins: [FiltersMixin, SingleIssueMixin, ManagerMixin],
+  mixins: [FiltersMixin, SingleIssueMixin, RolesMixin],
 
   props: {
     files: {

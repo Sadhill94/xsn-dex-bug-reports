@@ -2,11 +2,7 @@
 
 namespace App\Repository;
 
-use App\Models\Category;
-use App\Models\File;
 use App\Models\Issue;
-use App\Models\Status;
-use App\Models\Type;
 use Exception;
 
 class IssuesRepository
@@ -17,37 +13,6 @@ class IssuesRepository
         return Issue::with(['category', 'status', 'files', 'type'])
             ->get()
             ->find($id);
-    }
-
-    public function getTypeById($id)
-    {
-        return Type::findOrFail($id);
-    }
-
-    public function getTypeByName($name)
-    {
-        return Type::where('name', '=', $name)->first();
-    }
-
-
-    public function getCategories()
-    {
-        return Category::orderBy('order')->get();
-    }
-
-    public function getTypes()
-    {
-        return Type::all();
-    }
-
-    public function getStatuses()
-    {
-        return Status::orderBy('order')->get();
-    }
-
-    public function findStatusByName($name)
-    {
-        return Status::where('name', '=', $name)->first();
     }
 
     public function getAll()
@@ -118,38 +83,6 @@ class IssuesRepository
 
         try {
             $issue->delete();
-            return 0;
-        } catch(Exception $ex) {
-            return 1;
-        }
-    }
-
-    public function createFile($data)
-    {
-        $fileModel = new File();
-        $fileModel->name = $data['file_name'];
-        $fileModel->file_path = '/storage/'.$data['file_path'];
-        $fileModel->display_name = $data['display_name'];
-        $fileModel->extension = $data['extension'];
-        $fileModel->size = $data['size'];
-        $fileModel->issue_id = $data['issue_id'];
-
-        $fileModel->save();
-
-        return File::find($fileModel->id);
-    }
-
-    public function getFileById($id)
-    {
-        return File::findOrFail($id);
-    }
-
-    public function deleteFile($id)
-    {
-        $file = File::findOrFail($id);
-
-        try {
-            $file->delete();
             return 0;
         } catch(Exception $ex) {
             return 1;

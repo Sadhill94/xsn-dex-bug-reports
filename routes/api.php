@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\IssueController;
+use App\Http\Controllers\FilesController;
+use App\Http\Controllers\IssuesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,31 +17,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'issues'], function() {
 
-    Route::post('/bug/create', [IssueController::class, 'create_bug'])
+    Route::post('/bug/create', [IssuesController::class, 'create_bug'])
         ->name('create-bug');
 
-    Route::post('/feature/create', [IssueController::class, 'create_feature'])
+    Route::post('/feature/create', [IssuesController::class, 'create_feature'])
         ->name('create-feature');
 
-    Route::post('/edit', [IssueController::class, 'edit'])
+    Route::post('/edit', [IssuesController::class, 'edit'])
         ->middleware('auth')
         ->name('edit-issue');
 
-    Route::delete('/{id}', [IssueController::class, 'delete'])
+    Route::delete('/{id}', [IssuesController::class, 'delete'])
         ->middleware('auth')
         ->name('delete-issue');
 });
 
 Route::group(['prefix' => 'files'], function() {
 
-Route::get('/download/{id}', [IssueController::class, 'download_file'])
+Route::get('/download/{id}', [FilesController::class, 'download'])
+    ->middleware('auth')
     ->name('download-file');
 
-Route::delete('/{id}', [IssueController::class, 'delete_file'])
+Route::delete('/{id}', [FilesController::class, 'delete'])
     ->middleware('auth')
     ->name('delete-file');
 
-Route::post('', [IssueController::class, 'add_single_file'])
+Route::post('', [FilesController::class, 'add_single'])
     ->middleware('auth')
     ->name('add-single-file');
 });

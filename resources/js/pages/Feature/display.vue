@@ -71,6 +71,7 @@
           </rich-contents-section>
 
           <display-attachments-section
+            v-if="hasBasicAccess"
             :files="item.files"
             @deleteFile="deleteFile($event, true)"
           />
@@ -81,7 +82,7 @@
 </template>
 <script>
 import { SingleIssueMixin } from '@/mixins/single-issue';
-import { ManagerMixin } from '@/mixins/manager';
+import { RolesMixin } from '@/mixins/roles';
 import { FiltersMixin } from '@/mixins/filters';
 
 import DetailsSection from '@/components/Issue/DetailsSection';
@@ -101,7 +102,7 @@ export default {
     AppLayout,
   },
 
-  mixins: [SingleIssueMixin, FiltersMixin, ManagerMixin],
+  mixins: [SingleIssueMixin, FiltersMixin, RolesMixin],
 
   mounted() {
     window.addEventListener('onReloadNeeded', this.handleReload);

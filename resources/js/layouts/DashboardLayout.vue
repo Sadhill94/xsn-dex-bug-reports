@@ -7,7 +7,7 @@
       @onToggle="isMobileNavbarOpen = !isMobileNavbarOpen"
     >
       <nav-filters-list
-        class="mt-5 px-10 md:px-6 space-y-8"
+        class="mt-5 px-10 md:px-12 lg:px-6 space-y-8"
         :filters="filters"
         :current-filtered-view="currentFilteredView"
         :total-issues-number="totalIssuesNumber"
@@ -31,7 +31,7 @@
       <div class="absolute">
         <Link :href="route('home')">
           <img
-            class="block xl:hidden w-28 h-auto"
+            class="block lg:hidden w-28 h-auto"
             src="/images/xsn-logo.png"
             alt="xsn logo"
           />
@@ -72,12 +72,12 @@ import MobileSidebar from '@/components/Dashboard/MobileSidebar';
 import MobileDashboardNavbar from '@/components/Dashboard/MobileDashboardNavbar';
 import NavFiltersList from '@/components/Dashboard/NavFiltersList';
 import BrandFooter from '@/components/BrandFooter';
-import { ManagerMixin } from '@/mixins/manager';
+import { RolesMixin } from '@/mixins/roles';
 
 export default {
   name: 'DashboardLayout',
 
-  mixins: [ManagerMixin],
+  mixins: [RolesMixin],
 
   components: {
     BrandFooter,
@@ -111,6 +111,7 @@ export default {
 
   mounted() {
     this.setManagerLocalStorageIfNotExist();
+    this.setContributorLocalStorageIfNotExist();
   },
 };
 </script>

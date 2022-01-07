@@ -7,7 +7,9 @@
       <div
         class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-8 space-y-2 sm:space-y-0"
       >
-        <div class="flex justify-start items-start md:items-center space-x-2">
+        <div
+          class="flex justify-start items-start md:items-center space-x-2 flex-grow"
+        >
           <h6 class="card-header-title">
             {{ item.type.name }}
           </h6>
@@ -37,24 +39,25 @@
           <a
             :href="getIssueUrl"
             target="_self"
-            class="btn btn--quaternary text-body-sm w-32 text-center rounded-full p-2 sm:p-4"
+            class="btn btn--quaternary text-body-sm w-32 text-center rounded-full p-2 sm:p-3"
           >
             Details
           </a>
         </div>
       </div>
     </div>
-    <div
-      class="w-full flex items-stretch"
-      v-if="isManager || isManagerNotLogged"
-    >
+    <div class="w-full flex items-stretch h-12" v-if="hasBasicAccess">
       <button
+        v-if="isManager || isManagerNotLogged"
         @click="confirmDelete"
         class="caption-lg uppercase w-1/2 bg-danger h-full rounded-bl-md"
       >
         Delete
       </button>
-      <div class="flex items-center w-1/2 h-full bg-quaternary rounded-br-md">
+      <div
+        class="flex items-center w-1/2 h-full bg-quaternary rounded-br-md"
+        v-if="isManager || isManagerNotLogged"
+      >
         <a
           :href="getEditUrl"
           target="_self"
@@ -71,13 +74,13 @@ import IssueStatusPill from '@/components/IssueStatusPill';
 import { ROUTES } from '@/constant/routes';
 import axios from 'axios';
 import { FiltersMixin } from '@/mixins/filters';
-import { ManagerMixin } from '@/mixins/manager';
+import { RolesMixin } from '@/mixins/roles';
 import { FEATURE_TYPE_NAME } from '@/constant/common';
 
 export default {
   name: 'IssueCard',
 
-  mixins: [FiltersMixin, ManagerMixin],
+  mixins: [FiltersMixin, RolesMixin],
 
   components: { IssueStatusPill },
 
@@ -123,6 +126,14 @@ export default {
 
     deleteIssue(issueId) {
       const notification = {};
+
+      if (!this.isManager) {
+        notification.message = 'Session expired, please login again';
+        notification.type = 'error';
+        this.$displayNotification(notification);
+        return this.$inertia.get('/login');
+      }
+
       axios
         .delete(ROUTES.api.issue.delete.url.replace('{id}', issueId))
         .then(() => {
@@ -137,6 +148,7 @@ export default {
         })
         .finally(() => {
           this.$displayNotification(notification);
+          this.$inertia.reload();
         });
     },
   },

@@ -21,7 +21,7 @@
         >
           <div class="flex justify-start items-center mb-3">
             <button @click="copyPath(file.path)">
-              <img class="w-8 h-auto" src="/images/copy.png" alt="Workflow" />
+              <img class="w-8 h-auto" src="/images/copy.png" alt="copy" />
             </button>
             <h6 class="mb-0 pl-3">{{ file.name }}</h6>
           </div>

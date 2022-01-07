@@ -1,7 +1,10 @@
 import { ROUTES } from '@/constant/routes';
 import axios from 'axios';
+import { RolesMixin } from '@/mixins/roles';
 
 export const SingleIssueMixin = {
+  mixins: [RolesMixin],
+
   props: {
     issue: {
       type: Object,
@@ -73,6 +76,13 @@ export const SingleIssueMixin = {
 
     deleteIssue(issueId) {
       const notification = {};
+      // not logged
+      if (!this.isManager) {
+        notification.message = 'Session expired, please login again';
+        notification.type = 'error';
+        this.$inertia.get('/login');
+      }
+
       axios
         .delete(ROUTES.api.issue.delete.url.replace('{id}', issueId))
         .then(() => {

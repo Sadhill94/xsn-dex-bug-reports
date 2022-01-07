@@ -45,7 +45,7 @@ class LoginRequest extends FormRequest
     {
         $credentials = $this->only('username', 'password');
 
-        if (! Auth::attempt($credentials, $this->has('remember'))) {
+        if (! Auth::attempt($credentials, $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -87,6 +87,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('email')).'|'.$this->ip();
+        return Str::lower($this->input('username')).'|'.$this->ip();
     }
 }
