@@ -5,7 +5,7 @@
       <p>
         You will find here the form to submit your bug(s). IMPORTANT: Before
         submitting a new bug head to the dashboard and check if your problem is
-        already reported*.
+        already reported, use the search functionality to find out.
       </p>
 
       <p>
@@ -32,11 +32,6 @@
           Last but not least, Thank you for taking the time to report your
           bug(s), we really appreciate it !
         </h6>
-        <p class="caption-lg italic">
-          *The search issue feature is on it's way, but for now there is nothing
-          to help you find your issue in the reported list, i apologize for the
-          inconvenience.
-        </p>
       </div>
       <br />
       <br />

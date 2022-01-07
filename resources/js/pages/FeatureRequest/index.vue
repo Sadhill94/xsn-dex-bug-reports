@@ -6,7 +6,8 @@
       <p>
         You will find here the form to submit your feature request(s).
         IMPORTANT: Before submitting a new feature request head to the dashboard
-        and check if someone has already asked for it
+        and check if someone has already asked for it, use the search
+        functionality to find out.
       </p>
 
       <p>
