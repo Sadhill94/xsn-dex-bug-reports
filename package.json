@@ -57,7 +57,8 @@
   "dependencies": {
     "@inertiajs/inertia": "^0.10.1",
     "@inertiajs/inertia-vue": "^0.7.2",
-    "@inertiajs/progress": "^0.2.6"
+    "@inertiajs/progress": "^0.2.6",
+    "fuse.js": "^6.5.3"
   },
   "version": "2.0.0"
 }

@@ -10,20 +10,27 @@
   >
     <div class="pt-16 lg:pt-0 px-6 md:px-12 xl:px-20">
       <div
-        class="flex flex-col lg:flex-row lg:items-center justify-between px-8 flex-wrap"
+        class="flex flex-col lg:flex-row lg:items-start justify-between px-8 flex-wrap"
       >
         <h1 class="text-2xl font-semibold text-white mb-0">Dashboard</h1>
-        <a
-          href="https://github.com/X9Developers/stakenet-light-wallet"
-          target="_blank"
-          class="h4 mb-8 md:mb-0 mt-4 lg:mt-0 inline-flex items-center hover:opacity-80 transition-opacity duration-200"
-          >Github repository
-          <img
-            src="/images/external-link.png"
-            alt="external link"
-            class="w-8 ml-3"
+        <div class="max-w-full sm:max-w-md w-full text-left lg:text-right">
+          <a
+            href="https://github.com/X9Developers/stakenet-light-wallet"
+            target="_blank"
+            class="h4 mb-0 mt-6 lg:mt-0 inline-flex items-center hover:opacity-80 transition-opacity duration-200"
+            >Github repository
+            <img
+              src="/images/external-link.png"
+              alt="external link"
+              class="w-8 ml-3"
+            />
+          </a>
+
+          <search-field
+            class="text-left mt-6 lg:mt-8"
+            @onSearch="handleSearch"
           />
-        </a>
+        </div>
       </div>
 
       <h2
@@ -62,10 +69,12 @@ import { ALL_FILTER_ID } from '@/constant/filtersId';
 import DashboardLayout from '@/layouts/DashboardLayout';
 import DashboardIssuesList from '@/components/Dashboard/DashboardIssuesList';
 import { BUG_TYPE_NAME, FEATURE_TYPE_NAME } from '@/constant/common';
+import SearchField from '@/components/SearchField';
 
 export default {
   name: 'DashboardTemplate',
   components: {
+    SearchField,
     DashboardIssuesList,
     DashboardLayout,
   },
@@ -101,6 +110,9 @@ export default {
       },
 
       currentCheckedTypes: [BUG_TYPE_NAME, FEATURE_TYPE_NAME],
+
+      isSearchActive: false,
+      searchResults: [],
     };
   },
 
@@ -118,7 +130,31 @@ export default {
   },
 
   computed: {
+    currentIssueListForSearch() {
+      const { filterId, subFilterId } = this.currentFilteredView;
+
+      if (this.currentFilteredView.filterId === ALL_FILTER_ID) {
+        return this.allIssues;
+      }
+
+      let relatedItems = [];
+      try {
+        relatedItems = this.issuesByFilter[filterId][subFilterId]?.items;
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(
+          'Something went wrong finding the issues with this filters. Contact @Sadhill'
+        );
+        return [];
+      }
+
+      return relatedItems;
+    },
     currentIssuesList() {
+      if (this.isSearchActive) {
+        return this.searchResults;
+      }
+
       const { filterId, subFilterId } = this.currentFilteredView;
 
       if (this.currentFilteredView.filterId === ALL_FILTER_ID) {
@@ -141,6 +177,19 @@ export default {
   },
 
   methods: {
+    handleSearch(searchInput) {
+      if (searchInput) {
+        this.isSearchActive = true;
+        this.searchResults = this.$searchItems(
+          this.currentIssueListForSearch,
+          searchInput
+        );
+      } else {
+        this.isSearchActive = false;
+        this.searchResults = [];
+      }
+    },
+
     reloadIssues() {
       this.$inertia.reload({ preserveState: false });
     },

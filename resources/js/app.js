@@ -2,6 +2,7 @@ require('./bootstrap');
 require('./plugins/vue-toastification');
 require('./plugins/notificator');
 require('./plugins/file-agent');
+require('./plugins/fuse');
 
 import Vue from 'vue';
 import {
