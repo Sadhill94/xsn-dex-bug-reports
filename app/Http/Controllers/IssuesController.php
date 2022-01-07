@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CommonsService;
 use App\Services\IssuesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class IssueController extends Controller
+class IssuesController extends Controller
 {
     protected $issuesService;
+    protected $commonsService;
 
-    public function __construct(IssuesService $issuesService)
+    public function __construct(IssuesService $issuesService, CommonsService $commonsService)
     {
         $this->issuesService = $issuesService;
+        $this->commonsService = $commonsService;
     }
 
     /**
@@ -25,8 +28,9 @@ class IssueController extends Controller
     {
         $issues_by_filter = $this->issuesService->getIssuesByCategoriesAndStatuses();
         $issues = $this->issuesService->getAllIssuesWithoutValidateStatus();
-        $categories = $this->issuesService->getCategories();
-        $statuses = $this->issuesService->getStatuses();
+
+        $categories = $this->commonsService->getCategories();
+        $statuses = $this->commonsService->getStatuses();
 
         return Inertia::render('Dashboard/index', [
             'issues' => $issues,
@@ -56,7 +60,7 @@ class IssueController extends Controller
     public function report_a_bug(): Response
     {
         return Inertia::render('ReportABug/index', [
-            'categories' => $this->issuesService->getCategories()
+            'categories' => $this->commonsService->getCategories()
         ]);
     }
 
@@ -67,7 +71,7 @@ class IssueController extends Controller
     public function feature_request(): Response
     {
         return Inertia::render('FeatureRequest/index', [
-            'categories' => $this->issuesService->getCategories()
+            'categories' => $this->commonsService->getCategories()
         ]);
     }
 
@@ -76,7 +80,7 @@ class IssueController extends Controller
     {
         $issue = $this->issuesService->getById($id);
 
-        if($issue->type->name ==Config::get('constants.types.feature')){
+        if($issue->type->name == Config::get('constants.types.feature')){
             return Inertia::render('404/index');
         }
         return Inertia::render('Issue/display', ['issue' => $issue]);
@@ -96,19 +100,19 @@ class IssueController extends Controller
 
     public function display_edit_issue($id): Response
     {
-        if(!$this->issuesService->isManager()) {
+        if(!$this->commonsService->isManager()) {
             return Inertia::render('404/index');
         }
 
         $issue = $this->issuesService->getById($id);
 
-        if($issue->type->name ==Config::get('constants.types.feature')){
+        if($issue->type->name == Config::get('constants.types.feature')){
             return Inertia::render('404/index');
         }
 
-        $categories = $this->issuesService->getCategories();
-        $statuses = $this->issuesService->getStatuses();
-        $types = $this->issuesService->getTypes();
+        $categories = $this->commonsService->getCategories();
+        $statuses = $this->commonsService->getStatuses();
+        $types = $this->commonsService->getTypes();
 
         return Inertia::render('Issue/edit', [
             'issue' => $issue,
@@ -120,7 +124,7 @@ class IssueController extends Controller
 
     public function display_edit_feature($id): Response
     {
-        if(!$this->issuesService->isManager()) {
+        if(!$this->commonsService->isManager()) {
             return Inertia::render('404/index');
         }
 
@@ -131,9 +135,9 @@ class IssueController extends Controller
             return Inertia::render('404/index');
         }
 
-        $categories = $this->issuesService->getCategories();
-        $statuses = $this->issuesService->getStatuses();
-        $types = $this->issuesService->getTypes();
+        $categories = $this->commonsService->getCategories();
+        $statuses = $this->commonsService->getStatuses();
+        $types = $this->commonsService->getTypes();
 
         return Inertia::render('Feature/edit', [
             'feature' => $issue,
@@ -142,9 +146,6 @@ class IssueController extends Controller
             'types' => $types,
         ]);
     }
-
-
-
 
     /**
     * Create an issue
@@ -167,7 +168,7 @@ class IssueController extends Controller
             'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
-            'files.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
+            'files.*' => ['mimes:jpg,gif,jpeg,png,log,txt|max:2000'],
             'files' => ['max:4'],
         ], $messages);
 
@@ -175,7 +176,7 @@ class IssueController extends Controller
         if($request->file('files')){
             $data['files'] = $request->file('files');
         }
-        $bug_type = $this->issuesService->getTypeByName(Config::get('constants.types.bug'));
+        $bug_type = $this->commonsService->getTypeByName(Config::get('constants.types.bug'));
         $data['type_id'] = $bug_type->id;
 
         $issue = $this->issuesService->create($data);
@@ -206,7 +207,7 @@ class IssueController extends Controller
             $data['files'] = $request->file('files');
         }
 
-        $feature_type = $this->issuesService->getTypeByName(Config::get('constants.types.feature'));
+        $feature_type = $this->commonsService->getTypeByName(Config::get('constants.types.feature'));
         $data['type_id'] = $feature_type->id;
 
         $issue = $this->issuesService->create($data);
@@ -224,7 +225,7 @@ class IssueController extends Controller
     */
     public function edit(Request $request)
     {
-        if(!$this->issuesService->isManager()) {
+        if(!$this->commonsService->isManager()) {
             return response('Unauthorized',401);
         }
 
@@ -246,50 +247,10 @@ class IssueController extends Controller
 
     public function delete($id)
     {
-        if(!$this->issuesService->isManager()) {
+        if(!$this->commonsService->isManager()) {
             return response('Unauthorized',401);
         }
 
-        $this->issuesService->delete($id);
-    }
-
-    public function download_file($id)
-    {
-       return $this->issuesService->downloadFile($id);
-    }
-
-    public function delete_file($id)
-    {
-        if(!$this->issuesService->isManager()) {
-            return response('Unauthorized',401);
-        }
-
-        return $this->issuesService->deleteFile($id);
-    }
-
-    public function add_single_file(Request $request)
-    {
-        if(!$this->issuesService->isManager()) {
-            return response('Unauthorized',401);
-        }
-
-        $messages = [
-            "files.max" => "Maximum amount of files authorized is: 4",
-            "files.*.mimes" => "File type unauthorized Only jpg,jpeg,png,log,txt and gifs",
-            "files.*.max" => "File too big, maximum allowed is 2MB/file",
-            "files.*.size" => "File too big, maximum allowed is 2MB/file",
-        ];
-
-        request()->validate([
-            'file.*' => ['mimes:jpg,jpeg,png,log,txt,gif|max:2000'],
-            'files' => ['max:1'],
-        ], $messages);
-
-        if(!$request->file('file')){
-            return response('No files submitted', 400);
-        }
-        $fileArray = $this->issuesService->storeFiles([$request->file('file')], $request->issue_id);
-
-        return response($fileArray[0]);
+        return $this->issuesService->delete($id);
     }
 }

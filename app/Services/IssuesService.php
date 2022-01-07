@@ -7,32 +7,20 @@ use ErrorException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class IssuesService
 {
     protected $issuesRepository;
+    protected $commonsService;
+    protected $filesService;
 
-    public function __construct(IssuesRepository $issuesRepository)
+    public function __construct(IssuesRepository $issuesRepository,FilesService $filesService, CommonsService $commonsService)
     {
         $this->issuesRepository = $issuesRepository;
+        $this->filesService = $filesService;
+        $this->commonsService = $commonsService;
     }
-
-    public function isManager()
-    {
-        $user = auth()->user();
-        if($user) {
-            return $user->role == Config::get('constants.roles.manager');
-        }
-        return false;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    |   Getters
-    |--------------------------------------------------------------------------
-    */
 
     public function getById($id)
     {
@@ -43,26 +31,6 @@ class IssuesService
             return $issue;
     }
 
-    public function getStatuses()
-    {
-        return $this->issuesRepository->getStatuses();
-    }
-
-    public function getCategories()
-    {
-        return $this->issuesRepository->getCategories();
-    }
-
-    public function getTypes()
-    {
-        return $this->issuesRepository->getTypes();
-    }
-
-    public function getTypeByName($name)
-    {
-        return $this->issuesRepository->getTypeByName($name);
-    }
-
     public function getAllIssues()
     {
         return $this->issuesRepository->getAll();
@@ -70,16 +38,10 @@ class IssuesService
 
     public function getAllIssuesWithoutValidateStatus()
     {
-        $to_validate_status = self::getToValidateStatus();
+        $to_validate_status = $this->commonsService->getToValidateStatus();
 
         return $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
     }
-
-    public function getToValidateStatus()
-    {
-        return $this->issuesRepository->findStatusByName(Config::get('constants.statuses.to_validate'));
-    }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -94,17 +56,17 @@ class IssuesService
      */
     public function getOnlyPublicIssues(): array
     {
-        $to_validate_status = self::getToValidateStatus();
+        $to_validate_status = $this->commonsService->getToValidateStatus();
 
         $public_issues = $this->issuesRepository->getIssuesWithCategoryAndStatusWhereNotIn('status_id', [$to_validate_status->id]);
 
         $statusesNames = Config::get('constants.statuses');
         return [
             'all' => $public_issues,
-            'open' => self::filterStatusNameBy($public_issues, $statusesNames['open']),
-            'in_progress' => self::filterStatusNameBy($public_issues,$statusesNames['in_progress']),
-            'in_review' => self::filterStatusNameBy($public_issues, $statusesNames['in_review']),
-            'closed' => self::filterStatusNameBy($public_issues, $statusesNames['closed']),
+            'open' => $this->commonsService->filterStatusNameBy($public_issues, $statusesNames['open']),
+            'in_progress' => $this->commonsService->filterStatusNameBy($public_issues,$statusesNames['in_progress']),
+            'in_review' => $this->commonsService->filterStatusNameBy($public_issues, $statusesNames['in_review']),
+            'closed' => $this->commonsService->filterStatusNameBy($public_issues, $statusesNames['closed']),
         ];
     }
 
@@ -115,11 +77,11 @@ class IssuesService
      */
     public function getIssuesByCategoriesAndStatuses(): array
     {
-        $categories = self::getCategories();
-        $statuses = self::getStatuses();
+        $categories = $this->commonsService->getCategories();
+        $statuses = $this->commonsService->getStatuses();
 
-        $allIssuesByStatus = self::formatPayload($statuses);
-        $allIssuesByCategory = self::formatPayload($categories);
+        $allIssuesByStatus = $this->commonsService->formatPayload($statuses);
+        $allIssuesByCategory = $this->commonsService->formatPayload($categories);
 
         return [
             'statuses' => $allIssuesByStatus,
@@ -135,15 +97,15 @@ class IssuesService
 
     public function create($data)
     {
-        $to_validate_status = self::getToValidateStatus();
-        $type = $this->issuesRepository->getTypeById($data['type_id']);
+        $to_validate_status = $this->commonsService->getToValidateStatus();
+        $type = $this->commonsService->getTypeById($data['type_id']);
 
         $data['status_id'] = $to_validate_status->id;
 
         $issue = $this->issuesRepository->create($data);
 
         if(Arr::exists($data, 'files')){
-            self::storeFiles($data['files'], $issue->id, $type->name);
+            $this->filesService->store_many($data['files'], $issue->id, $type->name);
         }
 
         return $issue;
@@ -160,101 +122,13 @@ class IssuesService
 
         foreach ($issue->files as $file) {
             try {
-                self::deleteFile($file->id);
-            // case  file already been deleted dunno how, we enforce the delete
+                $this->filesService->delete($file->id);
+            // case file already been deleted dunno how, we enforce the delete
             } catch(ErrorException $e){
                 Log::error('Files already been deleted: '.$e->getMessage());
             }
         }
 
         return $this->issuesRepository->delete($id);
-    }
-
-    /*
-      |--------------------------------------------------------------------------
-      |   Upload / Download / Delete File
-      |--------------------------------------------------------------------------
-      */
-    /**
-     * Upload file on the app's storage and then create the reference in the database
-     * @param $files
-     * @param $issueId
-     */
-    public function storeFiles($files, $issueId, $type = 'bug')
-    {
-        $storage_path = 'uploads/bug-reports';
-        if($type != 'bug'){
-            $storage_path = 'uploads/feature-requests';
-        }
-
-        $filesCreated = [];
-        foreach ($files as $file) {
-            $data['file_name'] = time().'_'.$file->getClientOriginalName();
-            $data['display_name'] = $file->getClientOriginalName();
-            $data['extension'] = $file->getClientOriginalExtension();
-            $data['size'] = $file->getSize();
-            $data['issue_id'] = $issueId;
-
-            if($type == 'bug'){
-
-            }
-            $data['file_path'] = $file->storeAs($storage_path, $data['file_name'], 'public');
-
-            array_push($filesCreated,$this->issuesRepository->createFile($data));
-        }
-        return $filesCreated;
-    }
-
-    public function deleteFile($id): bool
-    {
-        $file = $this->issuesRepository->getFileById($id);
-        unlink(public_path().$file->file_path);
-
-        return $this->issuesRepository->deleteFile($file->id);
-    }
-
-    public function downloadFile($id)
-    {
-        $file = $this->issuesRepository->getFileById($id);
-        $file_name = $file->display_name;
-        if(!Str::contains($file->display_name, ['.jpg', '.jpeg', '.png', '.txt', '.log', '.gif'])){
-            $file_name = $file->display_name.'.'.$file->extension;
-        }
-        if($file){
-            return response()->download(public_path().''.$file->file_path, $file_name);
-        }
-        return response('File not found', 404);
-    }
-
-    /**
-     * Used to format an array of categories/statuses where we will store each category with its name, id and related issues
-     * @param $items
-     * @return array
-     */
-    private function formatPayload($items): array
-    {
-        $formattedPayload = [];
-
-        foreach ($items as $item) {
-            $formattedPayload[$item->id] =
-                [
-                    'id' => $item->id,
-                    'name' => $item->name,
-                    'items' => $item->issues($item->name == Config::get('constants.statuses.to_validate') ? 'ASC' : 'DESC')
-                ];
-        }
-        return $formattedPayload;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    |   Filters
-    |--------------------------------------------------------------------------
-    */
-    private function filterStatusNameBy($collection, $filterBy)
-    {
-        return $collection->filter(function($item) use ($filterBy){
-            return $item->status->name == $filterBy;
-        })->values();
     }
 }

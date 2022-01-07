@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\IssueController;
+use App\Http\Controllers\IssuesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,16 +29,16 @@ Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 Route::group(['prefix' => '/'], function() {
 
-    Route::get('/', [IssueController::class, 'home'])
+    Route::get('/', [IssuesController::class, 'home'])
         ->name('home');
 
-    Route::get('report-a-bug', [IssueController::class, 'report_a_bug'])
+    Route::get('report-a-bug', [IssuesController::class, 'report_a_bug'])
         ->name('bug-report');
 
-    Route::get('feature-request', [IssueController::class, 'feature_request'])
+    Route::get('feature-request', [IssuesController::class, 'feature_request'])
         ->name('feature-request');
 
-    Route::get('dashboard', [IssueController::class, 'dashboard'])
+    Route::get('dashboard', [IssuesController::class, 'dashboard'])
         ->name('dashboard');
 
     Route::get('contribute', function(){
@@ -58,20 +58,20 @@ Route::group(['prefix' => '/'], function() {
 
 Route::group(['prefix' => 'issues'], function(){
 
-    Route::get('/{id}', [IssueController::class, 'display_issue'])
+    Route::get('/{id}', [IssuesController::class, 'display_issue'])
         ->name('display-issue');
 
-    Route::get('/edit/{id}', [IssueController::class, 'display_edit_issue'])
+    Route::get('/edit/{id}', [IssuesController::class, 'display_edit_issue'])
         ->middleware('auth')
         ->name('display-edit-issue');
 });
 
 Route::group(['prefix' => 'features'], function(){
 
-    Route::get('/{id}', [IssueController::class, 'display_feature'])
+    Route::get('/{id}', [IssuesController::class, 'display_feature'])
         ->name('display-feature');
 
-    Route::get('/edit/{id}', [IssueController::class, 'display_edit_feature'])
+    Route::get('/edit/{id}', [IssuesController::class, 'display_edit_feature'])
         ->middleware('auth')
         ->name('display-edit-feature');
 });
