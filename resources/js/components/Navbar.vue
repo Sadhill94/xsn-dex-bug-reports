@@ -75,8 +75,8 @@
                 v-if="hasBasicAccessLogged"
                 class="w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold"
               >
-                <span v-show="isManager || isManagerNotLogged">M</span>
-                <span v-show="isContributor || isContributorNotLogged">C</span>
+                <span v-show="isManager">M</span>
+                <span v-show="isContributor">C</span>
               </li>
             </ul>
           </div>
@@ -100,8 +100,8 @@
             v-if="hasBasicAccessLogged"
             class="w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold"
           >
-            <span v-show="isManager || isManagerNotLogged">M</span>
-            <span v-show="isContributor || isContributorNotLogged">C</span>
+            <span v-show="isManager">M</span>
+            <span v-show="isContributor">C</span>
           </li>
         </ul>
       </div>

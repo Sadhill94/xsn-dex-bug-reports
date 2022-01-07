@@ -12,9 +12,10 @@ export const RolesMixin = {
     },
 
     hasBasicAccessNotLogged() {
-      return [this.isManagerNotLogged, this.isContributorNotLogged].some(
-        (x) => x
-      );
+      return [
+        this.isManagerNotLogged && !this.isContributor,
+        this.isContributorNotLogged && !this.isManager,
+      ].some((x) => x);
     },
 
     hasBasicAccessLogged() {
