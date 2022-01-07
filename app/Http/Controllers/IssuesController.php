@@ -52,7 +52,7 @@ class IssuesController extends Controller
        $public_issues = $this->issuesService->getOnlyPublicIssues();
 
        return Inertia::render('index', [
-           'issues' => $public_issues
+           'items' => $public_issues
        ]);
     }
 

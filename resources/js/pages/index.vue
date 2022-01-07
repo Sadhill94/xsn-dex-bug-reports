@@ -62,7 +62,17 @@
     </div>
     <div class="brand-container brand-container--xxl pb-12 lg:pt-24">
       <h2 id="reported-issues" class="mb-8">Reported issues</h2>
-      <grouped-issues :items="issues" />
+      <search-field
+        ref="searchField"
+        class="text-left mt-6 lg:mt-8 max-w-lg"
+        @onSearch="handleSearch"
+      />
+      <grouped-issues
+        :items="currentIssuesList"
+        :tabs="getTabs"
+        :current-selected-status="currentSelectedStatus"
+        @onTabChange="handleTabChange"
+      />
     </div>
   </app-layout>
 </template>
@@ -71,13 +81,78 @@
 import AppLayout from '@/layouts/AppLayout';
 import FindLogsInfoList from '@/components/FindLogsInfoList';
 import GroupedIssues from '@/components/GroupedIssues';
+import SearchField from '@/components/SearchField';
 
 export default {
-  components: { AppLayout, FindLogsInfoList, GroupedIssues },
+  components: { AppLayout, FindLogsInfoList, GroupedIssues, SearchField },
+
   props: {
-    issues: {
+    items: {
       type: Object,
-      default: null,
+      default: () => ({
+        all: [],
+        open: [],
+        in_progress: [],
+        in_review: [],
+        closed: [],
+      }),
+    },
+  },
+
+  data() {
+    return {
+      isSearchActive: false,
+      currentSelectedStatus: 'all',
+      searchResults: [],
+    };
+  },
+
+  computed: {
+    getTabs() {
+      return Object.keys(this.items).map((x) => {
+        return { name: x, length: this.items[x].length };
+      });
+    },
+
+    getCurrentSelectedIssuesStatus() {
+      const filteredIssues = this.items[this.currentSelectedStatus];
+
+      if (!filteredIssues) {
+        return this.items.all;
+      }
+      return filteredIssues;
+    },
+
+    currentIssuesList() {
+      if (this.isSearchActive) {
+        return this.searchResults;
+      }
+
+      const filteredIssues = this.items[this.currentSelectedStatus];
+      if (!filteredIssues) {
+        return this.items.all;
+      }
+      return filteredIssues;
+    },
+  },
+
+  methods: {
+    handleTabChange(tabKey) {
+      this.currentSelectedStatus = tabKey;
+      this.$refs.searchField.resetSearchText();
+    },
+
+    handleSearch(searchInput) {
+      if (searchInput) {
+        this.isSearchActive = true;
+        this.searchResults = this.$searchItems(
+          this.items[this.currentSelectedStatus],
+          searchInput
+        );
+      } else {
+        this.isSearchActive = false;
+        this.searchResults = [];
+      }
     },
   },
 };
