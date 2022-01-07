@@ -60,5 +60,5 @@
     "@inertiajs/progress": "^0.2.6",
     "fuse.js": "^6.5.3"
   },
-  "version": "2.0.0"
+  "version": "2.0.1"
 }
