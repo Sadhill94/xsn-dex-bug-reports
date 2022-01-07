@@ -245,7 +245,7 @@
         }
       }
         .add-attachments {
-            @apply mt-16 mb-12 px-12 max-w-3xl mx-auto;
+            @apply mt-16 mb-12 max-w-3xl mx-auto;
             @screen lg {
                 @apply mt-24 px-0;
             }

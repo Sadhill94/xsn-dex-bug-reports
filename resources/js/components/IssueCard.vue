@@ -126,6 +126,14 @@ export default {
 
     deleteIssue(issueId) {
       const notification = {};
+
+      if (!this.isManager) {
+        notification.message = 'Session expired, please login again';
+        notification.type = 'error';
+        this.$displayNotification(notification);
+        return this.$inertia.get('/login');
+      }
+
       axios
         .delete(ROUTES.api.issue.delete.url.replace('{id}', issueId))
         .then(() => {
@@ -140,6 +148,7 @@ export default {
         })
         .finally(() => {
           this.$displayNotification(notification);
+          this.$inertia.reload();
         });
     },
   },

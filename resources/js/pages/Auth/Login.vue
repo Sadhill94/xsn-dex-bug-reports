@@ -28,6 +28,25 @@
             class="input max-w-full"
           />
         </div>
+        <div class="relative inline-flex items-center mt-12">
+          <div class="flex items-center h-6">
+            <input
+              id="remember"
+              name="remember"
+              type="checkbox"
+              :value="credentials.remember"
+              v-model="credentials.remember"
+              class="focus:ring-primary h-6 w-6 bg-quaternary text-quaternary border-primary rounded"
+            />
+          </div>
+          <div class="min-w-0 ml-6">
+            <label
+              for="remember"
+              class="uppercase font-medium select-none text-body-md"
+              >Remember me</label
+            >
+          </div>
+        </div>
       </div>
       <div class="text-center mt-16">
         <button @click="handleSubmit" class="btn btn--quaternary">
@@ -44,15 +63,35 @@
 <script>
 export default {
   name: 'index',
+
   props: ['errors'],
+
   data() {
     return {
       credentials: {
         username: '',
         password: '',
+        remember: false,
       },
     };
   },
+
+  mounted() {
+    if (JSON.parse(localStorage.getItem('sdx-remember-me'))) {
+      this.credentials.remember = true;
+    }
+  },
+
+  watch: {
+    'credentials.remember'(newValue) {
+      if (newValue) {
+        localStorage.setItem('sdx-remember-me', true);
+      } else {
+        localStorage.setItem('sdx-remember-me', false);
+      }
+    },
+  },
+
   methods: {
     handleSubmit() {
       try {
