@@ -39,14 +39,14 @@
           <a
             :href="getIssueUrl"
             target="_self"
-            class="btn btn--quaternary text-body-sm w-32 text-center rounded-full p-2 sm:p-4"
+            class="btn btn--quaternary text-body-sm w-32 text-center rounded-full p-2 sm:p-3"
           >
             Details
           </a>
         </div>
       </div>
     </div>
-    <div class="w-full flex items-stretch" v-if="hasBasicAccess">
+    <div class="w-full flex items-stretch h-12" v-if="hasBasicAccess">
       <button
         v-if="isManager || isManagerNotLogged"
         @click="confirmDelete"

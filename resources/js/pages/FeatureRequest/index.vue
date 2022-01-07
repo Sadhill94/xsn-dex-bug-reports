@@ -2,20 +2,21 @@
   <app-layout>
     <div class="brand-container brand-container--lg">
       <h1>Submit a feature request</h1>
+
       <p>
         You will find here the form to submit your feature request(s).
         IMPORTANT: Before submitting a new feature request head to the dashboard
-        and check if by any chance someone has already asked for it*
+        and check if someone has already asked for it
       </p>
 
       <p>
-        When asking for a feature, please try to be as clear/short as possible
-        and please use simple <strong>English</strong>.
+        When asking for a feature, please use simple
+        <strong>English</strong> and try to be as clear/short as possible.
       </p>
 
       <p>
-        NB: If you think screenshots can be helpful in a matter of UI/UX, please
-        provide them.
+        NB: If you think screenshots would be helpful we encourage you to add
+        them.
       </p>
       <br />
       <br />

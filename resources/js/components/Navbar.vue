@@ -98,7 +98,7 @@
           </li>
           <li
             v-if="hasBasicAccessLogged"
-            class="w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold"
+            class="ml-3 w-10 h-full bg-quaternary rounded-xl flex items-center justify-center font-bold text-center"
           >
             <span v-show="isManager">M</span>
             <span v-show="isContributor">C</span>
