@@ -9,12 +9,10 @@
         and check if someone has already asked for it, use the search
         functionality to find out.
       </p>
-
       <p>
         When asking for a feature, please use simple
         <strong>English</strong> and try to be as clear/short as possible.
       </p>
-
       <p>
         NB: If you think screenshots would be helpful we encourage you to add
         them.

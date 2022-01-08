@@ -61,8 +61,8 @@
               />
             </Link>
           </div>
-          <div class="hidden lg:flex items-center lg:ml-12">
-            <ul class="flex space-x-8 xl:space-x-14">
+          <div class="hidden lg:flex items-center xl:ml-12">
+            <ul class="flex space-x-3 xl:space-x-14">
               <li v-for="link in links" :key="link.name">
                 <Link
                   :href="route(link.routeName)"

@@ -46,18 +46,17 @@
         </div>
       </div>
     </div>
-    <div class="w-full flex items-stretch h-12" v-if="hasBasicAccess">
+    <div
+      class="w-full flex items-stretch h-12"
+      v-if="isManager || isManagerNotLogged"
+    >
       <button
-        v-if="isManager || isManagerNotLogged"
         @click="confirmDelete"
         class="caption-lg uppercase w-1/2 bg-danger h-full rounded-bl-md"
       >
         Delete
       </button>
-      <div
-        class="flex items-center w-1/2 h-full bg-quaternary rounded-br-md"
-        v-if="isManager || isManagerNotLogged"
-      >
+      <div class="flex items-center w-1/2 h-full bg-quaternary rounded-br-md">
         <a
           :href="getEditUrl"
           target="_self"

@@ -4,21 +4,21 @@
       <h1>Stakenet DEX bug reports</h1>
 
       <p>
-        Welcome to the Stakenet DEX bug reports community website. Here you will
-        be able to see the status of currently known issues and submit any new
-        bugs.
+        Welcome to the Stakenet DEX feedbacks community website. Here you will
+        be able to see the status of currently known issues or features requests
+        and submit any new bugs or some particular feature you would like to see
+        implemented on the dex.
       </p>
       <p>
-        On the home page you will see a general view of all known issues and how
-        to correctly report, and find the related files (logs) when reporting a
-        bug. On the Dashboard page, you will be able to apply filters to sort by
-        status, category or view all issues.
+        On the home page you will see a general view of all known feedbacks and
+        how to correctly report, and find the related files (logs) when
+        reporting a bug. You will as well see pending feature requests. On the
+        Dashboard page, you will be able to apply filters to sort by status,
+        category, type of feedbacks or view them all.
       </p>
       <p>
-        You can see more about a particular issue by clicking on the
-        <i>View details</i> button for the bug report where all details are
-        provided. If required, you will be able to see and download all relevant
-        attachments provided during the report.
+        You can see more about a particular feedback by clicking on the
+        <i>Details</i> button on a card, where all details are provided.
       </p>
       <div class="mt-6">
         <h6 class="mb-0">DISCLAIMER</h6>
@@ -46,8 +46,8 @@
       <div
         class="flex flex-col md:flex-row items-center md:justify-between max-w-2xl md:max-w-5xl mx-auto space-y-8 md:space-y-0 md:space-x-32"
       >
-        <a href="#reported-issues" class="btn btn--tertiary btn--large">
-          See reported issues
+        <a href="#reported-feedbacks" class="btn btn--tertiary btn--large">
+          See reported feedbacks
         </a>
         <Link :href="route('bug-report')" class="btn btn--danger btn--large">
           Report a bug
@@ -61,7 +61,7 @@
       <find-logs-info-list />
     </div>
     <div class="brand-container brand-container--xxl pb-12 lg:pt-24">
-      <h2 id="reported-issues" class="mb-8">Reported issues</h2>
+      <h2 id="reported-feedbacks" class="mb-8">Reported feedbacks</h2>
       <search-field
         ref="searchField"
         class="text-left mt-6 lg:mt-8 max-w-lg"
