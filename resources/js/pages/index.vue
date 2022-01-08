@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <div class="brand-container brand-container--lg">
-      <h1>Stakenet DEX bug reports</h1>
+      <h1>Stakenet DEX Feedbacks</h1>
 
       <p>
         Welcome to the Stakenet DEX feedbacks community website. Here you will

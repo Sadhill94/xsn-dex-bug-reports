@@ -1,9 +1,16 @@
-# XSN DEX bug reports
+# XSN DEX feedbacks
 
-A simple SPA to let DEX users:
+A simple WebApp to let DEX users:
 - Report bugs following a correct format
-- Get information on where to get logs
-- See what issues are already reported
+- Submit feature request(s)
+- Browse issues/features already reported
+- Get information on where to get their logs, or on the different categories
+
+It includes a manager role and a contributor role.
+
+Contributor will be able to see the attachments section on a ticket detail (when visitors can't), he will be able to download it aswell
+
+Manager will be able to edit tickets, remove or add files on them.
 
 ## Tech stack
 
@@ -17,8 +24,8 @@ A simple SPA to let DEX users:
 Clone repo locally
 
 ```bash
-git clone https://github.com/Sadhill94/xsn-dex-bug-reports.git
-cd xsn-dex-bug-reports
+git clone https://github.com/Sadhill94/xsn-dex-feedbacks.git
+cd xsn-dex-feedbacks
 ```
 
 Install PHP Dependencies
@@ -57,11 +64,12 @@ Run Database migrations
 php artisan migrate
 ```
 
-Run the base seeders for Categories and statuses
+Run the base seeders for Categories and statuses and types
 
 ```bash
 php artisan db:seed --class=CategorySeeder
 php artisan db:seed --class=StatusSeeder
+php artisan db:seed --class=TypeSeeder
 ```
 
 Run the base seeder for the manager role (don't forget to set the value for the password in the .env)
@@ -69,7 +77,7 @@ Run the base seeder for the manager role (don't forget to set the value for the 
 php artisan db:seed --class=UserSeeder
 ```
 
-To test the render with issues and files
+To test the render with issues and files, uncomment the Issue and FileSeeder on the DatabaseSeeder.php and run
 ```bash
 php artisan migrate:fresh --seed
 ```
