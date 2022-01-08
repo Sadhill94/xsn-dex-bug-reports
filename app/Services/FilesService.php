@@ -33,11 +33,9 @@ class FilesService
                 throw new BadRequestException('File type not allowed : .'.$extension);
             }
 
-            if ($isFileTooHeavy) {
+            if ($isFileTooHeavy || !$fileSize) {
                 throw new BadRequestException(
-                     'File too heavy, maximum allowed is 2MB, '.$fileName.
-                ' is '.number_format($fileSize/ 1000000, 1).'MB'
-                );
+                    'File size not allowed for '.$fileName.', maximum is 2MB');
             }
 
             if ($fileSize == 0) {
