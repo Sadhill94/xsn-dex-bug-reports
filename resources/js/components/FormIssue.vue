@@ -121,6 +121,7 @@ export default {
       formFieldsValues: {},
       isLoading: false,
       hasSubmitted: false,
+      currentDexVersion: '',
     };
   },
 
@@ -289,6 +290,7 @@ export default {
       this.formFieldsValues = _.cloneDeep(ISSUE_BLUEPRINT);
       this.setCategoriesOptions();
       this.setDefaultCategory();
+      this.formFieldsValues.version = this.currentDexVersion;
       this.hasSubmitted = false;
     },
 
@@ -338,6 +340,7 @@ export default {
     },
 
     setLastDexVersionValueAndAsAdditionalInfos(dexVersionAdditionalInfo) {
+      this.currentDexVersion = dexVersionAdditionalInfo;
       // set additional info for dex version
       this.formFields = this.formFields.map((field) => {
         if (field.key === VERSION_FIELD_KEY) {
