@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             CategorySeeder::class,
             TypeSeeder::class,
-            IssueSeeder::class,
             UserSeeder::class,
-            FileSeeder::class
+            //IssueSeeder::class,
+            //FileSeeder::class
         ]);
     }
 }
