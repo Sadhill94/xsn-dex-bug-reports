@@ -79,29 +79,30 @@ class IssuesController extends Controller
     }
 
 
-    public function display_issue($id): Response
+    public function display_issue($id)
     {
         $issue = $this->issuesService->getById($id);
 
         if($issue->type->name == Config::get('constants.types.feature')){
-            return Inertia::render('404/index');
+            return redirect()->route('display-feature', ['id' => $id]);
         }
+
         return Inertia::render('Issue/display', ['issue' => $issue]);
     }
 
-    public function display_feature($id): Response
+    public function display_feature($id)
     {
         $issue = $this->issuesService->getById($id);
 
         if($issue->type->name == Config::get('constants.types.bug')){
-                return Inertia::render('404/index');
+            return redirect()->route('display-issue', ['id' => $id]);
         }
 
         return Inertia::render('Feature/display', ['feature' => $issue]);
     }
 
 
-    public function display_edit_issue($id): Response
+    public function display_edit_issue($id)
     {
         if(!$this->commonsService->isManager()) {
             return Inertia::render('404/index');
@@ -110,7 +111,7 @@ class IssuesController extends Controller
         $issue = $this->issuesService->getById($id);
 
         if($issue->type->name == Config::get('constants.types.feature')){
-            return Inertia::render('404/index');
+            return redirect()->route('display-edit-issue', ['id' => $id]);
         }
 
         $categories = $this->commonsService->getCategories();
@@ -125,7 +126,7 @@ class IssuesController extends Controller
             ]);
     }
 
-    public function display_edit_feature($id): Response
+    public function display_edit_feature($id)
     {
         if(!$this->commonsService->isManager()) {
             return Inertia::render('404/index');
@@ -133,9 +134,8 @@ class IssuesController extends Controller
 
         $issue = $this->issuesService->getById($id);
 
-
         if($issue->type->name == Config::get('constants.types.bug')){
-            return Inertia::render('404/index');
+            return redirect()->route('display-edit-feature', ['id' => $id]);
         }
 
         $categories = $this->commonsService->getCategories();
