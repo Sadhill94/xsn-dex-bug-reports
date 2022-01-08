@@ -48,7 +48,7 @@ class FilesController extends Controller
         if(!$request->file('file')){
             return response('No files submitted', 400);
         }
-        $this->filesService->validate_many([$request->file('file'), false]);
+        $this->filesService->validate_many([$request->file('file')], false);
 
         $fileArray = $this->filesService->store_many([$request->file('file')], $request->issue_id);
 
