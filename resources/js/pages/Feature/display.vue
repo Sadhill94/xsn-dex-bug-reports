@@ -64,8 +64,11 @@
 
           <rich-contents-section>
             <template #extra_infos>
-              <span>
-                {{ item.extra_infos ? item.extra_infos : 'None provided' }}
+              <span
+                v-html="
+                  item.extra_infos ? item.extra_infos : '<p>None provided</p>'
+                "
+              >
               </span>
             </template>
           </rich-contents-section>

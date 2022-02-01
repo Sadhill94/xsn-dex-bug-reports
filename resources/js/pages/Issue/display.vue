@@ -87,14 +87,22 @@
 
           <rich-contents-section>
             <template #steps_to_reproduce v-if="issue.steps_to_reproduce">
-              <span>
-                {{ issue.steps_to_reproduce }}
+              <span
+                v-html="
+                  issue.steps_to_reproduce
+                    ? issue.steps_to_reproduce
+                    : '<p>None provided</p>'
+                "
+              >
               </span>
             </template>
 
             <template #extra_infos>
-              <span>
-                {{ issue.extra_infos ? issue.extra_infos : 'None provided' }}
+              <span
+                v-html="
+                  issue.extra_infos ? issue.extra_infos : '<p>None provided</p>'
+                "
+              >
               </span>
             </template>
           </rich-contents-section>

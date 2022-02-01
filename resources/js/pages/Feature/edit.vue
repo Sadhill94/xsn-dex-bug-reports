@@ -87,11 +87,11 @@
 
           <rich-contents-section>
             <template #extra_infos>
-              <textarea
-                rows="8"
+              <rich-text
                 class="input"
-                v-model.trim="localIssue.extra_infos"
-              ></textarea>
+                :value="localIssue.extra_infos"
+                @input="localIssue.extra_infos = $event"
+              />
             </template>
           </rich-contents-section>
           <display-attachments-section
@@ -124,6 +124,7 @@ import DetailsSection from '@/components/Issue/DetailsSection';
 import ActionsSection from '@/components/Issue/ActionsSection';
 import { ROUTES } from '@/constant/routes';
 import AddAttachmentsSection from '@/components/Issue/AddAttachmentsSection';
+import RichText from '@/components/RichText';
 
 export default {
   name: 'edit',
@@ -138,6 +139,7 @@ export default {
     DisplayAttachmentsSection,
     AppLayout,
     BrandSelect,
+    RichText,
   },
 
   props: {
