@@ -177,7 +177,6 @@
           }
 
           &:first-child {
-            @apply mt-6 pt-6 border-t border-gray-200;
             @screen lg {
               @apply pr-12 mt-0 pt-0 border-t-0;
             }

@@ -68,11 +68,11 @@
                 v-model.trim="localIssue.version"
               />
             </template>
-            <template #short_description>
+            <template #title>
               <input
                 type="text"
                 class="input"
-                v-model.trim="localIssue.description"
+                v-model.trim="localIssue.title"
               />
             </template>
 
@@ -107,13 +107,6 @@
                 v-model.trim="localIssue.user_discord_id"
               />
             </template>
-            <template #github_link>
-              <input
-                type="text"
-                class="input"
-                v-model.trim="localIssue.github_link"
-              />
-            </template>
           </details-section>
 
           <rich-contents-section>
@@ -125,11 +118,11 @@
               />
             </template>
 
-            <template #extra_infos>
+            <template #description>
               <rich-text
                 class="input"
-                :value="localIssue.extra_infos"
-                @input="localIssue.extra_infos = $event"
+                :value="localIssue.description"
+                @input="localIssue.description = $event"
               />
             </template>
           </rich-contents-section>

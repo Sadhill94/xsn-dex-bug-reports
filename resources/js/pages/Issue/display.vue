@@ -53,8 +53,8 @@
               </span>
             </template>
 
-            <template #short_description>
-              <span>{{ issue.description }}</span>
+            <template #title>
+              <span>{{ issue.title }}</span>
             </template>
 
             <template #operating_system v-if="issue.os">
@@ -70,37 +70,24 @@
                 {{ issue.user_discord_id ? `# ${issue.user_discord_id}` : '-' }}
               </span>
             </template>
-
-            <template #github_link>
-              <span>
-                <a
-                  v-show="issue.github_link"
-                  :href="issue.github_link"
-                  target="_blank"
-                >
-                  View
-                </a>
-                {{ issue.github_link ? null : '-' }}
-              </span>
-            </template>
           </details-section>
 
           <rich-contents-section>
+            <template #description>
+              <span
+                v-html="
+                  issue.description ? issue.description : '<p>None provided</p>'
+                "
+              >
+              </span>
+            </template>
+
             <template #steps_to_reproduce v-if="issue.steps_to_reproduce">
               <span
                 v-html="
                   issue.steps_to_reproduce
                     ? issue.steps_to_reproduce
                     : '<p>None provided</p>'
-                "
-              >
-              </span>
-            </template>
-
-            <template #extra_infos>
-              <span
-                v-html="
-                  issue.extra_infos ? issue.extra_infos : '<p>None provided</p>'
                 "
               >
               </span>

@@ -11,17 +11,16 @@ export const VERSION_FIELD_KEY = 'version';
 
 export const ISSUE_BLUEPRINT = {
   id: '',
-  description: '',
+  title: '',
   os: 'Windows',
   os_distribution: '',
   [VERSION_FIELD_KEY]: '',
   steps_to_reproduce: '',
   [CATEGORY_ID_FIELD_KEY]: '',
   user_discord_id: '',
-  extra_infos: '',
+  description: '',
   [STATUS_ID_FIELD_KEY]: '',
   [TYPE_ID_FIELD_KEY]: '',
-  github_link: '',
   assignee: '',
   [FILES_FIELD_KEY]: [],
   trello_ref: '',
@@ -32,8 +31,8 @@ export const FEATURE_FORM_NAME = 'FEATURE_REQUEST';
 
 export const REPORT_BUG_FORM_FIELDS = [
   {
-    key: 'description',
-    label: 'Short description',
+    key: 'title',
+    label: 'Title',
     type: 'text',
     isRequired: true,
   },
@@ -65,22 +64,22 @@ export const REPORT_BUG_FORM_FIELDS = [
     isRequired: true,
   },
   {
+    key: 'description',
+    label: 'Description',
+    type: 'textarea',
+    isRequired: true,
+  },
+  {
     key: 'steps_to_reproduce',
     label: 'Steps to reproduce',
     type: 'textarea',
-    isRequired: true,
+    isRequired: false,
   },
   {
     key: 'user_discord_id',
     label: 'Discord username',
     type: 'text',
     isRequired: true,
-  },
-  {
-    key: 'extra_infos',
-    label: 'Extra infos',
-    type: 'textarea',
-    isRequired: false,
   },
   {
     key: FILES_FIELD_KEY,
@@ -96,8 +95,8 @@ export const REPORT_BUG_FORM_FIELDS = [
 
 export const FEATURE_REQUEST_FORM_FIELDS = [
   {
-    key: 'description',
-    label: 'Short description',
+    key: 'title',
+    label: 'Title',
     type: 'text',
     isRequired: true,
   },
@@ -109,15 +108,15 @@ export const FEATURE_REQUEST_FORM_FIELDS = [
     isRequired: true,
   },
   {
+    key: 'description',
+    label: 'Description',
+    type: 'textarea',
+    isRequired: true,
+  },
+  {
     key: 'user_discord_id',
     label: 'Discord username',
     type: 'text',
-    isRequired: false,
-  },
-  {
-    key: 'extra_infos',
-    label: 'Extra infos',
-    type: 'textarea',
     isRequired: false,
   },
   {

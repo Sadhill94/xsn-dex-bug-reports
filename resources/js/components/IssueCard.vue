@@ -29,7 +29,7 @@
         </div>
       </div>
       <h4 class="leading-10 font-medium pr-12 md:pr-24 font-body mb-0">
-        {{ item.description }}
+        {{ item.title }}
       </h4>
     </div>
     <div class="flex flex-grow items-end">

@@ -61,7 +61,7 @@
               />
             </template>
 
-            <template #short_description>
+            <template #description>
               <input
                 type="text"
                 class="input"
@@ -86,11 +86,11 @@
           </details-section>
 
           <rich-contents-section>
-            <template #extra_infos>
+            <template #description>
               <rich-text
                 class="input"
-                :value="localIssue.extra_infos"
-                @input="localIssue.extra_infos = $event"
+                :value="localIssue.description"
+                @input="localIssue.description = $event"
               />
             </template>
           </rich-contents-section>
