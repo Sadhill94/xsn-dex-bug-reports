@@ -162,10 +162,10 @@ class IssuesController extends Controller
             "files.max" => "Maximum amount of files authorized is: 4",
         ];
         request()->validate([
+            'title' => ['required'],
             'description' => ['required'],
             'os' => ['required'],
             'version' => ['required'],
-            'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
             'files' => ['max:4'],
@@ -197,6 +197,7 @@ class IssuesController extends Controller
         ];
 
         request()->validate([
+            'title' => ['required'],
             'description' => ['required'],
             'category_id' => ['required'],
             'files' => ['max:4'],
@@ -233,6 +234,7 @@ class IssuesController extends Controller
         }
 
         request()->validate([
+            'title' => ['required'],
             'description' => ['required'],
             'category_id' => ['required'],
             'status_id' => ['required'],

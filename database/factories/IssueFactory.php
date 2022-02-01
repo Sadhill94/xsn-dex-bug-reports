@@ -25,14 +25,13 @@ class IssueFactory extends Factory
     public function definition()
     {
         return [
-            'description' => $this->faker->text(rand(25,70)),
+            'title' => $this->faker->text(rand(25,70)),
+            'description' => $this->faker->text(rand(90, 90)),
             'os' => $this->osVersions[rand(0, 2)],
             'version' => '0.4.4.0',
             'steps_to_reproduce' => $this->faker->text(rand(120,240)),
             'user_discord_id' => $this->faker->userName,
-            'github_link' => rand(1, 4) == 3 ? $this->faker->url : null,
             'trello_ref' => rand(1, 4) == 3 ? rand(12,985) : null,
-            'extra_infos' => $this->faker->text(rand(50, 90)),
             'status_id' => Status::inRandomOrder()->first(),
             'category_id' => Category::inRandomOrder()->first(),
             'type_id' => Type::inRandomOrder()->first(),
