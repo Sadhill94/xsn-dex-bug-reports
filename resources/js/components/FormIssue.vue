@@ -20,12 +20,12 @@
                 >{{ field.label }} {{ field.isRequired ? '*' : '' }}
               </template>
               <template slot="inputs">
-                <textarea
-                  v-if="field.type === 'textarea'"
-                  rows="8"
+                <rich-text
                   class="input"
-                  v-model="formFieldsValues[field.key]"
-                ></textarea>
+                  v-if="field.type === 'textarea'"
+                  :value="formFieldsValues[field.key]"
+                  @input="formFieldsValues[field.key] = $event"
+                />
 
                 <brand-select
                   v-else-if="field.type === 'select'"
@@ -91,11 +91,12 @@ import {
 import { ROUTES } from '@/constant/routes';
 import FileUploader from '@/components/FileUploader';
 import { FILE_UPLOADER_CONFIG } from '@/constant/fileConfig';
+import RichText from '@/components/RichText';
 
 export default {
   name: 'FormIssue',
 
-  components: { BrandSelect, FileUploader, FormRow },
+  components: { RichText, BrandSelect, FileUploader, FormRow },
 
   props: {
     categories: {
