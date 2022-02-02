@@ -68,11 +68,11 @@
                 v-model.trim="localIssue.version"
               />
             </template>
-            <template #short_description>
+            <template #title>
               <input
                 type="text"
                 class="input"
-                v-model.trim="localIssue.description"
+                v-model.trim="localIssue.title"
               />
             </template>
 
@@ -107,30 +107,23 @@
                 v-model.trim="localIssue.user_discord_id"
               />
             </template>
-            <template #github_link>
-              <input
-                type="text"
-                class="input"
-                v-model.trim="localIssue.github_link"
-              />
-            </template>
           </details-section>
 
           <rich-contents-section>
             <template #steps_to_reproduce>
-              <textarea
-                rows="8"
+              <rich-text
                 class="input"
-                v-model.trim="localIssue.steps_to_reproduce"
-              ></textarea>
+                :value="localIssue.steps_to_reproduce"
+                @input="localIssue.steps_to_reproduce = $event"
+              />
             </template>
 
-            <template #extra_infos>
-              <textarea
-                rows="8"
+            <template #description>
+              <rich-text
                 class="input"
-                v-model.trim="localIssue.extra_infos"
-              ></textarea>
+                :value="localIssue.description"
+                @input="localIssue.description = $event"
+              />
             </template>
           </rich-contents-section>
           <display-attachments-section
@@ -164,6 +157,7 @@ import DetailsSection from '@/components/Issue/DetailsSection';
 import ActionsSection from '@/components/Issue/ActionsSection';
 import { ROUTES } from '@/constant/routes';
 import AddAttachmentsSection from '@/components/Issue/AddAttachmentsSection';
+import RichText from '@/components/RichText';
 
 export default {
   name: 'edit',
@@ -178,6 +172,7 @@ export default {
     DisplayAttachmentsSection,
     AppLayout,
     BrandSelect,
+    RichText,
   },
 
   props: {

@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="text-center mt-20 md:mt-32">
-      <Link class="btn btn--tertiary" href="/"> Back to home </Link>
+      <Link class="btn btn--quaternary" href="/"> Back to home </Link>
     </div>
   </section>
 </template>

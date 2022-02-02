@@ -47,8 +47,8 @@
               </span>
             </template>
 
-            <template #short_description>
-              <span>{{ item.description }}</span>
+            <template #title>
+              <span class="font-bold">{{ item.title }}</span>
             </template>
 
             <template #assignee>
@@ -63,9 +63,13 @@
           </details-section>
 
           <rich-contents-section>
-            <template #extra_infos>
-              <span>
-                {{ item.extra_infos ? item.extra_infos : 'None provided' }}
+            <template #description>
+              <span
+                class="rich-text"
+                v-html="
+                  item.description ? item.description : '<p>None provided</p>'
+                "
+              >
               </span>
             </template>
           </rich-contents-section>

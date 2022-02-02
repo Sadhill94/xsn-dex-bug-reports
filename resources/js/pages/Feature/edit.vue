@@ -61,7 +61,7 @@
               />
             </template>
 
-            <template #short_description>
+            <template #description>
               <input
                 type="text"
                 class="input"
@@ -86,12 +86,12 @@
           </details-section>
 
           <rich-contents-section>
-            <template #extra_infos>
-              <textarea
-                rows="8"
+            <template #description>
+              <rich-text
                 class="input"
-                v-model.trim="localIssue.extra_infos"
-              ></textarea>
+                :value="localIssue.description"
+                @input="localIssue.description = $event"
+              />
             </template>
           </rich-contents-section>
           <display-attachments-section
@@ -124,6 +124,7 @@ import DetailsSection from '@/components/Issue/DetailsSection';
 import ActionsSection from '@/components/Issue/ActionsSection';
 import { ROUTES } from '@/constant/routes';
 import AddAttachmentsSection from '@/components/Issue/AddAttachmentsSection';
+import RichText from '@/components/RichText';
 
 export default {
   name: 'edit',
@@ -138,6 +139,7 @@ export default {
     DisplayAttachmentsSection,
     AppLayout,
     BrandSelect,
+    RichText,
   },
 
   props: {
@@ -191,6 +193,7 @@ export default {
         this.$displayNotification({
           message:
             "Issues are identical, change it's content to be able to save",
+          duration: 3500,
         });
       }
     },

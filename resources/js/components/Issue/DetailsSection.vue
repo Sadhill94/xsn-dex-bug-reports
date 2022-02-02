@@ -32,9 +32,9 @@
         </div>
 
         <div class="details-column">
-          <dt class="required">Short description</dt>
+          <dt class="required">Title</dt>
           <dd>
-            <slot name="short_description" />
+            <slot name="title" />
           </dd>
         </div>
       </dl>
@@ -75,13 +75,6 @@
           <dt>Reported by</dt>
           <dd>
             <slot name="user_discord_id" />
-          </dd>
-        </div>
-
-        <div class="details-column" v-if="$slots.github_link">
-          <dt>Github link</dt>
-          <dd>
-            <slot name="github_link" />
           </dd>
         </div>
       </dl>

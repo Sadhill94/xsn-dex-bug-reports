@@ -7,6 +7,7 @@
     <title inertia>{{ config('app.name', 'Stakenet DEX Feedbacks') }}</title>
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="36x36" href="/favicon-36x36.png">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="{{ mix('/js/app.js') }}" defer></script>
     @routes
   </head>

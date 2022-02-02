@@ -1,0 +1,39 @@
+.ProseMirror, .rich-text {
+    min-height: 15rem;
+
+    &:focus,
+    &:focus-visible {
+        @apply outline-none;
+    }
+
+    * {
+        @apply text-white;
+    }
+    > * + * {
+        margin-top: 0.75em;
+    }
+
+    ul,
+    ol {
+        @apply pl-8 list-none;
+    }
+
+    ol {
+        counter-reset: li;
+
+        li p::before {
+            @apply text-white inline-block -ml-4 w-6;
+            content: counter(li) ".";
+        }
+        li {
+            counter-increment: li;
+        }
+    }
+
+    ul {
+        p::before {
+            @apply -ml-4 font-bold text-white inline-block w-6;
+            content: '\2022'; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+        }
+    }
+}

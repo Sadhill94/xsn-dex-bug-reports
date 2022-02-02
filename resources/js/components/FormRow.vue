@@ -16,7 +16,7 @@
     </label>
 
     <div class="mt-8 sm:mt-0 sm:col-span-2">
-      <div class="max-w-xl flex rounded-md shadow-sm">
+      <div class="max-w-xl md:max-w-3xl flex rounded-md shadow-sm">
         <slot name="inputs" />
       </div>
     </div>

@@ -10,6 +10,7 @@ class Issue extends Model
     use HasFactory;
 
     protected $fillable = [
+        'title',
         'description',
         'os',
         'assignee',
@@ -17,7 +18,6 @@ class Issue extends Model
         'trello_ref',
         'version',
         'steps_to_reproduce',
-        'extra_infos',
         'user_discord_id',
         'status_id',
         'category_id',

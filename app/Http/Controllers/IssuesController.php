@@ -162,10 +162,10 @@ class IssuesController extends Controller
             "files.max" => "Maximum amount of files authorized is: 4",
         ];
         request()->validate([
+            'title' => ['required'],
             'description' => ['required'],
             'os' => ['required'],
             'version' => ['required'],
-            'steps_to_reproduce' => ['required'],
             'user_discord_id' => ['required'],
             'category_id' => ['required'],
             'files' => ['max:4'],
@@ -185,7 +185,7 @@ class IssuesController extends Controller
         $issue = $this->issuesService->create($data);
 
         return response([
-            'message' => 'Issue successfully reported. Thanks',
+            'message' => 'Issue successfully reported. Thanks. It will be visible after manager validation.',
             'data' => $issue
         ]);
     }
@@ -197,6 +197,7 @@ class IssuesController extends Controller
         ];
 
         request()->validate([
+            'title' => ['required'],
             'description' => ['required'],
             'category_id' => ['required'],
             'files' => ['max:4'],
@@ -216,7 +217,7 @@ class IssuesController extends Controller
         $issue = $this->issuesService->create($data);
 
         return response([
-            'message' => 'Issue successfully created. Thanks',
+            'message' => 'Feature request successfully created. Thanks. It will be visible after manager validation.',
             'data' => $issue
         ]);
     }
@@ -233,6 +234,7 @@ class IssuesController extends Controller
         }
 
         request()->validate([
+            'title' => ['required'],
             'description' => ['required'],
             'category_id' => ['required'],
             'status_id' => ['required'],

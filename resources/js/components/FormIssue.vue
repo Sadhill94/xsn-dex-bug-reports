@@ -20,18 +20,18 @@
                 >{{ field.label }} {{ field.isRequired ? '*' : '' }}
               </template>
               <template slot="inputs">
-                <textarea
+                <rich-text
+                  class="input max-w-full"
                   v-if="field.type === 'textarea'"
-                  rows="8"
-                  class="input"
-                  v-model="formFieldsValues[field.key]"
-                ></textarea>
+                  :value="formFieldsValues[field.key]"
+                  @input="formFieldsValues[field.key] = $event"
+                />
 
                 <brand-select
                   v-else-if="field.type === 'select'"
                   :options="field.options"
                   :value="formFieldsValues[field.key]"
-                  class="input"
+                  class="input max-w-full"
                   @onChange="formFieldsValues[field.key] = $event.toString()"
                 />
 
@@ -47,7 +47,7 @@
                   v-else
                   v-model="formFieldsValues[field.key]"
                   type="text"
-                  class="input"
+                  class="input max-w-full"
                 />
               </template>
             </form-row>
@@ -91,11 +91,12 @@ import {
 import { ROUTES } from '@/constant/routes';
 import FileUploader from '@/components/FileUploader';
 import { FILE_UPLOADER_CONFIG } from '@/constant/fileConfig';
+import RichText from '@/components/RichText';
 
 export default {
   name: 'FormIssue',
 
-  components: { BrandSelect, FileUploader, FormRow },
+  components: { RichText, BrandSelect, FileUploader, FormRow },
 
   props: {
     categories: {
@@ -259,6 +260,7 @@ export default {
             message:
               res?.data?.message || 'Thanks for your bug report submission !',
             type: 'success',
+            duration: 3500,
           });
 
           // ux detail

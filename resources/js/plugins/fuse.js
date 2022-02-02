@@ -6,9 +6,9 @@ const defaultOptions = {
   threshold: 0.4,
   keys: [
     'id',
+    'title',
     'description',
     'os',
-    // 'version',
     'category.name',
     'type.name',
     'status.name',

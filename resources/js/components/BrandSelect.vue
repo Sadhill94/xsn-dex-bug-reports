@@ -61,7 +61,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 #brand-select {
-  @apply max-w-xl p-4 shadow-sm block w-full border border-gray-400 rounded-md text-body-md;
+  @apply p-4 shadow-sm block w-full border border-gray-400 rounded-md text-body-md;
   @apply bg-secondary font-semibold tracking-wider text-white cursor-pointer;
 
   &:focus {

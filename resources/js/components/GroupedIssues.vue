@@ -57,7 +57,7 @@ export default {
 
     currentSelectedStatus: {
       type: String,
-      default: 'all',
+      default: 'open',
     },
   },
 };

@@ -40,7 +40,7 @@ export default {
     },
     activeTab: {
       type: String,
-      default: 'all',
+      default: 'open',
     },
   },
   filters: {
