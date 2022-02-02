@@ -75,6 +75,7 @@
           <rich-contents-section>
             <template #description>
               <span
+                class="rich-text"
                 v-html="
                   issue.description ? issue.description : '<p>None provided</p>'
                 "
@@ -84,6 +85,7 @@
 
             <template #steps_to_reproduce v-if="issue.steps_to_reproduce">
               <span
+                class="rich-text"
                 v-html="
                   issue.steps_to_reproduce
                     ? issue.steps_to_reproduce

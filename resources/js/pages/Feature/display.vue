@@ -65,6 +65,7 @@
           <rich-contents-section>
             <template #description>
               <span
+                class="rich-text"
                 v-html="
                   item.description ? item.description : '<p>None provided</p>'
                 "
