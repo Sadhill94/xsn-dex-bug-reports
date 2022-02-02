@@ -193,6 +193,7 @@ export default {
         this.$displayNotification({
           message:
             "Issues are identical, change it's content to be able to save",
+          duration: 3500,
         });
       }
     },

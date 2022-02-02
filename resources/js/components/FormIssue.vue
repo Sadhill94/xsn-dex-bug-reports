@@ -21,7 +21,7 @@
               </template>
               <template slot="inputs">
                 <rich-text
-                  class="input"
+                  class="input max-w-full"
                   v-if="field.type === 'textarea'"
                   :value="formFieldsValues[field.key]"
                   @input="formFieldsValues[field.key] = $event"
@@ -31,7 +31,7 @@
                   v-else-if="field.type === 'select'"
                   :options="field.options"
                   :value="formFieldsValues[field.key]"
-                  class="input"
+                  class="input max-w-full"
                   @onChange="formFieldsValues[field.key] = $event.toString()"
                 />
 
@@ -47,7 +47,7 @@
                   v-else
                   v-model="formFieldsValues[field.key]"
                   type="text"
-                  class="input"
+                  class="input max-w-full"
                 />
               </template>
             </form-row>
@@ -260,6 +260,7 @@ export default {
             message:
               res?.data?.message || 'Thanks for your bug report submission !',
             type: 'success',
+            duration: 3500,
           });
 
           // ux detail

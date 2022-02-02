@@ -54,7 +54,7 @@
             </template>
 
             <template #title>
-              <span>{{ issue.title }}</span>
+              <span class="font-bold">{{ issue.title }}</span>
             </template>
 
             <template #operating_system v-if="issue.os">

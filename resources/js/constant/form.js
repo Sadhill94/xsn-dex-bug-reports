@@ -31,12 +31,6 @@ export const FEATURE_FORM_NAME = 'FEATURE_REQUEST';
 
 export const REPORT_BUG_FORM_FIELDS = [
   {
-    key: 'title',
-    label: 'Title',
-    type: 'text',
-    isRequired: true,
-  },
-  {
     key: CATEGORY_ID_FIELD_KEY,
     label: 'Bug category',
     type: 'select',
@@ -60,6 +54,12 @@ export const REPORT_BUG_FORM_FIELDS = [
   {
     key: VERSION_FIELD_KEY,
     label: 'DEX version',
+    type: 'text',
+    isRequired: true,
+  },
+  {
+    key: 'title',
+    label: 'Title',
     type: 'text',
     isRequired: true,
   },

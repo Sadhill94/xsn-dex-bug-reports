@@ -48,7 +48,7 @@
             </template>
 
             <template #title>
-              <span>{{ item.title }}</span>
+              <span class="font-bold">{{ item.title }}</span>
             </template>
 
             <template #assignee>

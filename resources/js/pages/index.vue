@@ -102,7 +102,7 @@ export default {
   data() {
     return {
       isSearchActive: false,
-      currentSelectedStatus: 'all',
+      currentSelectedStatus: 'open',
       searchResults: [],
     };
   },
